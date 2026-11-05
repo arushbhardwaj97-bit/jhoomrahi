@@ -245,10 +245,15 @@ function initPlaceholderLinks() {
       href.startsWith("stay/") ||
       href.startsWith("travel/") ||
       href.startsWith("discover/") ||
+      href.startsWith("community/") ||
+      href.startsWith("chat/") ||
       href.endsWith("detail.html") ||
       href.endsWith("browse.html") ||
       href.endsWith("calendar.html") ||
-      href.endsWith("city.html")
+      href.endsWith("city.html") ||
+      href.endsWith("roommate-match.html") ||
+      href.includes("community") ||
+      href.includes("chat")
     ) {
       link.addEventListener("click", (e) => {
         e.preventDefault();

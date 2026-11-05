@@ -86,12 +86,112 @@
         </div>
       </a>
 
-      <!-- Desktop Navigation Links -->
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-slate-300">
-        <a href="#stay-section" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Stay</a>
-        <a href="#travel-section" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Travel</a>
-        <a href="#discover-section" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Discover</a>
-        <a href="#how-it-works" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">How it works</a>
+      <!-- Desktop Navigation Links (with Organized Dropdowns) -->
+      <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-sm font-medium text-slate-600 dark:text-slate-300">
+        
+        <!-- 1. Dropdown: Stay & Roommates -->
+        <div class="relative" x-data="{ open: false }" @click.away="open = false" @keydown.escape="open = false">
+          <button 
+            type="button" 
+            @click="open = !open" 
+            class="flex items-center gap-1.5 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors focus:outline-none py-2"
+            :class="{ 'text-indigo-600 dark:text-indigo-400 font-semibold': open }">
+            <span>Stay & Roommates</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div 
+            x-show="open" 
+            x-transition:enter="transition ease-out duration-180"
+            x-transition:enter-start="opacity-0 translate-y-1 scale-95"
+            x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+            x-transition:leave="transition ease-in duration-120"
+            x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+            x-transition:leave-end="opacity-0 translate-y-1 scale-95"
+            class="absolute top-full left-0 mt-2 w-64 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl p-2 z-50 space-y-1">
+            
+            <a href="stay/browse.html" @click="open = false" class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors group">
+              <div class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                <i data-lucide="home" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-slate-900 dark:text-white leading-tight">PG / Flats</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Verified listings & zero brokerage</p>
+              </div>
+            </a>
+
+            <a href="stay/roommate-match.html" @click="open = false" class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors group">
+              <div class="w-8 h-8 rounded-lg bg-lime-50 dark:bg-lime-950/70 text-lime-600 dark:text-lime-400 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                <i data-lucide="check-check" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <p class="text-sm font-semibold text-slate-900 dark:text-white leading-tight">Find a Roommate</p>
+                  <span class="text-[10px] font-bold px-1.5 py-0.2 rounded bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Hot</span>
+                </div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Male, Female & Co-ed filters</p>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- 2. Direct Link: Travel -->
+        <a href="#travel-section" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2">Travel</a>
+
+        <!-- 3. Direct Link: Discover -->
+        <a href="#discover-section" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2">Discover</a>
+
+        <!-- 4. Dropdown: Community & Chat -->
+        <div class="relative" x-data="{ open: false }" @click.away="open = false" @keydown.escape="open = false">
+          <button 
+            type="button" 
+            @click="open = !open" 
+            class="flex items-center gap-1.5 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors focus:outline-none py-2"
+            :class="{ 'text-indigo-600 dark:text-indigo-400 font-semibold': open }">
+            <span>Community & Chat</span>
+            <span class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span>
+            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div 
+            x-show="open" 
+            x-transition:enter="transition ease-out duration-180"
+            x-transition:enter-start="opacity-0 translate-y-1 scale-95"
+            x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+            x-transition:leave="transition ease-in duration-120"
+            x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+            x-transition:leave-end="opacity-0 translate-y-1 scale-95"
+            class="absolute top-full left-0 mt-2 w-64 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl p-2 z-50 space-y-1">
+            
+            <a href="chat/index.html" @click="open = false" class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors group">
+              <div class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <p class="text-sm font-semibold text-slate-900 dark:text-white leading-tight">Live Chat</p>
+                  <span class="text-[10px] font-bold px-1.5 py-0.2 rounded bg-lime-100 text-lime-800 dark:bg-lime-900/60 dark:text-lime-300">Live</span>
+                </div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Direct flatmate & squad messaging</p>
+              </div>
+            </a>
+
+            <a href="community/index.html" @click="open = false" class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors group">
+              <div class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                <i data-lucide="map-pin" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-slate-900 dark:text-white leading-tight">Communities</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">City chapters & campus tribes</p>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- 5. Direct Link: How it works -->
+        <a href="#how-it-works" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2">How it works</a>
       </nav>
 
       <!-- Action Utilities: Dark Mode Toggle & Primary CTA -->
@@ -122,7 +222,7 @@
 
     </div>
 
-    <!-- Mobile Drawer (Alpine.js) -->
+    <!-- Mobile Drawer (Alpine.js with Expandable Submenus) -->
     <div x-show="mobileMenuOpen" 
          x-transition:enter="transition ease-out duration-200"
          x-transition:enter-start="opacity-0 -translate-y-4"
@@ -131,13 +231,96 @@
          x-transition:leave-start="opacity-100 translate-y-0"
          x-transition:leave-end="opacity-0 -translate-y-4"
          @click.away="mobileMenuOpen = false"
-         class="md:hidden border-b border-slate-200 dark:border-slate-800 bg-[#fafaf7] dark:bg-[#0b1120] px-4 pt-3 pb-6 shadow-xl space-y-4">
-      <div class="flex flex-col space-y-3 font-medium text-base">
-        <a @click="mobileMenuOpen = false" href="#stay-section" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Stay (Flats & PGs)</a>
-        <a @click="mobileMenuOpen = false" href="#travel-section" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Travel (Trip Squads)</a>
-        <a @click="mobileMenuOpen = false" href="#discover-section" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Discover (City Spots)</a>
-        <a @click="mobileMenuOpen = false" href="#how-it-works" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">How it works</a>
+         class="md:hidden border-b border-slate-200 dark:border-slate-800 bg-[#fafaf7] dark:bg-[#0b1120] px-4 pt-3 pb-6 shadow-xl space-y-3"
+         x-data="{ mobileStayOpen: true, mobileConnectOpen: false }">
+      
+      <div class="flex flex-col space-y-2 font-medium text-base">
+        
+        <!-- Expandable Stay & Roommates -->
+        <div class="rounded-2xl border border-slate-200/80 dark:border-slate-800 overflow-hidden bg-white/70 dark:bg-slate-900/70">
+          <button 
+            type="button" 
+            @click="mobileStayOpen = !mobileStayOpen" 
+            class="w-full px-4 py-3 flex items-center justify-between text-left font-semibold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800">
+            <span class="flex items-center gap-2 text-sm">
+              <i data-lucide="home" class="w-4 h-4 text-indigo-600 dark:text-indigo-400"></i>
+              Stay & Roommates
+            </span>
+            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-200" :class="{ 'rotate-180': mobileStayOpen }"></i>
+          </button>
+          
+          <div x-show="mobileStayOpen" x-transition class="px-4 pb-3 pt-1 space-y-2 border-t border-slate-100 dark:border-slate-800/60 bg-slate-50/50 dark:bg-slate-950/40 text-sm">
+            <a @click="mobileMenuOpen = false" href="stay/browse.html" class="flex items-center justify-between py-1.5 text-slate-700 dark:text-slate-300 hover:text-indigo-600">
+              <span>PG / Flats</span>
+              <span class="text-xs text-slate-400">0 Brokerage</span>
+            </a>
+            <a @click="mobileMenuOpen = false" href="stay/roommate-match.html" class="flex items-center justify-between py-1.5 text-slate-700 dark:text-slate-300 hover:text-indigo-600">
+              <span class="flex items-center gap-1.5">
+                <span>Find a Roommate</span>
+                <span class="text-[10px] font-bold px-1.5 py-0.2 rounded bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Hot</span>
+              </span>
+              <span class="text-xs text-indigo-600 dark:text-indigo-400">Match Vibe →</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Direct Link: Travel -->
+        <a @click="mobileMenuOpen = false" href="#travel-section" class="px-4 py-3 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800">
+          <span class="flex items-center gap-2 text-slate-900 dark:text-white font-semibold text-sm">
+            <i data-lucide="compass" class="w-4 h-4 text-rose-500"></i>
+            Travel (Trip Squads)
+          </span>
+          <i data-lucide="arrow-right" class="w-4 h-4 text-slate-400"></i>
+        </a>
+
+        <!-- Direct Link: Discover -->
+        <a @click="mobileMenuOpen = false" href="#discover-section" class="px-4 py-3 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800">
+          <span class="flex items-center gap-2 text-slate-900 dark:text-white font-semibold text-sm">
+            <i data-lucide="map-pin" class="w-4 h-4 text-amber-500"></i>
+            Discover (City Spots)
+          </span>
+          <i data-lucide="arrow-right" class="w-4 h-4 text-slate-400"></i>
+        </a>
+
+        <!-- Expandable Community & Chat -->
+        <div class="rounded-2xl border border-slate-200/80 dark:border-slate-800 overflow-hidden bg-white/70 dark:bg-slate-900/70">
+          <button 
+            type="button" 
+            @click="mobileConnectOpen = !mobileConnectOpen" 
+            class="w-full px-4 py-3 flex items-center justify-between text-left font-semibold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800">
+            <span class="flex items-center gap-2 text-sm">
+              <span class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span>
+              Community & Chat
+            </span>
+            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-200" :class="{ 'rotate-180': mobileConnectOpen }"></i>
+          </button>
+          
+          <div x-show="mobileConnectOpen" x-transition class="px-4 pb-3 pt-1 space-y-2 border-t border-slate-100 dark:border-slate-800/60 bg-slate-50/50 dark:bg-slate-950/40 text-sm">
+            <a @click="mobileMenuOpen = false" href="chat/index.html" class="flex items-center justify-between py-1.5 text-slate-700 dark:text-slate-300 hover:text-indigo-600">
+              <span class="flex items-center gap-1.5">
+                <span>Live Chat</span>
+                <span class="text-[10px] font-bold px-1.5 py-0.2 rounded bg-lime-100 text-lime-800 dark:bg-lime-900/60 dark:text-lime-300">Live</span>
+              </span>
+              <span class="text-xs text-slate-400">Squad Messaging</span>
+            </a>
+            <a @click="mobileMenuOpen = false" href="community/index.html" class="flex items-center justify-between py-1.5 text-slate-700 dark:text-slate-300 hover:text-indigo-600">
+              <span>Communities</span>
+              <span class="text-xs text-slate-400">City Chapters</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Direct Link: How it works -->
+        <a @click="mobileMenuOpen = false" href="#how-it-works" class="px-4 py-2.5 text-slate-700 dark:text-slate-300 hover:text-indigo-600 text-sm font-medium">
+          How it works
+        </a>
+
       </div>
+
+      <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex gap-3">
+        <a href="login.html" class="btn btn-primary w-full text-center">Log in / Sign up</a>
+      </div>
+    </div>
       <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex gap-3">
         <a href="login.html" class="btn btn-primary w-full text-center">Log in / Sign up</a>
       </div>
@@ -161,10 +344,16 @@
           <!-- Hero Left Column (60% editorial width) -->
           <div class="lg:col-span-7 space-y-7" data-aos="fade-up">
             
-            <!-- Category Pill -->
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 text-xs sm:text-sm font-semibold tracking-wide">
-              <span>🎓</span>
-              <span>Built for students & young professionals</span>
+            <!-- Category & Roommate USP Pills -->
+            <div class="flex flex-wrap items-center gap-2.5">
+              <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 text-xs sm:text-sm font-semibold tracking-wide">
+                <span>🎓</span>
+                <span>Built for students & young professionals</span>
+              </div>
+              <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-lime-400/15 dark:bg-lime-400/10 border border-lime-500/30 text-lime-800 dark:text-lime-300 text-xs font-semibold">
+                <span class="w-1.5 h-1.5 rounded-full bg-lime-500"></span>
+                <span>Find PG/Flats + Compatible Roommates</span>
+              </div>
             </div>
 
             <!-- Asymmetric Editorial H1 Heading -->
@@ -180,9 +369,9 @@
 
             <!-- Tri-Vertical Action CTAs -->
             <div class="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
-              <a href="stay/browse.html" class="btn btn-primary px-6 py-3.5 text-base">
+              <a href="stay/roommate-match.html" class="btn btn-primary px-6 py-3.5 text-base">
                 <i data-lucide="home" class="w-4 h-4"></i>
-                Find a PG
+                Find Roommates & PGs
               </a>
               <a href="travel/calendar.html" class="btn btn-secondary px-6 py-3.5 text-base text-slate-900">
                 <i data-lucide="compass" class="w-4 h-4"></i>
@@ -369,12 +558,12 @@
         <!-- Row 1: 60/40 Asymmetric Split (Stay 2/3 + Travel 1/3) -->
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
           
-          <!-- Pillar 1: Stay (md:col-span-7) -->
+          <!-- Pillar 1: Stay & Roommates (md:col-span-7) -->
           <div class="md:col-span-7 card p-8 sm:p-10 flex flex-col justify-between group" data-aos="fade-up">
             <div class="space-y-6">
               <div class="flex items-center justify-between">
                 <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-900">
-                  <i data-lucide="home" class="w-3.5 h-3.5"></i> Stay Vertical
+                  <i data-lucide="home" class="w-3.5 h-3.5"></i> Stay & Roommates
                 </span>
                 <span class="text-xs text-slate-400">0 Brokerage Policy</span>
               </div>
@@ -382,6 +571,20 @@
               <h3 class="font-heading font-semibold text-2xl sm:text-3xl text-slate-900 dark:text-white leading-tight">
                 Flats, PGs & roommates who actually share your lifestyle.
               </h3>
+
+              <!-- Roommate Preference Selector Badge (Male | Female | Co-ed) -->
+              <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                  <span>Roommate Preference:</span>
+                </div>
+                <!-- Visual tags for Male | Female | Co-ed -->
+                <div class="inline-flex p-1 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-medium">
+                  <span class="px-3 py-1 rounded-lg bg-indigo-600 text-white font-semibold shadow-xs">Male</span>
+                  <span class="px-3 py-1 rounded-lg text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400">Female</span>
+                  <span class="px-3 py-1 rounded-lg text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400">Co-ed</span>
+                </div>
+              </div>
 
               <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
                 Filter by things that actually matter in India: 24h working geyser, RO drinking water, reliable power backup, cycle parking, and flatmates who respect quiet study & work hours.
@@ -393,16 +596,21 @@
                 <span class="pill">RO Water Included</span>
                 <span class="pill">Fast Fiber Wi-Fi</span>
                 <span class="pill">Cycle & Bike Parking</span>
-                <span class="pill">No Weird Curfews</span>
+                <span class="pill">Verified Profiles</span>
               </div>
             </div>
 
-            <div class="pt-8 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 mt-6">
-              <span class="text-xs text-slate-500 dark:text-slate-400">15,000+ listings live in 10 cities</span>
-              <a href="stay/browse.html" class="btn btn-primary text-sm">
-                Browse verified stays
-                <i data-lucide="arrow-right" class="w-4 h-4"></i>
-              </a>
+            <div class="pt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 border-t border-slate-100 dark:border-slate-800/80 mt-6">
+              <span class="text-xs text-slate-500 dark:text-slate-400">15,000+ listings & roommate profiles</span>
+              <div class="flex items-center gap-2.5">
+                <a href="stay/browse.html" class="btn btn-ghost text-xs sm:text-sm py-2.5 px-3.5">
+                  Browse Flats & PGs
+                </a>
+                <a href="stay/roommate-match.html" class="btn btn-primary text-xs sm:text-sm py-2.5 px-4 shadow-md">
+                  Find Roommate
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+              </div>
             </div>
           </div>
 
@@ -1242,9 +1450,11 @@
         <div class="lg:col-span-3 space-y-3">
           <p class="font-heading font-semibold text-slate-900 dark:text-white text-sm">Platform Verticals</p>
           <ul class="space-y-2 text-xs sm:text-sm">
-            <li><a href="stay/browse.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Stay: PGs & Roommates</a></li>
+            <li><a href="stay/roommate-match.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Stay: PGs & Roommates</a></li>
             <li><a href="travel/calendar.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Travel: Trip Partner Finder</a></li>
             <li><a href="discover/city.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Discover: Student City Guide</a></li>
+            <li><a href="community/index.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Communities & City Tribes</a></li>
+            <li><a href="chat/index.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Direct Roommate Chat</a></li>
             <li><a href="#how-it-works" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Physical Verification System</a></li>
           </ul>
         </div>
