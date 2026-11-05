@@ -366,3 +366,25 @@ html.dark .nav-glass {
   overflow: visible;
   pointer-events: none;
 }
+
+
+/* === 6. CTA BANNER THEME CONTRAST FIX === */
+/* Guarantees that dark CTA banners maintain crisp white/light text in both Light & Dark modes */
+.cta-banner,
+.cta-banner h1,
+.cta-banner h2,
+.cta-banner h3,
+.cta-banner .h1,
+.cta-banner .h2,
+.cta-banner .h3,
+[data-cta-banner] h1,
+[data-cta-banner] h2,
+[data-cta-banner] h3 {
+  color: #ffffff !important;
+}
+
+.cta-banner p,
+.cta-banner .body,
+[data-cta-banner] p {
+  color: #cbd5e1 !important;
+}

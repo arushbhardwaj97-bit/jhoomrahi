@@ -84,3 +84,163 @@ async function getTrendingPlaces() {
   const res = await fetch("/api/v1/discover/trending");
   return res.json();
 }
+
+
+/* === 8. STAY & ROOMMATE API CALLS (PHASE 2 - APPENDED) === */
+
+/**
+ * Fetches PG and Flat listings with filter criteria
+ * Automatically merges user-created listings from localStorage
+ * @param {Object} [filters={}] - Optional query filters
+ * @param {string} [filters.city] - Target city ("All" or specific city)
+ * @param {string} [filters.gender] - "all" | "male" | "female" | "unisex"
+ * @param {number} [filters.maxRent] - Maximum budget in INR
+ * @param {string} [filters.type] - "all" | "PG / Co-Living" | "Shared Flat" | "1BHK Studio" | "Student PG"
+ * @param {string} [filters.search] - Substring search across title, area, amenities
+ * @returns {Promise<Array>} List of matching PG listings
+ */
+async function getPGs(filters = {}) {
+  if (USE_MOCK) {
+    // Check for user-generated listings in localStorage
+    let customListings = [];
+    try {
+      const stored = localStorage.getItem("jhoomrahi_user_listings");
+      if (stored) {
+        customListings = JSON.parse(stored);
+      }
+    } catch (e) {
+      console.warn("Could not parse jhoomrahi_user_listings from localStorage", e);
+    }
+
+    let allListings = [...customListings, ...PGS];
+
+    if (filters.city && filters.city !== "All" && filters.city !== "all") {
+      allListings = allListings.filter(
+        item => item.city && item.city.toLowerCase() === filters.city.toLowerCase()
+      );
+    }
+
+    if (filters.gender && filters.gender !== "all") {
+      allListings = allListings.filter(
+        item => item.gender === filters.gender || item.gender === "unisex"
+      );
+    }
+
+    if (filters.maxRent && !isNaN(filters.maxRent)) {
+      allListings = allListings.filter(
+        item => item.rent <= Number(filters.maxRent)
+      );
+    }
+
+    if (filters.type && filters.type !== "all") {
+      allListings = allListings.filter(
+        item => item.type && item.type.toLowerCase().includes(filters.type.toLowerCase())
+      );
+    }
+
+    if (filters.search && filters.search.trim()) {
+      const query = filters.search.toLowerCase().trim();
+      allListings = allListings.filter(item =>
+        (item.title && item.title.toLowerCase().includes(query)) ||
+        (item.area && item.area.toLowerCase().includes(query)) ||
+        (item.city && item.city.toLowerCase().includes(query)) ||
+        (item.amenities && item.amenities.some(a => a.toLowerCase().includes(query)))
+      );
+    }
+
+    return mockFetch(allListings);
+  }
+
+  // Fallback to REST endpoint
+  const queryParams = new URLSearchParams(filters).toString();
+  const res = await fetch(`/api/v1/stay/listings?${queryParams}`);
+  return res.json();
+}
+
+/**
+ * Fetches roommate profiles filtered by gender tab, city, and lifestyle criteria
+ * @param {string} [gender="all"] - "all" | "male" | "female" | "co-ed"
+ * @param {Object} [filters={}] - Additional filters (city, maxBudget, search)
+ * @returns {Promise<Array>} List of roommate candidates
+ */
+async function getRoommates(gender = "all", filters = {}) {
+  if (USE_MOCK) {
+    let allRoommates = [...ROOMMATES];
+
+    // Check for user-generated roommate requests in localStorage
+    try {
+      const customRoommates = localStorage.getItem("jhoomrahi_user_roommates");
+      if (customRoommates) {
+        allRoommates = [...JSON.parse(customRoommates), ...allRoommates];
+      }
+    } catch (e) {
+      console.warn("Could not read jhoomrahi_user_roommates from localStorage", e);
+    }
+
+    if (gender && gender !== "all") {
+      allRoommates = allRoommates.filter(r => {
+        if (gender === "co-ed") {
+          return r.gender === "co-ed" || r.seeking === "co-ed";
+        }
+        return r.gender === gender;
+      });
+    }
+
+    if (filters.city && filters.city !== "All" && filters.city !== "all") {
+      allRoommates = allRoommates.filter(
+        r => r.city && r.city.toLowerCase() === filters.city.toLowerCase()
+      );
+    }
+
+    if (filters.maxBudget && !isNaN(filters.maxBudget)) {
+      allRoommates = allRoommates.filter(
+        r => r.budget <= Number(filters.maxBudget)
+      );
+    }
+
+    if (filters.search && filters.search.trim()) {
+      const q = filters.search.toLowerCase().trim();
+      allRoommates = allRoommates.filter(r =>
+        (r.name && r.name.toLowerCase().includes(q)) ||
+        (r.role && r.role.toLowerCase().includes(q)) ||
+        (r.city && r.city.toLowerCase().includes(q)) ||
+        (r.targetAreas && r.targetAreas.some(area => area.toLowerCase().includes(q))) ||
+        (r.bio && r.bio.toLowerCase().includes(q))
+      );
+    }
+
+    return mockFetch(allRoommates);
+  }
+
+  const res = await fetch(`/api/v1/stay/roommates?gender=${gender}`);
+  return res.json();
+}
+
+/**
+ * Fetches a single PG listing by unique ID
+ * @param {string} id - e.g. "pg-blr-hsr-01"
+ * @returns {Promise<Object|null>} PG Listing object or null
+ */
+async function getPGById(id) {
+  if (!id) return mockFetch(null);
+
+  if (USE_MOCK) {
+    // Check in user-created listings first
+    try {
+      const stored = localStorage.getItem("jhoomrahi_user_listings");
+      if (stored) {
+        const custom = JSON.parse(stored);
+        const match = custom.find(item => item.id === id);
+        if (match) return mockFetch(match);
+      }
+    } catch (e) {
+      console.warn("Error reading custom listings", e);
+    }
+
+    const listing = PGS.find(p => p.id === id) || null;
+    return mockFetch(listing);
+  }
+
+  const res = await fetch(`/api/v1/stay/listings/${id}`);
+  return res.json();
+}

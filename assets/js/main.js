@@ -299,3 +299,15 @@ document.addEventListener("DOMContentLoaded", () => {
 window.addEventListener("load", () => {
   initLucideIcons();
 });
+
+
+/* === PHASE 2 EXTENSION: UNBLOCK STAY VERTICAL ROUTES === */
+document.addEventListener("DOMContentLoaded", () => {
+  // Allow stay vertical pages now that stay/browse.html, stay/roommate-match.html, stay/detail.html, and stay/post.html are active
+  setTimeout(() => {
+    document.querySelectorAll('a[href^="stay/"], a[href*="browse.html"], a[href*="roommate-match.html"], a[href*="detail.html"], a[href*="post.html"]').forEach((link) => {
+      const clone = link.cloneNode(true);
+      link.parentNode.replaceChild(clone, link);
+    });
+  }, 0);
+});
