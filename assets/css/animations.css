@@ -1,0 +1,223 @@
+/**
+ * JhoomRahi — Animation Keyframes & Helper Utilities
+ * Phase 1 Foundation
+ * 
+ * Provides smooth, lightweight CSS keyframes for editorial hero micro-interactions,
+ * city ticker marquee, loading skeletons, and interactive state indicators.
+ */
+
+/* === 1. KEYFRAME DEFINITIONS === */
+
+/**
+ * float: Gentle floating bobbing effect for hero preview cards
+ * Usage: .animate-float or .float
+ */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(var(--base-rot, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(var(--base-rot, 0deg));
+  }
+}
+
+/**
+ * marquee: Infinite continuous horizontal translation for city strip
+ * Usage: Applied to .marquee-track
+ */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/**
+ * shimmer: Shimmering wave across placeholder skeletons
+ * Usage: Applied to .skeleton
+ */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/**
+ * blink: Typewriter cursor blinking animation
+ * Usage: Applied to typewriter cursor span
+ */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/**
+ * pulse-ring: Radar-like subtle beacon pulse for live indicators & verified tags
+ * Usage: Applied to live trip countdown or active status chips
+ */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.45);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(99, 102, 241, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+  }
+}
+
+/**
+ * fade-up: Native fallback translation and opacity transition
+ * Usage: Applied to .fade-up or .reveal elements
+ */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/**
+ * pop: Bouncy scale effect for interactive pills, chips & badges
+ * Usage: Applied on button click, checkmarks, or selection chips
+ */
+@keyframes pop {
+  0% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* === 2. HELPER CLASSES === */
+
+/* Floating hero elements */
+.float {
+  animation: float 5s ease-in-out infinite;
+}
+
+.float-slow {
+  animation: float 7s ease-in-out infinite;
+}
+
+.float-delayed {
+  animation: float 6s ease-in-out 1.5s infinite;
+}
+
+/* Marquee track */
+.marquee-wrapper {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.marquee-track {
+  display: inline-flex;
+  gap: 2rem;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Skeleton loader */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(226, 232, 240, 0.6) 25%,
+    rgba(241, 245, 249, 0.9) 37%,
+    rgba(226, 232, 240, 0.6) 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.6s ease infinite;
+  border-radius: 0.5rem;
+}
+
+html.dark .skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(30, 41, 59, 0.6) 25%,
+    rgba(51, 65, 85, 0.9) 37%,
+    rgba(30, 41, 59, 0.6) 63%
+  );
+  background-size: 400% 100%;
+}
+
+/* Native fade-up */
+.fade-up {
+  animation: fade-up 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Typewriter cursor */
+.typewriter-cursor {
+  display: inline-block;
+  font-weight: 300;
+  color: var(--primary);
+  margin-left: 2px;
+  animation: blink 0.9s infinite;
+}
+
+/* Pulse indicator dot */
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background-color: var(--accent);
+  display: inline-block;
+  animation: pulse-ring 2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.pulse-dot-coral {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background-color: var(--coral);
+  display: inline-block;
+  animation: pulse-ring 2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+/* === 3. ACCESSIBILITY FALLBACK (PREFERS-REDUCED-MOTION) === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .float,
+  .float-slow,
+  .float-delayed,
+  .marquee-track,
+  .pulse-dot,
+  .pulse-dot-coral,
+  .skeleton {
+    animation: none !important;
+  }
+}

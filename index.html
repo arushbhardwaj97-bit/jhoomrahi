@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<!--
+  JhoomRahi — Phase 1 Landing Page
+  Target Audience: Students & Young Professionals across India
+  Tech Stack: HTML5, Plain CSS, Tailwind CDN, Alpine.js, AOS, canvas-confetti, Lucide icons
+-->
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JhoomRahi — Stay, Travel & Discover Across India</title>
+  <meta name="description" content="Pan-India community platform for students & young professionals. Verified flats & PGs, weekend trip squads, and unfiltered city guides.">
+
+  <!-- Inline SVG Favicon (No external requests, zero 404s) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236366f1'/><text x='16' y='22' font-family='system-ui,sans-serif' font-size='18' font-weight='bold' fill='white' text-anchor='middle'>J</text></svg>">
+
+  <!-- Google Fonts: Space Grotesk (Headings) + Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6366f1',
+            'primary-600': '#4f46e5',
+            accent: '#a3e635',
+            coral: '#fb7185',
+            amber: '#f59e0b',
+            ink: 'var(--ink)',
+            muted: 'var(--muted)',
+            cream: 'var(--cream)',
+            surface: 'var(--surface)',
+            border: 'var(--border)',
+          },
+          fontFamily: {
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+          borderRadius: {
+            '4xl': '2rem',
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- AOS (Animate On Scroll) CDN CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Design System CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+
+  <!-- Alpine.js CDN -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Lucide Icons CDN (jsDelivr UMD bundle for reliable global browser window.lucide) -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="bg-[#fafaf7] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white" x-data="{ mobileMenuOpen: false }">
+
+  <!-- ========================================================================= -->
+  <!-- 1. STICKY NAV (GLASS)                                                     -->
+  <!-- ========================================================================= -->
+  <header id="navbar" class="sticky top-0 z-40 w-full nav-glass transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+      
+      <!-- Logo Mark -->
+      <a href="index.html" class="flex items-center gap-2 group">
+        <div class="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-heading font-bold text-xl shadow-md group-hover:scale-105 transition-transform">
+          J
+        </div>
+        <div class="flex flex-col">
+          <span class="font-heading font-bold text-2xl tracking-tight text-slate-900 dark:text-white">
+            Jhoom<span class="text-indigo-600 dark:text-indigo-400">Rahi</span>
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-slate-300">
+        <a href="#stay-section" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Stay</a>
+        <a href="#travel-section" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Travel</a>
+        <a href="#discover-section" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Discover</a>
+        <a href="#how-it-works" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">How it works</a>
+      </nav>
+
+      <!-- Action Utilities: Dark Mode Toggle & Primary CTA -->
+      <div class="hidden md:flex items-center gap-4">
+        <!-- Theme Toggle Button -->
+        <button type="button" data-theme-toggle class="p-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Toggle theme">
+          <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
+          <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
+        </button>
+
+        <!-- Get Started Auth Link -->
+        <a href="login.html" class="btn btn-primary text-sm shadow-md">
+          Get started
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Trigger -->
+      <div class="flex items-center gap-2 md:hidden">
+        <button type="button" data-theme-toggle class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300" aria-label="Toggle theme">
+          <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
+          <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
+        </button>
+        <button @click="mobileMenuOpen = !mobileMenuOpen" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200" aria-label="Open menu">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Drawer (Alpine.js) -->
+    <div x-show="mobileMenuOpen" 
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 -translate-y-4"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100 translate-y-0"
+         x-transition:leave-end="opacity-0 -translate-y-4"
+         @click.away="mobileMenuOpen = false"
+         class="md:hidden border-b border-slate-200 dark:border-slate-800 bg-[#fafaf7] dark:bg-[#0b1120] px-4 pt-3 pb-6 shadow-xl space-y-4">
+      <div class="flex flex-col space-y-3 font-medium text-base">
+        <a @click="mobileMenuOpen = false" href="#stay-section" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Stay (Flats & PGs)</a>
+        <a @click="mobileMenuOpen = false" href="#travel-section" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Travel (Trip Squads)</a>
+        <a @click="mobileMenuOpen = false" href="#discover-section" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Discover (City Spots)</a>
+        <a @click="mobileMenuOpen = false" href="#how-it-works" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">How it works</a>
+      </div>
+      <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex gap-3">
+        <a href="login.html" class="btn btn-primary w-full text-center">Log in / Sign up</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========================================================================= -->
+    <!-- 2. HERO SECTION (ASYMMETRIC 60/40 SPLIT)                                  -->
+    <!-- ========================================================================= -->
+    <section id="hero-section" class="relative overflow-hidden pt-12 pb-20 md:py-28">
+      
+      <!-- Soft ambient gradient blobs with mousemove parallax -->
+      <div data-parallax="0.03" class="pointer-events-none absolute -top-16 -left-16 w-96 h-96 rounded-full bg-indigo-400/15 dark:bg-indigo-600/15 blur-3xl"></div>
+      <div data-parallax="-0.03" class="pointer-events-none absolute top-48 right-0 w-96 h-96 rounded-full bg-lime-300/20 dark:bg-lime-500/10 blur-3xl"></div>
+      <div data-parallax="0.02" class="pointer-events-none absolute bottom-0 left-1/3 w-80 h-80 rounded-full bg-rose-400/15 dark:bg-rose-600/10 blur-3xl"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          <!-- Hero Left Column (60% editorial width) -->
+          <div class="lg:col-span-7 space-y-7" data-aos="fade-up">
+            
+            <!-- Category Pill -->
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 text-xs sm:text-sm font-semibold tracking-wide">
+              <span>🎓</span>
+              <span>Built for students & young professionals</span>
+            </div>
+
+            <!-- Asymmetric Editorial H1 Heading -->
+            <h1 class="font-heading font-bold text-4xl sm:text-5xl lg:text-6xl text-slate-950 dark:text-white leading-[1.08] tracking-tight">
+              Rehna ho, <span class="relative inline-block whitespace-nowrap">ghoomna<svg class="squiggle-svg text-lime-400 dark:text-lime-400 stroke-current" viewBox="0 0 100 12" preserveAspectRatio="none" fill="none"><path d="M2,8 Q25,2 50,8 T98,7" stroke-width="3.5" stroke-linecap="round"/></svg></span> ho, ya khaana ho — <span class="text-indigo-600 dark:text-indigo-400">JhoomRahi</span> ke saath.
+            </h1>
+
+            <!-- Dynamic Typewriter Microcopy -->
+            <div class="min-h-[3rem] flex items-center text-lg sm:text-xl text-slate-600 dark:text-slate-300 font-medium">
+              <span id="typewriter-text" class="text-slate-800 dark:text-slate-200"></span>
+              <span class="typewriter-cursor">|</span>
+            </div>
+
+            <!-- Tri-Vertical Action CTAs -->
+            <div class="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
+              <a href="stay/browse.html" class="btn btn-primary px-6 py-3.5 text-base">
+                <i data-lucide="home" class="w-4 h-4"></i>
+                Find a PG
+              </a>
+              <a href="travel/calendar.html" class="btn btn-secondary px-6 py-3.5 text-base text-slate-900">
+                <i data-lucide="compass" class="w-4 h-4"></i>
+                Explore trips
+              </a>
+              <a href="discover/city.html" class="btn btn-ghost px-5 py-3.5 text-base">
+                <i data-lucide="map-pin" class="w-4 h-4 text-amber-500"></i>
+                Discover city
+              </a>
+            </div>
+
+            <!-- Micro Social Proof / Pan-India Trust -->
+            <div class="pt-4 flex items-center gap-3 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+              <div class="flex -space-x-2 overflow-hidden">
+                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-slate-900 object-cover" src="https://picsum.photos/seed/user_blr/100/100" alt="Avatar">
+                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-slate-900 object-cover" src="https://picsum.photos/seed/user_del/100/100" alt="Avatar">
+                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-slate-900 object-cover" src="https://picsum.photos/seed/user_pune/100/100" alt="Avatar">
+              </div>
+              <span>Joined by <strong class="text-slate-800 dark:text-slate-200 font-semibold">48,000+</strong> flatmates & co-travelers across 10 Indian hubs</span>
+            </div>
+
+          </div>
+
+          <!-- Hero Right Column (40% width with 3 floating asymmetric mock cards) -->
+          <div class="lg:col-span-5 relative min-h-[380px] sm:min-h-[460px] flex items-center justify-center" data-aos="fade-left" data-aos-delay="150">
+            
+            <!-- Mock Card 1: Stay Preview (-6deg rotation, float animation) -->
+            <!-- -rotate-6 gives authentic editorial tilt -->
+            <div data-parallax="0.04" class="absolute top-2 left-2 sm:left-4 w-72 sm:w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 shadow-2xl float -rotate-6 transition-transform z-20">
+              <div class="flex items-center justify-between mb-3">
+                <span class="badge verified text-xs font-semibold">
+                  <i data-lucide="check-check" class="w-3.5 h-3.5 mr-1"></i> Verified Flat
+                </span>
+                <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/70 px-2.5 py-1 rounded-full">
+                  96% Match
+                </span>
+              </div>
+              <p class="font-heading font-semibold text-slate-900 dark:text-white text-base leading-snug">
+                1 BHK Co-living Suite in HSR
+              </p>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Sector 2 · Zero brokerage</p>
+              <div class="flex items-center justify-between mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs">
+                <span class="font-bold text-slate-900 dark:text-white text-sm">₹14,500<span class="font-normal text-xs text-slate-500">/mo</span></span>
+                <span class="text-slate-500 flex items-center gap-1">
+                  <i data-lucide="zap" class="w-3 h-3 text-amber-500"></i> Geyser 24h
+                </span>
+              </div>
+            </div>
+
+            <!-- Mock Card 2: Travel Preview (5deg rotation, coral accent, float-delayed) -->
+            <!-- rotate-6 offsets the upper card for natural hand-stacked feel -->
+            <div data-parallax="-0.03" class="absolute -bottom-4 right-1 sm:right-4 w-68 sm:w-76 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-4 sm:p-5 shadow-2xl float-delayed rotate-6 transition-transform z-30">
+              <div class="flex items-center justify-between mb-2.5">
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400 border border-rose-200/60 dark:border-rose-900">
+                  <span class="pulse-dot-coral"></span> 4 days left
+                </span>
+                <span class="text-xs font-medium text-slate-400">Delhi → Spiti</span>
+              </div>
+              <p class="font-heading font-semibold text-slate-900 dark:text-white text-sm sm:text-base">
+                Spiti Winter Roadtrip
+              </p>
+              <div class="mt-2.5 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                <span>4/6 seats filled</span>
+                <span class="font-bold text-slate-900 dark:text-white">₹14,000</span>
+              </div>
+              <!-- Mini progress bar -->
+              <div class="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
+                <div class="bg-rose-500 h-full rounded-full w-2/3"></div>
+              </div>
+            </div>
+
+            <!-- Mock Card 3: Discover Preview (-3deg, amber accent, float-slow) -->
+            <div data-parallax="0.02" class="absolute top-44 -left-2 sm:left-6 w-60 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200 dark:border-slate-800 rounded-2xl p-3.5 shadow-xl float-slow -rotate-3 z-10 hidden sm:block">
+              <div class="flex items-center gap-2">
+                <span class="text-base">☕</span>
+                <div class="truncate">
+                  <p class="text-xs font-bold text-slate-900 dark:text-white truncate">Midnight Irani Chai</p>
+                  <p class="text-[11px] text-amber-600 dark:text-amber-400 font-semibold">98% Loved · Camp, Pune</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 3. MARQUEE STRIP (CITIES TICKER)                                          -->
+    <!-- ========================================================================= -->
+    <section class="border-y border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 py-4 overflow-hidden">
+      <div class="marquee-wrapper">
+        <div class="marquee-track flex items-center text-sm font-semibold tracking-wider uppercase text-slate-500 dark:text-slate-400">
+          <span>Bengaluru</span><span class="text-indigo-400">•</span>
+          <span>New Delhi</span><span class="text-indigo-400">•</span>
+          <span>Pune</span><span class="text-indigo-400">•</span>
+          <span>Mumbai</span><span class="text-indigo-400">•</span>
+          <span>Hyderabad</span><span class="text-indigo-400">•</span>
+          <span>Jaipur</span><span class="text-indigo-400">•</span>
+          <span>Kota</span><span class="text-indigo-400">•</span>
+          <span>Dehradun</span><span class="text-indigo-400">•</span>
+          <span>Chennai</span><span class="text-indigo-400">•</span>
+          <span>Kolkata</span><span class="text-indigo-400">•</span>
+          <!-- Duplicate set for seamless infinite loop -->
+          <span>Bengaluru</span><span class="text-indigo-400">•</span>
+          <span>New Delhi</span><span class="text-indigo-400">•</span>
+          <span>Pune</span><span class="text-indigo-400">•</span>
+          <span>Mumbai</span><span class="text-indigo-400">•</span>
+          <span>Hyderabad</span><span class="text-indigo-400">•</span>
+          <span>Jaipur</span><span class="text-indigo-400">•</span>
+          <span>Kota</span><span class="text-indigo-400">•</span>
+          <span>Dehradun</span><span class="text-indigo-400">•</span>
+          <span>Chennai</span><span class="text-indigo-400">•</span>
+          <span>Kolkata</span><span class="text-indigo-400">•</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 4. STATS COUNTER SECTION                                                  -->
+    <!-- ========================================================================= -->
+    <section class="py-16 md:py-20 border-b border-slate-200 dark:border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          
+          <!-- Stat Item 1 -->
+          <div class="space-y-1.5" data-aos="fade-up" data-aos-delay="50">
+            <div class="font-heading font-bold text-3xl sm:text-4xl text-slate-900 dark:text-white" data-counter data-target="15400" data-suffix="+">
+              0
+            </div>
+            <div class="text-sm font-semibold text-slate-800 dark:text-slate-200">Verified PGs & Flats</div>
+            <div class="text-xs text-slate-500 dark:text-slate-400">100% physically visited or resident-reviewed</div>
+          </div>
+
+          <!-- Stat Item 2 -->
+          <div class="space-y-1.5" data-aos="fade-up" data-aos-delay="100">
+            <div class="font-heading font-bold text-3xl sm:text-4xl text-slate-900 dark:text-white" data-counter data-target="48" data-suffix="k+">
+              0
+            </div>
+            <div class="text-sm font-semibold text-slate-800 dark:text-slate-200">Active Community Members</div>
+            <div class="text-xs text-slate-500 dark:text-slate-400">Students & young professionals nationwide</div>
+          </div>
+
+          <!-- Stat Item 3 -->
+          <div class="space-y-1.5" data-aos="fade-up" data-aos-delay="150">
+            <div class="font-heading font-bold text-3xl sm:text-4xl text-slate-900 dark:text-white" data-counter data-target="1250" data-suffix="+">
+              0
+            </div>
+            <div class="text-sm font-semibold text-slate-800 dark:text-slate-200">Trips Completed Together</div>
+            <div class="text-xs text-slate-500 dark:text-slate-400">From weekend treks to Spiti expeditions</div>
+          </div>
+
+          <!-- Stat Item 4 -->
+          <div class="space-y-1.5" data-aos="fade-up" data-aos-delay="200">
+            <div class="font-heading font-bold text-3xl sm:text-4xl text-slate-900 dark:text-white" data-counter data-target="98" data-suffix="%">
+              0
+            </div>
+            <div class="text-sm font-semibold text-slate-800 dark:text-slate-200">Trust & Safety Rating</div>
+            <div class="text-xs text-slate-500 dark:text-slate-400">Zero broker spam policy with verified badges</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 5. THREE PILLARS (ASYMMETRIC EDITORIAL GRID)                              -->
+    <!-- ========================================================================= -->
+    <section class="py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 space-y-8">
+        
+        <!-- Section Intro -->
+        <div class="max-w-2xl" data-aos="fade-up">
+          <span class="text-xs font-bold tracking-widest text-indigo-600 dark:text-indigo-400 uppercase">The Three Verticals</span>
+          <h2 class="font-heading font-bold text-3xl sm:text-4xl text-slate-900 dark:text-white mt-1">
+            Everything you need to conquer a new city.
+          </h2>
+          <p class="text-slate-600 dark:text-slate-400 text-base mt-2">
+            No more broker commissions, awkward Facebook flatmate groups, or tourist traps.
+          </p>
+        </div>
+
+        <!-- Row 1: 60/40 Asymmetric Split (Stay 2/3 + Travel 1/3) -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+          
+          <!-- Pillar 1: Stay (md:col-span-7) -->
+          <div class="md:col-span-7 card p-8 sm:p-10 flex flex-col justify-between group" data-aos="fade-up">
+            <div class="space-y-6">
+              <div class="flex items-center justify-between">
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-900">
+                  <i data-lucide="home" class="w-3.5 h-3.5"></i> Stay Vertical
+                </span>
+                <span class="text-xs text-slate-400">0 Brokerage Policy</span>
+              </div>
+
+              <h3 class="font-heading font-semibold text-2xl sm:text-3xl text-slate-900 dark:text-white leading-tight">
+                Flats, PGs & roommates who actually share your lifestyle.
+              </h3>
+
+              <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+                Filter by things that actually matter in India: 24h working geyser, RO drinking water, reliable power backup, cycle parking, and flatmates who respect quiet study & work hours.
+              </p>
+
+              <!-- Amenity & Feature Tags -->
+              <div class="flex flex-wrap gap-2 pt-2">
+                <span class="pill">Geyser 24h</span>
+                <span class="pill">RO Water Included</span>
+                <span class="pill">Fast Fiber Wi-Fi</span>
+                <span class="pill">Cycle & Bike Parking</span>
+                <span class="pill">No Weird Curfews</span>
+              </div>
+            </div>
+
+            <div class="pt-8 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 mt-6">
+              <span class="text-xs text-slate-500 dark:text-slate-400">15,000+ listings live in 10 cities</span>
+              <a href="stay/browse.html" class="btn btn-primary text-sm">
+                Browse verified stays
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Pillar 2: Travel (md:col-span-5) -->
+          <div class="md:col-span-5 card p-8 sm:p-10 flex flex-col justify-between border-rose-200/50 dark:border-rose-900/30 group" data-aos="fade-up" data-aos-delay="100">
+            <div class="space-y-6">
+              <div class="flex items-center justify-between">
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-rose-50 dark:bg-rose-950 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900">
+                  <i data-lucide="compass" class="w-3.5 h-3.5"></i> Travel Vertical
+                </span>
+                <span class="text-xs text-slate-400">Verified IDs</span>
+              </div>
+
+              <h3 class="font-heading font-semibold text-2xl sm:text-3xl text-slate-900 dark:text-white leading-tight">
+                Trip partner finder for weekend treks & roadtrips.
+              </h3>
+
+              <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+                Friends backed out at the last minute? Join student and young professional squads heading to Spiti, Gokarna, Rishikesh, or Kasol with split budgets.
+              </p>
+
+              <!-- Travel Preview Pill -->
+              <div class="p-4 rounded-2xl bg-rose-50/70 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/50 text-xs text-rose-950 dark:text-rose-200 space-y-1">
+                <div class="font-semibold flex items-center justify-between">
+                  <span>Next departure in 4 days</span>
+                  <span class="text-rose-600 dark:text-rose-400 font-bold">₹14k split</span>
+                </div>
+                <p class="text-slate-500 dark:text-slate-400 text-[11px]">Delhi to Spiti Valley 4x4 Roadtrip</p>
+              </div>
+            </div>
+
+            <div class="pt-8 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 mt-6">
+              <span class="text-xs text-slate-500 dark:text-slate-400">48 squads planning right now</span>
+              <a href="travel/calendar.html" class="btn btn-secondary text-sm text-slate-900">
+                Explore squads
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Row 2: Full-Width Discover Card with 3 Mini Place Chips -->
+        <div class="card p-8 sm:p-10 border-amber-200/50 dark:border-amber-900/30" data-aos="fade-up">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <div class="lg:col-span-5 space-y-4">
+              <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-900">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Discover Vertical
+              </span>
+              <h3 class="font-heading font-semibold text-2xl sm:text-3xl text-slate-900 dark:text-white leading-tight">
+                Unfiltered local city guide with ratings that aren't paid PR.
+              </h3>
+              <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+                Discover the 3 AM bun maska joint near college, the quietest co-working cafe with fiber internet in Indiranagar, or the ₹90 unlimited desi thali spot.
+              </p>
+              <div class="pt-2">
+                <a href="discover/city.html" class="btn btn-ghost text-sm">
+                  View city guide
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- 3 Mini Place Chips with % Rings -->
+            <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-4">
+              
+              <!-- Mini Chip 1 -->
+              <div class="p-4 rounded-2xl bg-[#fafaf7] dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-lg">☕</span>
+                  <div class="w-10 h-10 rounded-full border-2 border-amber-400 flex items-center justify-center font-bold text-xs text-amber-600 dark:text-amber-400">
+                    98%
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-heading font-semibold text-sm text-slate-900 dark:text-white">Late Night Irani Chai</h4>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Camp, Pune · Open 3:30 AM</p>
+                </div>
+                <span class="badge bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 text-[10px]">Student Legend</span>
+              </div>
+
+              <!-- Mini Chip 2 -->
+              <div class="p-4 rounded-2xl bg-[#fafaf7] dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-lg">💻</span>
+                  <div class="w-10 h-10 rounded-full border-2 border-indigo-400 flex items-center justify-center font-bold text-xs text-indigo-600 dark:text-indigo-400">
+                    95%
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-heading font-semibold text-sm text-slate-900 dark:text-white">Silent Pour-Over Hub</h4>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Indiranagar, BLR · Work Cafe</p>
+                </div>
+                <span class="badge bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 text-[10px]">Fiber Wi-Fi</span>
+              </div>
+
+              <!-- Mini Chip 3 -->
+              <div class="p-4 rounded-2xl bg-[#fafaf7] dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-lg">🍛</span>
+                  <div class="w-10 h-10 rounded-full border-2 border-lime-400 flex items-center justify-center font-bold text-xs text-lime-600 dark:text-lime-400">
+                    96%
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-heading font-semibold text-sm text-slate-900 dark:text-white">Unlimited Desi Thali</h4>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Gopalpura, Jaipur · ₹90 Only</p>
+                </div>
+                <span class="badge bg-lime-50 dark:bg-lime-950 text-lime-700 dark:text-lime-300 text-[10px]">Pocket Savior</span>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 6. HOW IT WORKS (3 SIMPLE STEPS)                                          -->
+    <!-- ========================================================================= -->
+    <section id="how-it-works" class="py-16 md:py-24 border-t border-slate-200 dark:border-slate-800 bg-white/40 dark:bg-slate-900/30">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 space-y-12">
+        
+        <div class="text-center max-w-2xl mx-auto space-y-3" data-aos="fade-up">
+          <span class="text-xs font-bold tracking-widest text-indigo-600 dark:text-indigo-400 uppercase">Seamless Onboarding</span>
+          <h2 class="font-heading font-bold text-3xl sm:text-4xl text-slate-900 dark:text-white">
+            How JhoomRahi works
+          </h2>
+          <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+            Whether you just landed in Bengaluru for a tech role or shifted to Delhi for college, get sorted in three steps.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+          
+          <!-- Step 1 -->
+          <div class="card p-8 space-y-4" data-aos="fade-up" data-aos-delay="50">
+            <div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white font-heading font-bold text-xl flex items-center justify-center shadow-md">
+              01
+            </div>
+            <h3 class="font-heading font-semibold text-xl text-slate-900 dark:text-white">
+              Pick your city & vertical
+            </h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+              Choose from 10 major hubs across India. Toggle between finding a place to crash, finding a weekend roadtrip group, or discovering student-approved food spots.
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="card p-8 space-y-4" data-aos="fade-up" data-aos-delay="150">
+            <div class="w-12 h-12 rounded-2xl bg-lime-400 text-slate-950 font-heading font-bold text-xl flex items-center justify-center shadow-md">
+              02
+            </div>
+            <h3 class="font-heading font-semibold text-xl text-slate-900 dark:text-white">
+              Browse verified options
+            </h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+              Every listing has real resident notes: geyser status, landlord policy, Wi-Fi speed, and actual photos without deceptive fish-eye camera tricks.
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="card p-8 space-y-4" data-aos="fade-up" data-aos-delay="250">
+            <div class="w-12 h-12 rounded-2xl bg-rose-500 text-white font-heading font-bold text-xl flex items-center justify-center shadow-md">
+              03
+            </div>
+            <h3 class="font-heading font-semibold text-xl text-slate-900 dark:text-white">
+              Connect directly & split
+            </h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+              No broker intermediaries or commission fees. Chat directly with flat owners, potential roommates, or trip coordinators and confirm your spot.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 7. FEATURED PGS & FLATS (STAY VERTICAL)                                   -->
+    <!-- ========================================================================= -->
+    <section id="stay-section" class="py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 space-y-8">
+        
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4" data-aos="fade-up">
+          <div class="space-y-2">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400">
+              <i data-lucide="home" class="w-3.5 h-3.5"></i> Curated Stays
+            </div>
+            <h2 class="font-heading font-bold text-3xl sm:text-4xl text-slate-900 dark:text-white">
+              Featured PGs & Flatshares
+            </h2>
+            <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+              Physically verified, zero brokerage options updated daily by local community scouts.
+            </p>
+          </div>
+          <a href="stay/browse.html" class="btn btn-ghost text-sm self-start sm:self-auto">
+            View all 15,000+ stays
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <!-- 3-Card Row -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- PG Card 1 -->
+          <div class="card overflow-hidden flex flex-col justify-between group" data-aos="fade-up" data-aos-delay="50">
+            <div>
+              <div class="relative h-52 overflow-hidden">
+                <img src="https://picsum.photos/seed/hsr_room_stay/800/600" alt="Greenwood Co-Living Single Suite" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute top-3 left-3 flex gap-2">
+                  <span class="badge verified text-xs font-semibold shadow-sm">
+                    <i data-lucide="check-check" class="w-3.5 h-3.5 mr-1"></i> Verified
+                  </span>
+                </div>
+                <div class="absolute top-3 right-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-bold text-indigo-600 dark:text-indigo-400">
+                  96% Match
+                </div>
+              </div>
+              
+              <div class="p-6 space-y-3">
+                <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                  <span>HSR Layout, Sector 2 · Bengaluru</span>
+                  <span class="flex items-center gap-1 font-semibold text-slate-700 dark:text-slate-300">
+                    <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i> 4.8
+                  </span>
+                </div>
+                <h3 class="font-heading font-semibold text-lg text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  Greenwood Co-Living Single Suite
+                </h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">
+                  Zero brokerage · Last updated 2 days ago
+                </p>
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="pill text-[11px] py-0.5 px-2">Geyser 24h</span>
+                  <span class="pill text-[11px] py-0.5 px-2">RO Water</span>
+                  <span class="pill text-[11px] py-0.5 px-2">300Mbps Wi-Fi</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6 pt-0 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/60 mt-4">
+              <div>
+                <span class="text-xs text-slate-400">Rent</span>
+                <p class="font-heading font-bold text-slate-900 dark:text-white text-base">₹14,500<span class="text-xs font-normal text-slate-500">/mo</span></p>
+              </div>
+              <a href="stay/detail.html" class="btn btn-ghost text-xs py-2 px-3.5">
+                View details
+              </a>
+            </div>
+          </div>
+
+          <!-- PG Card 2 -->
+          <div class="card overflow-hidden flex flex-col justify-between group" data-aos="fade-up" data-aos-delay="150">
+            <div>
+              <div class="relative h-52 overflow-hidden">
+                <img src="https://picsum.photos/seed/delhi_du_flat/800/600" alt="North Campus Student Residency" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute top-3 left-3 flex gap-2">
+                  <span class="badge verified text-xs font-semibold shadow-sm">
+                    <i data-lucide="check-check" class="w-3.5 h-3.5 mr-1"></i> Verified
+                  </span>
+                </div>
+                <div class="absolute top-3 right-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-bold text-indigo-600 dark:text-indigo-400">
+                  92% Match
+                </div>
+              </div>
+              
+              <div class="p-6 space-y-3">
+                <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                  <span>Vijay Nagar · New Delhi</span>
+                  <span class="flex items-center gap-1 font-semibold text-slate-700 dark:text-slate-300">
+                    <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i> 4.7
+                  </span>
+                </div>
+                <h3 class="font-heading font-semibold text-lg text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  North Campus Student Residency
+                </h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">
+                  Near Metro Gate 2 · Quiet study room
+                </p>
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="pill text-[11px] py-0.5 px-2">Cycle Parking</span>
+                  <span class="pill text-[11px] py-0.5 px-2">Power Backup</span>
+                  <span class="pill text-[11px] py-0.5 px-2">Attached Bath</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6 pt-0 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/60 mt-4">
+              <div>
+                <span class="text-xs text-slate-400">Rent</span>
+                <p class="font-heading font-bold text-slate-900 dark:text-white text-base">₹10,500<span class="text-xs font-normal text-slate-500">/mo</span></p>
+              </div>
+              <a href="stay/detail.html" class="btn btn-ghost text-xs py-2 px-3.5">
+                View details
+              </a>
+            </div>
+          </div>
+
+          <!-- PG Card 3 -->
+          <div class="card overflow-hidden flex flex-col justify-between group" data-aos="fade-up" data-aos-delay="250">
+            <div>
+              <div class="relative h-52 overflow-hidden">
+                <img src="https://picsum.photos/seed/pune_flat_stay/800/600" alt="Viman Nagar Studio Flatshare" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute top-3 left-3 flex gap-2">
+                  <span class="badge verified text-xs font-semibold shadow-sm">
+                    <i data-lucide="check-check" class="w-3.5 h-3.5 mr-1"></i> Verified
+                  </span>
+                </div>
+                <div class="absolute top-3 right-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-bold text-indigo-600 dark:text-indigo-400">
+                  94% Match
+                </div>
+              </div>
+              
+              <div class="p-6 space-y-3">
+                <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                  <span>Viman Nagar, Lane 4 · Pune</span>
+                  <span class="flex items-center gap-1 font-semibold text-slate-700 dark:text-slate-300">
+                    <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i> 4.9
+                  </span>
+                </div>
+                <h3 class="font-heading font-semibold text-lg text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  Viman Nagar Studio Flatshare
+                </h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">
+                  Working professional flatmate preferred
+                </p>
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="pill text-[11px] py-0.5 px-2">Modular Kitchen</span>
+                  <span class="pill text-[11px] py-0.5 px-2">Washing Machine</span>
+                  <span class="pill text-[11px] py-0.5 px-2">No Restriction</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6 pt-0 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/60 mt-4">
+              <div>
+                <span class="text-xs text-slate-400">Rent</span>
+                <p class="font-heading font-bold text-slate-900 dark:text-white text-base">₹12,000<span class="text-xs font-normal text-slate-500">/mo</span></p>
+              </div>
+              <a href="stay/detail.html" class="btn btn-ghost text-xs py-2 px-3.5">
+                View details
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 8. UPCOMING TRIPS (TRAVEL VERTICAL)                                       -->
+    <!-- ========================================================================= -->
+    <section id="travel-section" class="py-16 md:py-24 border-t border-slate-200 dark:border-slate-800 bg-rose-500/[0.02]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 space-y-8">
+        
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4" data-aos="fade-up">
+          <div class="space-y-2">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-rose-50 dark:bg-rose-950 text-rose-600 dark:text-rose-400">
+              <i data-lucide="compass" class="w-3.5 h-3.5"></i> Travel Squads
+            </div>
+            <h2 class="font-heading font-bold text-3xl sm:text-4xl text-slate-900 dark:text-white">
+              Upcoming Trips & Roadtrips
+            </h2>
+            <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+              Connect with fellow students & devs for weekend hikes, split cabs, and mountain expeditions.
+            </p>
+          </div>
+          <a href="travel/calendar.html" class="btn btn-ghost text-sm self-start sm:self-auto">
+            View trip calendar
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <!-- 3-Card Row with Coral Accent -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Trip Card 1 -->
+          <div class="card overflow-hidden flex flex-col justify-between group border-rose-100 dark:border-rose-900/30" data-aos="fade-up" data-aos-delay="50">
+            <div>
+              <div class="relative h-52 overflow-hidden">
+                <img src="https://picsum.photos/seed/spiti_snow_mountains/800/600" alt="Spiti Valley Winter Roadtrip" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute top-3 left-3">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-white/95 dark:bg-slate-900/95 text-rose-600 dark:text-rose-400 shadow-sm">
+                    <span class="pulse-dot-coral"></span> 4 days left
+                  </span>
+                </div>
+                <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-medium text-white">
+                  Nov 14 - Nov 20
+                </div>
+              </div>
+
+              <div class="p-6 space-y-3">
+                <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                  Delhi → Kaza & Tabo
+                </div>
+                <h3 class="font-heading font-semibold text-lg text-slate-900 dark:text-white group-hover:text-rose-500 transition-colors">
+                  Spiti Valley Winter Roadtrip
+                </h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">
+                  Host: Arjun Mehta · Freelance Architect
+                </p>
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="badge bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[11px]">SUV Roadtrip</span>
+                  <span class="badge bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[11px]">Stargazing</span>
+                  <span class="badge bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[11px]">Homestays</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6 pt-0 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/60 mt-4">
+              <div>
+                <span class="text-xs text-slate-400">Budget Split</span>
+                <p class="font-heading font-bold text-slate-900 dark:text-white text-base">₹14,000<span class="text-xs font-normal text-slate-500">/person</span></p>
+              </div>
+              <a href="travel/detail.html" class="btn btn-secondary text-xs py-2 px-3.5 text-slate-900">
+                Join squad (4/6)
+              </a>
+            </div>
+          </div>
+
+          <!-- Trip Card 2 -->
+          <div class="card overflow-hidden flex flex-col justify-between group border-rose-100 dark:border-rose-900/30" data-aos="fade-up" data-aos-delay="150">
+            <div>
+              <div class="relative h-52 overflow-hidden">
+                <img src="https://picsum.photos/seed/gokarna_beach_hike/800/600" alt="Gokarna Beach & Cliff Hike" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute top-3 left-3">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-white/95 dark:bg-slate-900/95 text-rose-600 dark:text-rose-400 shadow-sm">
+                    <span class="pulse-dot-coral"></span> 3 weeks left
+                  </span>
+                </div>
+                <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-medium text-white">
+                  Dec 05 - Dec 08
+                </div>
+              </div>
+
+              <div class="p-6 space-y-3">
+                <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                  BLR → Kudle & Paradise Beach
+                </div>
+                <h3 class="font-heading font-semibold text-lg text-slate-900 dark:text-white group-hover:text-rose-500 transition-colors">
+                  Gokarna Beach & Cliff Hike
+                </h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">
+                  Host: Pooja V. · Frontend Dev, Razorpay
+                </p>
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="badge bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[11px]">Weekend Getaway</span>
+                  <span class="badge bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[11px]">Cliff Sunset</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6 pt-0 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/60 mt-4">
+              <div>
+                <span class="text-xs text-slate-400">Budget Split</span>
+                <p class="font-heading font-bold text-slate-900 dark:text-white text-base">₹5,500<span class="text-xs font-normal text-slate-500">/person</span></p>
+              </div>
+              <a href="travel/detail.html" class="btn btn-secondary text-xs py-2 px-3.5 text-slate-900">
+                Join squad (5/8)
+              </a>
+            </div>
+          </div>
+
+          <!-- Trip Card 3 -->
+          <div class="card overflow-hidden flex flex-col justify-between group border-rose-100 dark:border-rose-900/30" data-aos="fade-up" data-aos-delay="250">
+            <div>
+              <div class="relative h-52 overflow-hidden">
+                <img src="https://picsum.photos/seed/rishikesh_river_rafting/800/600" alt="Rishikesh Rafting & Campfire" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute top-3 left-3">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-white/95 dark:bg-slate-900/95 text-rose-600 dark:text-rose-400 shadow-sm">
+                    <span class="pulse-dot-coral"></span> 4 weeks left
+                  </span>
+                </div>
+                <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-medium text-white">
+                  Dec 12 - Dec 14
+                </div>
+              </div>
+
+              <div class="p-6 space-y-3">
+                <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                  Dehradun / Delhi → Shivpuri
+                </div>
+                <h3 class="font-heading font-semibold text-lg text-slate-900 dark:text-white group-hover:text-rose-500 transition-colors">
+                  Rishikesh Rafting & Campfire
+                </h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">
+                  Host: Vikram Negi · IIT Roorkee
+                </p>
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="badge bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[11px]">Grade 4 Rafting</span>
+                  <span class="badge bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[11px]">Bonfire Jam</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6 pt-0 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/60 mt-4">
+              <div>
+                <span class="text-xs text-slate-400">Budget Split</span>
+                <p class="font-heading font-bold text-slate-900 dark:text-white text-base">₹4,200<span class="text-xs font-normal text-slate-500">/person</span></p>
+              </div>
+              <a href="travel/detail.html" class="btn btn-secondary text-xs py-2 px-3.5 text-slate-900">
+                Join squad (6/10)
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 9. TRENDING PLACES (DISCOVER VERTICAL)                                     -->
+    <!-- ========================================================================= -->
+    <section id="discover-section" class="py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 space-y-8">
+        
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4" data-aos="fade-up">
+          <div class="space-y-2">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-400">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Discover City
+            </div>
+            <h2 class="font-heading font-bold text-3xl sm:text-4xl text-slate-900 dark:text-white">
+              Trending Spots in Your City
+            </h2>
+            <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+              Local spots rated and approved by actual residents — no influencer brand deals.
+            </p>
+          </div>
+          <a href="discover/city.html" class="btn btn-ghost text-sm self-start sm:self-auto">
+            Explore 120+ spots
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <!-- 3-Card Row with Amber Accent -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Place Card 1 -->
+          <div class="card overflow-hidden flex flex-col justify-between group border-amber-100 dark:border-amber-900/30" data-aos="fade-up" data-aos-delay="50">
+            <div>
+              <div class="relative h-52 overflow-hidden">
+                <img src="https://picsum.photos/seed/irani_chai_bun/800/600" alt="Midnight Bun Maska & Irani Chai" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute top-3 left-3">
+                  <span class="badge bg-amber-500 text-slate-950 font-bold text-xs shadow-sm">
+                    Student Legend
+                  </span>
+                </div>
+                <div class="absolute top-3 right-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-bold text-amber-600 dark:text-amber-400">
+                  98% Loved
+                </div>
+              </div>
+
+              <div class="p-6 space-y-3">
+                <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                  <span>Camp, M.G. Road · Pune</span>
+                  <span class="font-semibold text-slate-800 dark:text-slate-200">₹50 - ₹120</span>
+                </div>
+                <h3 class="font-heading font-semibold text-lg text-slate-900 dark:text-white group-hover:text-amber-500 transition-colors">
+                  Midnight Bun Maska & Irani Chai
+                </h3>
+                <p class="text-xs text-slate-600 dark:text-slate-300">
+                  Open till 3:30 AM · Famous butter toast & fragrant elaichi chai for late night study sessions.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-6 pt-0 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/60 mt-4">
+              <span class="text-xs text-slate-500">Late Night Eatery</span>
+              <a href="discover/detail.html" class="btn btn-ghost text-xs py-2 px-3.5">
+                View spot
+              </a>
+            </div>
+          </div>
+
+          <!-- Place Card 2 -->
+          <div class="card overflow-hidden flex flex-col justify-between group border-amber-100 dark:border-amber-900/30" data-aos="fade-up" data-aos-delay="150">
+            <div>
+              <div class="relative h-52 overflow-hidden">
+                <img src="https://picsum.photos/seed/specialty_coffee_blr/800/600" alt="The Reading Room & Pour-Over Hub" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute top-3 left-3">
+                  <span class="badge bg-indigo-500 text-white font-bold text-xs shadow-sm">
+                    Co-Work Spot
+                  </span>
+                </div>
+                <div class="absolute top-3 right-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-bold text-indigo-600 dark:text-indigo-400">
+                  95% Loved
+                </div>
+              </div>
+
+              <div class="p-6 space-y-3">
+                <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                  <span>Indiranagar, 12th Main · BLR</span>
+                  <span class="font-semibold text-slate-800 dark:text-slate-200">₹180 - ₹350</span>
+                </div>
+                <h3 class="font-heading font-semibold text-lg text-slate-900 dark:text-white group-hover:text-indigo-500 transition-colors">
+                  The Reading Room & Pour-Over Hub
+                </h3>
+                <p class="text-xs text-slate-600 dark:text-slate-300">
+                  High-speed optical fiber · Silent reading zone · Specialty roasts with charging points at every desk.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-6 pt-0 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/60 mt-4">
+              <span class="text-xs text-slate-500">Work & Study Cafe</span>
+              <a href="discover/detail.html" class="btn btn-ghost text-xs py-2 px-3.5">
+                View spot
+              </a>
+            </div>
+          </div>
+
+          <!-- Place Card 3 -->
+          <div class="card overflow-hidden flex flex-col justify-between group border-amber-100 dark:border-amber-900/30" data-aos="fade-up" data-aos-delay="250">
+            <div>
+              <div class="relative h-52 overflow-hidden">
+                <img src="https://picsum.photos/seed/rajasthani_desi_thali/800/600" alt="Panditji Unlimited Desi Thali" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute top-3 left-3">
+                  <span class="badge bg-lime-500 text-slate-950 font-bold text-xs shadow-sm">
+                    Pocket Savior
+                  </span>
+                </div>
+                <div class="absolute top-3 right-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-bold text-lime-600 dark:text-lime-400">
+                  96% Loved
+                </div>
+              </div>
+
+              <div class="p-6 space-y-3">
+                <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                  <span>Gopalpura Bypass · Jaipur</span>
+                  <span class="font-semibold text-slate-800 dark:text-slate-200">₹90 Unlimited</span>
+                </div>
+                <h3 class="font-heading font-semibold text-lg text-slate-900 dark:text-white group-hover:text-lime-500 transition-colors">
+                  Panditji Unlimited Desi Thali
+                </h3>
+                <p class="text-xs text-slate-600 dark:text-slate-300">
+                  Ghee rotis, dal tadka, paneer & unlimited chhaas refill. Clean kitchen and always freshly cooked.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-6 pt-0 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/60 mt-4">
+              <span class="text-xs text-slate-500">Budget Student Mess</span>
+              <a href="discover/detail.html" class="btn btn-ghost text-xs py-2 px-3.5">
+                View spot
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 10. TESTIMONIALS (STUDENTS + PROFESSIONALS)                                -->
+    <!-- ========================================================================= -->
+    <section class="py-16 md:py-24 border-t border-slate-200 dark:border-slate-800 bg-[#fafaf7] dark:bg-[#0b1120]" x-data="{ currentSlide: 0, total: 4 }">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 space-y-12">
+        
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4" data-aos="fade-up">
+          <div class="space-y-2">
+            <span class="text-xs font-bold tracking-widest text-indigo-600 dark:text-indigo-400 uppercase">Community Voices</span>
+            <h2 class="font-heading font-bold text-3xl sm:text-4xl text-slate-900 dark:text-white">
+              Ghar se door, par akela nahi.
+            </h2>
+            <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+              Real stories from students and young professionals across India.
+            </p>
+          </div>
+
+          <!-- Carousel Controls -->
+          <div class="flex items-center gap-2 self-start sm:self-auto">
+            <button @click="currentSlide = (currentSlide - 1 + total) % total" class="p-3 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Previous testimonial">
+              <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            </button>
+            <button @click="currentSlide = (currentSlide + 1) % total" class="p-3 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Next testimonial">
+              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Testimonials Interactive Slider (Alpine.js) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Testimonial 1 -->
+          <div class="card p-7 flex flex-col justify-between space-y-6" :class="{ 'ring-2 ring-indigo-500': currentSlide === 0 }">
+            <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed italic">
+              "Koramangala shift hone ke 3 din me flatmate mil gaya. No brokerage drama, directly connected with another dev who loves chai at 2 AM."
+            </p>
+            <div class="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+              <img src="https://picsum.photos/seed/rohan_dev/200/200" alt="Rohan Deshmukh" class="w-10 h-10 rounded-full object-cover">
+              <div>
+                <p class="font-heading font-semibold text-sm text-slate-900 dark:text-white">Rohan Deshmukh</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">SDE-1, Swiggy · Bengaluru</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="card p-7 flex flex-col justify-between space-y-6" :class="{ 'ring-2 ring-indigo-500': currentSlide === 1 }">
+            <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed italic">
+              "College hostel se nikal kar pehli baar flat lene ka darr tha. Verified filter helped me find a calm 2BHK near North Campus with 24/7 water and zero hassle."
+            </p>
+            <div class="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+              <img src="https://picsum.photos/seed/ananya_du/200/200" alt="Ananya Iyer" class="w-10 h-10 rounded-full object-cover">
+              <div>
+                <p class="font-heading font-semibold text-sm text-slate-900 dark:text-white">Ananya Iyer</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">B.A. Economics, DU · Delhi</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="card p-7 flex flex-col justify-between space-y-6" :class="{ 'ring-2 ring-indigo-500': currentSlide === 2 }">
+            <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed italic">
+              "Spiti winter drive ke liye dost ready nahi the. JhoomRahi ke travel vertical se do sensible co-travelers mile, split budget on point, and made lifelong friends."
+            </p>
+            <div class="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+              <img src="https://picsum.photos/seed/kabir_des/200/200" alt="Kabir Malhotra" class="w-10 h-10 rounded-full object-cover">
+              <div>
+                <p class="font-heading font-semibold text-sm text-slate-900 dark:text-white">Kabir Malhotra</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Product Designer, Zomato</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 4 -->
+          <div class="card p-7 flex flex-col justify-between space-y-6" :class="{ 'ring-2 ring-indigo-500': currentSlide === 3 }">
+            <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed italic">
+              "Mess ke khane se tang aa chuke the. Discover section showed hidden late-night paratha joints and student tiffin services around campus that aren't on normal maps."
+            </p>
+            <div class="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+              <img src="https://picsum.photos/seed/tanvi_eng/200/200" alt="Tanvi Sharma" class="w-10 h-10 rounded-full object-cover">
+              <div>
+                <p class="font-heading font-semibold text-sm text-slate-900 dark:text-white">Tanvi Sharma</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">B.Tech, MNIT Jaipur</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 11. BIG CTA BANNER ("READY TO JHOOM?")                                    -->
+    <!-- ========================================================================= -->
+    <section class="py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        
+        <div class="relative overflow-hidden bg-slate-900 text-white rounded-4xl p-8 sm:p-14 lg:p-20 shadow-2xl" data-aos="zoom-in">
+          
+          <!-- Subtle background accents -->
+          <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-indigo-500/20 blur-3xl pointer-events-none"></div>
+          <div class="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-lime-400/15 blur-3xl pointer-events-none"></div>
+
+          <div class="relative z-10 max-w-3xl space-y-6">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-lime-400 text-xs font-semibold">
+              <span class="pulse-dot"></span> Free community access · 10 Indian cities
+            </div>
+
+            <h2 class="font-heading font-bold text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-tight">
+              Ready to jhoom?
+            </h2>
+
+            <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
+              Whether you're shifting to a new city for your first job or starting college, your tribe is already here. Find a flat, join a trip, or share your secret chai spot.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-4 pt-4">
+              <!-- Confetti celebration button -->
+              <a href="signup.html" data-confetti class="btn btn-secondary text-slate-950 font-bold px-8 py-4 text-base shadow-lg">
+                Join JhoomRahi for free
+                <i data-lucide="sparkles" class="w-4 h-4 ml-1"></i>
+              </a>
+              <a href="stay/browse.html" class="btn btn-ghost text-white border-white/20 hover:bg-white/10 px-6 py-4 text-base">
+                Explore listings first
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- 12. FOOTER                                                                -->
+  <!-- ========================================================================= -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 pt-16 pb-12 text-slate-600 dark:text-slate-400 text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-slate-100 dark:border-slate-800">
+        
+        <!-- Col 1: Brand & Tagline (lg:col-span-4) -->
+        <div class="lg:col-span-4 space-y-4">
+          <a href="index.html" class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-heading font-bold text-lg">
+              J
+            </div>
+            <span class="font-heading font-bold text-xl tracking-tight text-slate-900 dark:text-white">
+              Jhoom<span class="text-indigo-600 dark:text-indigo-400">Rahi</span>
+            </span>
+          </a>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-sm">
+            India's unified student & young professional platform across Stay, Travel, and Discover. Zero brokers, verified circles.
+          </p>
+          <div class="flex items-center gap-3 pt-2 text-slate-400 dark:text-slate-500">
+            <a href="#" class="hover:text-indigo-600 dark:hover:text-indigo-400 p-2 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors" aria-label="Twitter">
+              <!-- Twitter / X Icon SVG -->
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" class="hover:text-indigo-600 dark:hover:text-indigo-400 p-2 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors" aria-label="Instagram">
+              <!-- Instagram Icon SVG -->
+              <svg class="w-4 h-4 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="#" class="hover:text-indigo-600 dark:hover:text-indigo-400 p-2 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors" aria-label="LinkedIn">
+              <!-- LinkedIn Icon SVG -->
+              <svg class="w-4 h-4 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+            <a href="#" class="hover:text-indigo-600 dark:hover:text-indigo-400 p-2 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors" aria-label="GitHub">
+              <!-- GitHub Icon SVG -->
+              <svg class="w-4 h-4 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Verticals (lg:col-span-3) -->
+        <div class="lg:col-span-3 space-y-3">
+          <p class="font-heading font-semibold text-slate-900 dark:text-white text-sm">Platform Verticals</p>
+          <ul class="space-y-2 text-xs sm:text-sm">
+            <li><a href="stay/browse.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Stay: PGs & Roommates</a></li>
+            <li><a href="travel/calendar.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Travel: Trip Partner Finder</a></li>
+            <li><a href="discover/city.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Discover: Student City Guide</a></li>
+            <li><a href="#how-it-works" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Physical Verification System</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Top Cities (lg:col-span-3) -->
+        <div class="lg:col-span-3 space-y-3">
+          <p class="font-heading font-semibold text-slate-900 dark:text-white text-sm">Popular Hubs</p>
+          <ul class="space-y-2 text-xs sm:text-sm">
+            <li><a href="stay/browse.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Bengaluru (HSR, Koramangala)</a></li>
+            <li><a href="stay/browse.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Delhi NCR (North Campus, Gurgaon)</a></li>
+            <li><a href="stay/browse.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Pune (Viman Nagar, Hinjewadi)</a></li>
+            <li><a href="stay/browse.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Jaipur, Hyderabad & Kota</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Trust & Auth (lg:col-span-2) -->
+        <div class="lg:col-span-2 space-y-3">
+          <p class="font-heading font-semibold text-slate-900 dark:text-white text-sm">Get Started</p>
+          <ul class="space-y-2 text-xs sm:text-sm">
+            <li><a href="login.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Member Log in</a></li>
+            <li><a href="signup.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Sign up with Email</a></li>
+            <li><a href="#how-it-works" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Safety Guidelines</a></li>
+            <li><a href="#" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Zero Brokerage Policy</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+        <p>© <span id="current-year">2026</span> JhoomRahi Technologies. Made with ❤️ in India.</p>
+        <div class="flex items-center gap-6">
+          <a href="#" class="hover:text-indigo-600 dark:hover:text-indigo-400">Privacy Policy</a>
+          <a href="#" class="hover:text-indigo-600 dark:hover:text-indigo-400">Terms of Service</a>
+          <a href="#" class="hover:text-indigo-600 dark:hover:text-indigo-400">Community Code</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/animations.js"></script>
+
+  <!-- AOS initialization trigger after script load -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    if (typeof AOS !== 'undefined') {
+      AOS.init({
+        duration: 700,
+        once: true,
+        offset: 80,
+        easing: 'ease-out-cubic'
+      });
+    }
+  </script>
+</body>
+</html>

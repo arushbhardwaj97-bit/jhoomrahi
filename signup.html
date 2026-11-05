@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<!--
+  JhoomRahi — Phase 1 Member Signup (Multi-Step Onboarding)
+  Target Audience: Students & Young Professionals across India
+  Tech Stack: HTML5, Plain CSS, Tailwind CDN, Alpine.js, Lucide Icons
+  Auth Method: Email OTP only (No phone numbers, open to all email domains)
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign up — JhoomRahi</title>
+  <meta name="description" content="Join JhoomRahi. Connect with flatmates, weekend travel squads, and unfiltered city guides across India.">
+
+  <!-- Inline SVG Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236366f1'/><text x='16' y='22' font-family='system-ui,sans-serif' font-size='18' font-weight='bold' fill='white' text-anchor='middle'>J</text></svg>">
+
+  <!-- Google Fonts: Space Grotesk (Headings) + Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6366f1',
+            'primary-600': '#4f46e5',
+            accent: '#a3e635',
+            coral: '#fb7185',
+            amber: '#f59e0b',
+            ink: 'var(--ink)',
+            muted: 'var(--muted)',
+            cream: 'var(--cream)',
+            surface: 'var(--surface)',
+            border: 'var(--border)',
+          },
+          fontFamily: {
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+          borderRadius: {
+            '4xl': '2rem',
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Design System & Animations CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+
+  <!-- Alpine.js CDN -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="bg-[#fafaf7] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 antialiased min-h-screen flex flex-col justify-center">
+
+  <div class="min-h-screen flex flex-col lg:flex-row">
+    
+    <!-- ========================================================================= -->
+    <!-- LEFT PANEL (45% DESKTOP, HIDDEN ON MOBILE)                                -->
+    <!-- ========================================================================= -->
+    <div class="hidden lg:flex lg:w-[45%] bg-gradient-to-br from-indigo-600 via-indigo-700 to-indigo-900 text-white p-12 lg:p-16 flex-col justify-between relative overflow-hidden">
+      
+      <!-- Ambient light blobs -->
+      <div class="absolute -top-20 -left-20 w-80 h-80 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-lime-400/15 blur-3xl pointer-events-none"></div>
+
+      <!-- Top Brand Mark -->
+      <div class="relative z-10">
+        <a href="index.html" class="inline-flex items-center gap-2 group">
+          <div class="w-10 h-10 rounded-2xl bg-white text-indigo-700 flex items-center justify-center font-heading font-bold text-xl shadow-md group-hover:scale-105 transition-transform">
+            J
+          </div>
+          <span class="font-heading font-bold text-2xl tracking-tight text-white">
+            JhoomRahi
+          </span>
+        </a>
+      </div>
+
+      <!-- Center Onboarding Preview -->
+      <div class="relative z-10 space-y-6 my-auto max-w-md">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-lime-300 text-xs font-semibold">
+          <span class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span>
+          Step-by-Step Onboarding
+        </div>
+        <h2 class="font-heading font-bold text-3xl xl:text-4xl leading-tight">
+          Join India's fastest growing student & young professional tribe.
+        </h2>
+        <p class="text-sm text-indigo-100 leading-relaxed">
+          Find a verified flat in Koramangala or North Campus, join a 4x4 Spiti roadtrip, or explore midnight chai spots rated by actual locals.
+        </p>
+
+        <!-- Mini Step Indicators -->
+        <div class="space-y-3 pt-2">
+          <div class="flex items-center gap-3 text-xs text-indigo-100 bg-white/10 p-3 rounded-2xl">
+            <span class="w-6 h-6 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold">1</span>
+            <span>Verify your Email via quick 6-digit code</span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-indigo-100 bg-white/10 p-3 rounded-2xl">
+            <span class="w-6 h-6 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold">2</span>
+            <span>Choose your Indian city and student/pro role</span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-indigo-100 bg-white/10 p-3 rounded-2xl">
+            <span class="w-6 h-6 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold">3</span>
+            <span>Tag your tribe interests (Trekking, Coding, Foodie...)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Editorial Quote -->
+      <div class="relative z-10 pt-8 border-t border-white/15">
+        <blockquote class="text-xl font-heading font-semibold text-white/95 leading-snug">
+          "Apna tribe dhundo."
+        </blockquote>
+        <p class="text-xs text-indigo-200 mt-2">
+          Real people, verified listings, zero broker spam.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- RIGHT PANEL (55% DESKTOP / 100% MOBILE MULTI-STEP FORM)                   -->
+    <!-- ========================================================================= -->
+    <div class="w-full lg:w-[55%] flex flex-col justify-between p-6 sm:p-12 lg:p-16 xl:p-20 bg-[#fafaf7] dark:bg-[#0b1120]"
+         x-data="signupHandler()">
+      
+      <!-- Top Mobile Navigation & Dark Mode Toggle -->
+      <div class="flex items-center justify-between w-full mb-6">
+        <a href="index.html" class="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-indigo-600 text-sm font-medium">
+          <i data-lucide="arrow-right" class="w-4 h-4 rotate-180"></i>
+          Back to home
+        </a>
+
+        <!-- Dark Mode Toggle -->
+        <button type="button" data-theme-toggle class="p-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Toggle theme">
+          <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
+          <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
+        </button>
+      </div>
+
+      <!-- Main Container -->
+      <div class="max-w-lg w-full mx-auto my-auto space-y-6">
+        
+        <!-- Header & Step Tracker -->
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400" x-text="'Step ' + step + ' of 3'"></span>
+            <!-- Skip for now link on every step -->
+            <button type="button" @click="handleSkip" class="text-xs text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 underline font-medium">
+              Skip for now
+            </button>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+            <div 
+              class="bg-indigo-600 h-full rounded-full transition-all duration-300"
+              :style="'width: ' + (step === 1 ? '33%' : (step === 2 ? '66%' : '100%'))">
+            </div>
+          </div>
+
+          <h1 class="font-heading font-bold text-3xl sm:text-4xl text-slate-900 dark:text-white tracking-tight" x-text="stepTitles[step - 1]"></h1>
+          <p class="text-slate-500 dark:text-slate-400 text-sm" x-text="stepSubtitles[step - 1]"></p>
+        </div>
+
+        <!-- ===================================================================== -->
+        <!-- STEP 1: EMAIL + 6-DIGIT OTP                                           -->
+        <!-- ===================================================================== -->
+        <div x-show="step === 1" x-transition class="space-y-5">
+          
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <label for="signup-email" class="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                Email
+              </label>
+              <span class="text-xs text-slate-500 dark:text-slate-400">
+                We'll send you a 6-digit code
+              </span>
+            </div>
+            
+            <div class="relative">
+              <input 
+                id="signup-email" 
+                type="email" 
+                x-model="form.email" 
+                :disabled="otpSent"
+                placeholder="ananya.iyer@gmail.com" 
+                required 
+                class="input pl-11"
+                :class="{ 'opacity-70 bg-slate-100 dark:bg-slate-800 cursor-not-allowed': otpSent }"
+              >
+              <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
+                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Send Code Button -->
+          <div x-show="!otpSent">
+            <button 
+              type="button" 
+              @click="sendOtp" 
+              class="btn btn-primary w-full py-3.5 text-base shadow-md font-semibold"
+              :disabled="!isValidEmail(form.email) || isSending">
+              <span x-show="!isSending">Send code</span>
+              <span x-show="isSending" class="flex items-center gap-2">
+                <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+                Sending 6-digit code...
+              </span>
+            </button>
+          </div>
+
+          <!-- 6 OTP Boxes -->
+          <div x-show="otpSent" x-transition class="space-y-4 pt-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-medium text-slate-700 dark:text-slate-300">
+                Enter code sent to <strong class="text-indigo-600 dark:text-indigo-400" x-text="form.email"></strong>
+              </span>
+              <button type="button" @click="resetEmail" class="text-indigo-600 dark:text-indigo-400 hover:underline">
+                Change email
+              </button>
+            </div>
+
+            <!-- OTP Input Grid -->
+            <div class="grid grid-cols-6 gap-2 sm:gap-3" @paste.prevent="handlePaste($event)">
+              <template x-for="(digit, index) in otp" :key="index">
+                <input 
+                  type="text" 
+                  inputmode="numeric" 
+                  maxlength="1" 
+                  :id="'signup-otp-' + index"
+                  x-model="otp[index]"
+                  @input="handleInput($event, index)"
+                  @keydown.backspace="handleBackspace($event, index)"
+                  class="w-full h-12 text-center font-heading font-bold text-xl rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-white"
+                >
+              </template>
+            </div>
+
+            <!-- Resend Timer -->
+            <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 pt-1">
+              <span>Didn't receive code?</span>
+              <template x-if="countdown > 0">
+                <span>Resend in <strong class="text-slate-700 dark:text-slate-300" x-text="countdown + 's'"></strong></span>
+              </template>
+              <template x-if="countdown === 0">
+                <button type="button" @click="sendOtp" class="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">
+                  Resend code
+                </button>
+              </template>
+            </div>
+
+            <!-- Continue to Step 2 Button -->
+            <button 
+              type="button" 
+              @click="goToStep2" 
+              class="btn btn-primary w-full py-3.5 text-base shadow-md font-semibold mt-4"
+              :disabled="!isOtpComplete">
+              Verify & Continue
+              <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- ===================================================================== -->
+        <!-- STEP 2: NAME, CITY & ROLE                                             -->
+        <!-- ===================================================================== -->
+        <div x-show="step === 2" x-transition class="space-y-5">
+          
+          <!-- Full Name -->
+          <div class="space-y-1.5">
+            <label for="full-name" class="text-sm font-semibold text-slate-800 dark:text-slate-200">
+              Full Name
+            </label>
+            <input 
+              id="full-name" 
+              type="text" 
+              x-model="form.name" 
+              placeholder="e.g. Tanvi Sharma" 
+              required 
+              class="input"
+            >
+          </div>
+
+          <!-- City Selection (Populated from Indian CITIES constant) -->
+          <div class="space-y-1.5">
+            <label for="city-select" class="text-sm font-semibold text-slate-800 dark:text-slate-200">
+              Your Current or Target City
+            </label>
+            <select 
+              id="city-select" 
+              x-model="form.city" 
+              class="input cursor-pointer">
+              <option value="" disabled selected>Select an Indian city</option>
+              <template x-for="city in cities" :key="city">
+                <option :value="city" x-text="city"></option>
+              </template>
+            </select>
+          </div>
+
+          <!-- Role Selection (Student / Working professional / Other) -->
+          <div class="space-y-1.5">
+            <label for="role-select" class="text-sm font-semibold text-slate-800 dark:text-slate-200">
+              Primary Role
+            </label>
+            <select 
+              id="role-select" 
+              x-model="form.role" 
+              class="input cursor-pointer">
+              <option value="" disabled selected>Select your current profile</option>
+              <option value="Student">Student</option>
+              <option value="Working professional">Working professional</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <!-- Action Buttons (Back + Next) -->
+          <div class="flex items-center gap-3 pt-3">
+            <button 
+              type="button" 
+              @click="step = 1" 
+              class="btn btn-ghost py-3.5 px-5">
+              Back
+            </button>
+            <button 
+              type="button" 
+              @click="goToStep3" 
+              class="btn btn-primary flex-1 py-3.5 text-base shadow-md font-semibold"
+              :disabled="!form.name || !form.city || !form.role">
+              Next: Profile & Vibe
+              <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- ===================================================================== -->
+        <!-- STEP 3: PHOTO UPLOAD & INTERESTS CHIPS                                -->
+        <!-- ===================================================================== -->
+        <div x-show="step === 3" x-transition class="space-y-6">
+          
+          <!-- Visual Photo Upload UI -->
+          <div class="space-y-2">
+            <label class="text-sm font-semibold text-slate-800 dark:text-slate-200">
+              Profile Photo (Optional)
+            </label>
+            <div class="flex items-center gap-4 p-4 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900">
+              <div class="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 font-bold overflow-hidden border border-slate-200 dark:border-slate-700">
+                <template x-if="photoPreview">
+                  <img :src="photoPreview" alt="Preview" class="w-full h-full object-cover">
+                </template>
+                <template x-if="!photoPreview">
+                  <i data-lucide="user" class="w-6 h-6"></i>
+                </template>
+              </div>
+              <div class="space-y-1">
+                <button 
+                  type="button" 
+                  @click="simulatePhotoUpload" 
+                  class="btn btn-ghost py-1.5 px-3 text-xs border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400">
+                  <i data-lucide="upload" class="w-3.5 h-3.5 mr-1"></i>
+                  Upload photo
+                </button>
+                <p class="text-[11px] text-slate-400">JPG, PNG or GIF up to 5MB</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Multi-Select Interests Chips -->
+          <div class="space-y-2.5">
+            <div class="flex items-center justify-between">
+              <label class="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                What are you into?
+              </label>
+              <span class="text-xs text-slate-400" x-text="form.interests.length + ' selected'"></span>
+            </div>
+            
+            <div class="flex flex-wrap gap-2">
+              <template x-for="interest in allInterests" :key="interest">
+                <button 
+                  type="button" 
+                  @click="toggleInterest(interest)"
+                  class="px-4 py-2 rounded-full text-xs font-semibold border transition-all duration-200 flex items-center gap-1.5"
+                  :class="form.interests.includes(interest) 
+                    ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm scale-105' 
+                    : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-indigo-300'">
+                  <span x-text="interest"></span>
+                  <span x-show="form.interests.includes(interest)" class="text-white text-xs">✓</span>
+                </button>
+              </template>
+            </div>
+          </div>
+
+          <!-- Action Buttons (Back + Final Complete) -->
+          <div class="flex items-center gap-3 pt-2">
+            <button 
+              type="button" 
+              @click="step = 2" 
+              class="btn btn-ghost py-3.5 px-5">
+              Back
+            </button>
+            <button 
+              type="button" 
+              @click="completeSignup" 
+              class="btn btn-secondary flex-1 py-3.5 text-base text-slate-950 font-bold shadow-lg"
+              :disabled="isSubmitting">
+              <span x-show="!isSubmitting">Create account 🎉</span>
+              <span x-show="isSubmitting" class="flex items-center gap-2">
+                <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+                Setting up your profile...
+              </span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Log In Link -->
+        <p class="text-center text-sm text-slate-500 dark:text-slate-400 pt-2">
+          Already have an account? 
+          <a href="login.html" class="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">
+            Log in here
+          </a>
+        </p>
+
+      </div>
+
+      <!-- Footer Microcopy -->
+      <div class="text-center text-xs text-slate-400 dark:text-slate-500 mt-8">
+        JhoomRahi protects your privacy. Phone number is never collected during signup.
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/animations.js"></script>
+
+  <!-- Alpine Signup Controller Script -->
+  <script>
+    /**
+     * Alpine.js multi-step signup controller
+     */
+    function signupHandler() {
+      return {
+        step: 1,
+        stepTitles: [
+          'Verify your Email',
+          'Tell us about yourself',
+          'Tag your vibe & interests'
+        ],
+        stepSubtitles: [
+          "We'll send a 6-digit code. Quick, secure, zero spam.",
+          'Pick your Indian city and primary role.',
+          'Help us match you with the right flatmates & travel squads.'
+        ],
+        cities: typeof CITIES !== 'undefined' ? CITIES : [
+          'Bengaluru', 'New Delhi', 'Pune', 'Mumbai', 'Hyderabad', 
+          'Jaipur', 'Kota', 'Dehradun', 'Chennai', 'Kolkata'
+        ],
+        allInterests: [
+          'Trekking', 'Foodie', 'Coding', 'Music', 
+          'Reading', 'Travel', 'Photography', 'Sports'
+        ],
+        form: {
+          email: '',
+          name: '',
+          city: '',
+          role: '',
+          interests: []
+        },
+        otpSent: false,
+        otp: ['', '', '', '', '', ''],
+        countdown: 30,
+        timerId: null,
+        isSending: false,
+        isSubmitting: false,
+        photoPreview: null,
+
+        isValidEmail(val) {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+        },
+
+        get isOtpComplete() {
+          return this.otp.every(d => d.length === 1 && !isNaN(d));
+        },
+
+        sendOtp() {
+          if (!this.isValidEmail(this.form.email)) return;
+          this.isSending = true;
+
+          setTimeout(() => {
+            this.isSending = false;
+            this.otpSent = true;
+            this.countdown = 30;
+            this.startCountdown();
+
+            this.$nextTick(() => {
+              const el = document.getElementById('signup-otp-0');
+              if (el) el.focus();
+            });
+
+            showToast("6-digit code sent! (Demo OTP: 123456)", "success");
+          }, 600);
+        },
+
+        startCountdown() {
+          clearInterval(this.timerId);
+          this.timerId = setInterval(() => {
+            if (this.countdown > 0) {
+              this.countdown--;
+            } else {
+              clearInterval(this.timerId);
+            }
+          }, 1000);
+        },
+
+        handleInput(e, index) {
+          const val = e.target.value.replace(/[^0-9]/g, '');
+          this.otp[index] = val ? val[val.length - 1] : '';
+
+          if (this.otp[index] && index < 5) {
+            const next = document.getElementById('signup-otp-' + (index + 1));
+            if (next) next.focus();
+          }
+        },
+
+        handleBackspace(e, index) {
+          if (!this.otp[index] && index > 0) {
+            const prev = document.getElementById('signup-otp-' + (index - 1));
+            if (prev) {
+              prev.focus();
+              this.otp[index - 1] = '';
+            }
+          }
+        },
+
+        handlePaste(e) {
+          const pasteData = (e.clipboardData || window.clipboardData).getData('text');
+          const digits = pasteData.replace(/\D/g, '').slice(0, 6).split('');
+          digits.forEach((digit, i) => {
+            if (i < 6) this.otp[i] = digit;
+          });
+          const lastIndex = Math.min(digits.length, 5);
+          const targetInput = document.getElementById('signup-otp-' + lastIndex);
+          if (targetInput) targetInput.focus();
+        },
+
+        resetEmail() {
+          this.otpSent = false;
+          this.otp = ['', '', '', '', '', ''];
+          clearInterval(this.timerId);
+        },
+
+        goToStep2() {
+          if (!this.isOtpComplete) return;
+          this.step = 2;
+          if (window.lucide) window.lucide.createIcons();
+        },
+
+        goToStep3() {
+          if (!this.form.name || !this.form.city || !this.form.role) return;
+          this.step = 3;
+          if (window.lucide) window.lucide.createIcons();
+        },
+
+        simulatePhotoUpload() {
+          this.photoPreview = "https://picsum.photos/seed/user_signup_preview/200/200";
+          showToast("Profile photo selected!", "info");
+        },
+
+        toggleInterest(interest) {
+          if (this.form.interests.includes(interest)) {
+            this.form.interests = this.form.interests.filter(i => i !== interest);
+          } else {
+            this.form.interests.push(interest);
+          }
+        },
+
+        handleSkip() {
+          if (this.step < 3) {
+            this.step++;
+            if (window.lucide) window.lucide.createIcons();
+          } else {
+            this.completeSignup();
+          }
+        },
+
+        completeSignup() {
+          this.isSubmitting = true;
+
+          setTimeout(() => {
+            this.isSubmitting = false;
+
+            if (typeof confetti === 'function') {
+              confetti({
+                particleCount: 100,
+                spread: 80,
+                origin: { y: 0.6 }
+              });
+            }
+
+            showToast("Account created successfully! Welcome to JhoomRahi.", "success");
+
+            setTimeout(() => {
+              window.location.href = "index.html";
+            }, 1600);
+          }, 800);
+        }
+      };
+    }
+  </script>
+</body>
+</html>
