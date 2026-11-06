@@ -80,7 +80,7 @@ const QUIZ_QUESTIONS = [
     desc: "Establishes mutual comfort around home privacy.",
     options: [
       { value: "sanctuary_quiet", label: "Quiet Sanctuary", sub: "Prefer home to be a peaceful, guest-free retreat", icon: "shield" },
-      { value: "weekend_notice", label: "Notice & Weekends", sub: "Friends welcome with advance notice on WhatsApp", icon: "message-square" },
+      { value: "weekend_notice", label: "Notice & Weekends", sub: "Friends welcome with advance notice in group chat", icon: "message-square" },
       { value: "open_house", label: "Open & Social", sub: "Friends dropping by for chai, dinners or jam sessions", icon: "users" }
     ]
   },
@@ -163,7 +163,7 @@ const QUIZ_QUESTIONS = [
     question: "How do you prefer solving house chores and bill splits?",
     desc: "Clean communication makes great lifelong friendships.",
     options: [
-      { value: "direct_whatsapp", label: "Direct & Prompt", sub: "Quick WhatsApp or Splitwise ping, settled immediately", icon: "send" },
+      { value: "direct_whatsapp", label: "Direct & Prompt", sub: "Quick chat ping, settled immediately", icon: "send" },
       { value: "weekly_chai", label: "Weekly Chai Chat", sub: "Discuss groceries & plans informally over Sunday chai", icon: "coffee" },
       { value: "easygoing", label: "Easygoing / Flow", sub: "Relaxed attitude, rough rotation without micro-managing", icon: "smile" }
     ]
@@ -925,23 +925,20 @@ function openConnectModal(roommateId) {
         rows="4" 
         class="input text-xs leading-relaxed" 
         placeholder="Introduce yourself briefly...">${defaultIcebreaker}</textarea>
-      <p class="text-[11px] text-slate-400 mt-1">Direct contact details are exchanged once both flatmates accept.</p>
+      <p class="text-[11px] text-slate-400 mt-1.5 flex items-center gap-1.5">
+        <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-500 flex-shrink-0"></i>
+        <span>Direct contact details are exchanged only via JhoomRahi secure chat/call after both accept.</span>
+      </p>
     </div>
 
     <div class="flex items-center justify-between pt-3 border-t border-slate-100 dark:border-slate-800">
-      <button type="button" onclick="closeConnectModal()" class="btn btn-ghost text-xs py-2 px-3 rounded-xl">
+      <button type="button" onclick="closeConnectModal()" class="btn btn-ghost text-xs py-2 px-3.5 rounded-xl">
         Cancel
       </button>
-      <div class="flex items-center gap-2">
-        <button type="button" onclick="sendConnectionRequest('${r.id}', 'whatsapp')" class="btn btn-secondary text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5">
-          <i data-lucide="phone" class="w-3.5 h-3.5"></i>
-          <span>WhatsApp Quick Chat</span>
-        </button>
-        <button type="button" onclick="sendConnectionRequest('${r.id}', 'inapp')" class="btn btn-primary text-xs py-2 px-4 rounded-xl flex items-center gap-1.5">
-          <i data-lucide="send" class="w-3.5 h-3.5"></i>
-          <span>Send Request</span>
-        </button>
-      </div>
+      <button type="button" onclick="sendConnectionRequest('${r.id}')" class="btn btn-primary text-xs py-2 px-5 rounded-xl flex items-center gap-1.5 font-bold shadow-md">
+        <i data-lucide="send" class="w-3.5 h-3.5"></i>
+        <span>Send Request</span>
+      </button>
     </div>
   `;
 
@@ -959,7 +956,7 @@ function closeConnectModal() {
   document.body.style.overflow = "";
 }
 
-function sendConnectionRequest(roommateId, medium = "inapp") {
+function sendConnectionRequest(roommateId) {
   const msgInput = document.getElementById("connect-message-input");
   const msg = msgInput ? msgInput.value : "";
 
@@ -978,15 +975,7 @@ function sendConnectionRequest(roommateId, medium = "inapp") {
     if (typeof lucide !== "undefined") lucide.createIcons();
   }
 
-  if (medium === "whatsapp") {
-    notify("Connection request stored! Opening WhatsApp chat...", "success");
-    const encoded = encodeURIComponent(msg);
-    setTimeout(() => {
-      window.open(`https://api.whatsapp.com/send?text=${encoded}`, "_blank");
-    }, 600);
-  } else {
-    notify("Connection request sent! You'll receive an email notification upon acceptance.", "success");
-  }
+  notify("In-app flatmate request sent! You'll be notified when they accept.", "success");
 }
 
 // =========================================================================

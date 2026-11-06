@@ -301,11 +301,11 @@ window.addEventListener("load", () => {
 });
 
 
-/* === PHASE 2 EXTENSION: UNBLOCK STAY VERTICAL ROUTES === */
+/* === UNBLOCK ACTIVE PHASE 2 & 3 ROUTES (STAY & TRAVEL) === */
 document.addEventListener("DOMContentLoaded", () => {
-  // Allow stay vertical pages now that stay/browse.html, stay/roommate-match.html, stay/detail.html, and stay/post.html are active
+  // Allow stay & travel vertical pages now that they are active
   setTimeout(() => {
-    document.querySelectorAll('a[href^="stay/"], a[href*="browse.html"], a[href*="roommate-match.html"], a[href*="detail.html"], a[href*="post.html"]').forEach((link) => {
+    document.querySelectorAll('a[href^="stay/"], a[href^="travel/"], a[href*="calendar.html"], a[href*="browse.html"], a[href*="roommate-match.html"], a[href*="detail.html"], a[href*="post.html"]').forEach((link) => {
       const clone = link.cloneNode(true);
       link.parentNode.replaceChild(clone, link);
     });

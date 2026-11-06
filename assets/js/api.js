@@ -244,3 +244,105 @@ async function getPGById(id) {
   const res = await fetch(`/api/v1/stay/listings/${id}`);
   return res.json();
 }
+
+
+/* === 9. TRAVEL VERTICAL API CALLS (PHASE 3 - APPENDED) === */
+
+/**
+ * Fetches upcoming travel squads with city, vibe, and date filtering
+ * Automatically merges user-created trip plans from localStorage
+ * @param {Object} [filters={}] - Query filters
+ * @param {string} [filters.originCity] - e.g. "Bengaluru", "New Delhi", "Pune", "all"
+ * @param {string} [filters.vibe] - "all" | "roadtrip" | "trek" | "beach" | "culture"
+ * @param {number} [filters.maxBudget] - Max budget in INR
+ * @param {string} [filters.month] - "YYYY-MM" (e.g. "2026-11", "2026-12")
+ * @param {string} [filters.search] - Search keyword
+ * @returns {Promise<Array>} List of travel squads
+ */
+async function getTrips(filters = {}) {
+  if (USE_MOCK) {
+    let customTrips = [];
+    try {
+      const stored = localStorage.getItem("jhoomrahi_user_trips");
+      if (stored) {
+        customTrips = JSON.parse(stored);
+      }
+    } catch (e) {
+      console.warn("Could not read jhoomrahi_user_trips from localStorage", e);
+    }
+
+    let allTrips = [...customTrips, ...TRIPS];
+
+    if (filters.originCity && filters.originCity !== "all" && filters.originCity !== "All") {
+      allTrips = allTrips.filter(
+        t => t.originCity && t.originCity.toLowerCase() === filters.originCity.toLowerCase()
+      );
+    }
+
+    if (filters.vibe && filters.vibe !== "all") {
+      allTrips = allTrips.filter(
+        t => (t.vibeCategory && t.vibeCategory.toLowerCase() === filters.vibe.toLowerCase()) ||
+             (t.vibe && t.vibe.toLowerCase().includes(filters.vibe.toLowerCase()))
+      );
+    }
+
+    if (filters.maxBudget && !isNaN(filters.maxBudget)) {
+      allTrips = allTrips.filter(t => t.budget <= Number(filters.maxBudget));
+    }
+
+    if (filters.month) {
+      allTrips = allTrips.filter(t => t.startDate && t.startDate.startsWith(filters.month));
+    }
+
+    if (filters.date) {
+      // Check if a given date string "YYYY-MM-DD" falls within trip's start & end dates
+      allTrips = allTrips.filter(t => {
+        const startDay = t.startDate.split("T")[0];
+        const endDay = t.endDate.split("T")[0];
+        return filters.date >= startDay && filters.date <= endDay;
+      });
+    }
+
+    if (filters.search && filters.search.trim()) {
+      const q = filters.search.toLowerCase().trim();
+      allTrips = allTrips.filter(t =>
+        (t.title && t.title.toLowerCase().includes(q)) ||
+        (t.destination && t.destination.toLowerCase().includes(q)) ||
+        (t.originCity && t.originCity.toLowerCase().includes(q)) ||
+        (t.vibe && t.vibe.toLowerCase().includes(q)) ||
+        (t.host && t.host.name && t.host.name.toLowerCase().includes(q))
+      );
+    }
+
+    return mockFetch(allTrips);
+  }
+
+  const queryParams = new URLSearchParams(filters).toString();
+  const res = await fetch(`/api/v1/travel/trips?${queryParams}`);
+  return res.json();
+}
+
+/**
+ * Fetches single trip by unique ID
+ * @param {string} id - e.g. "trip-spiti-01"
+ * @returns {Promise<Object|null>} Trip object or null
+ */
+async function getTripById(id) {
+  if (!id) return mockFetch(null);
+
+  if (USE_MOCK) {
+    try {
+      const custom = JSON.parse(localStorage.getItem("jhoomrahi_user_trips") || "[]");
+      const found = custom.find(t => t.id === id);
+      if (found) return mockFetch(found);
+    } catch (e) {
+      console.warn("Error reading custom trips", e);
+    }
+
+    const trip = TRIPS.find(t => t.id === id) || null;
+    return mockFetch(trip);
+  }
+
+  const res = await fetch(`/api/v1/travel/trips/${id}`);
+  return res.json();
+}

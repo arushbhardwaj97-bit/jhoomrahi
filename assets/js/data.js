@@ -1105,3 +1105,437 @@ const ROOMMATES = [
     }
   }
 ];
+
+
+/* === 10. EXPANDED TRAVEL SQUADS & WEEKEND EXPEDITIONS (PHASE 3) === */
+const TRIPS = [
+  {
+    id: "trip-spiti-01",
+    title: "Spiti Valley Winter Expedition 4x4",
+    destination: "Spiti Valley, Himachal Pradesh",
+    originCity: "New Delhi",
+    pickupPoint: "Majnu Ka Tilla / Kashmere Gate Metro",
+    startDate: "2026-11-20T06:00:00",
+    endDate: "2026-11-27T20:00:00",
+    dateDisplay: "Nov 20 – Nov 27, 2026",
+    duration: "7 Days, 6 Nights",
+    vibe: "Roadtrip & Mountains",
+    vibeCategory: "roadtrip",
+    difficulty: "Moderate",
+    transportMode: "Private 4x4 Scorpio / Thar (Split)",
+    budget: 14500,
+    budgetDisplay: "₹14,500 / person",
+    budgetBreakdown: {
+      transport: 6500,
+      stay: 4500,
+      food: 2500,
+      permits: 1000
+    },
+    slots: {
+      total: 6,
+      booked: 4,
+      remaining: 2
+    },
+    host: {
+      id: "host-arjun",
+      name: "Arjun Mehta",
+      role: "Freelance Architect & Photographer",
+      city: "New Delhi",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+      tripsLed: 8,
+      rating: 4.9,
+      verified: true,
+      bio: "Completed 5 high-altitude winter circuits. Love astrophotography, hot chai at mountain passes, and driving chill playlists."
+    },
+    squad: [
+      {
+        id: "sq-1",
+        name: "Arjun Mehta",
+        role: "Host & Driver",
+        city: "Delhi",
+        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        id: "sq-2",
+        name: "Rohan Deshmukh",
+        role: "SDE @ Swiggy",
+        city: "Bengaluru",
+        avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        id: "sq-3",
+        name: "Tanvi Sharma",
+        role: "UI Designer",
+        city: "Jaipur",
+        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80"
+      },
+      {
+        id: "sq-4",
+        name: "Kabir Malhotra",
+        role: "Product Designer @ Zomato",
+        city: "Gurugram",
+        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80"
+      }
+    ],
+    coverImage: "https://images.unsplash.com/photo-1581793745862-99fde7fa73d2?w=800&auto=format&fit=crop&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1581793745862-99fde7fa73d2?w=800",
+      "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=800",
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800",
+      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800"
+    ],
+    itinerary: [
+      { day: 1, title: "Delhi to Shimla / Narkanda", desc: "Early 6 AM departure via Murthal for parathas. Ascend through pine valleys, overnight stay in Narkanda orchard homestay.", icon: "car" },
+      { day: 2, title: "Narkanda to Kalpa & Kinnaur Valley", desc: "Drive along the ferocious Sutlej river through the Kinnaur gate. Sunset view of Kinner Kailash range.", icon: "mountain" },
+      { day: 3, title: "Kalpa to Tabo via Nako Lake", desc: "Cross Khab sangam (Sutlej & Spiti confluence). Visit Nako frozen lake and the 1000-year-old Tabo Monastery.", icon: "compass" },
+      { day: 4, title: "Tabo to Kaza via Dhankar Gompa", desc: "Explore the dramatic cliff-hanging Dhankar Monastery. Arrive at Kaza, evening cafe hopping and acclimatization.", icon: "flag" },
+      { day: 5, title: "Hikkim, Komic & Langza Circuit", desc: "Post letters from the World's Highest Post Office (Hikkim at 14,567 ft) and visit the giant Langza Buddha statue.", icon: "send" },
+      { day: 6, title: "Key Monastery & Kibber Wildlife Sanctuary", desc: "Morning prayer chanting at Key Monastery. Spot blue sheep and Himalayan foxes around Kibber village.", icon: "camera" },
+      { day: 7, title: "Kaza to Manali / Return to Delhi", desc: "Cross Atal Tunnel, celebratory trout dinner in Old Manali, overnight return Volvo/SUV back to Delhi.", icon: "check-circle" }
+    ],
+    inclusions: [
+      "Shared 4x4 SUV (Dedicated driver, fuel & toll taxes)",
+      "6 Nights cozy homestays with heating & tandoor",
+      "Fresh breakfast and warm Pahadi dinners daily",
+      "Inner Line permits & wildlife entry fees",
+      "First-aid kit with portable oxygen canister"
+    ],
+    exclusions: [
+      "Midday cafe lunches & personal snacks",
+      "Personal thermal clothing & boots",
+      "Emergency medical expenses"
+    ],
+    description: "An unfiltered, student-budget winter expedition through high-altitude desert landscapes. No commercial agencies — just 6 sensible travelers sharing fuel and homestay costs."
+  },
+  {
+    id: "trip-gokarna-02",
+    title: "Gokarna Cliff Hike & Beach Backpacking",
+    destination: "Gokarna & Honnavar, Karnataka",
+    originCity: "Bengaluru",
+    pickupPoint: "Yeshwantpur Railway Station / Goraguntepalya",
+    startDate: "2026-12-04T21:00:00",
+    endDate: "2026-12-07T06:00:00",
+    dateDisplay: "Dec 04 – Dec 07, 2026",
+    duration: "Weekend (2 Days, 1 Night + Travel)",
+    vibe: "Beach & Coastal",
+    vibeCategory: "beach",
+    difficulty: "Easy / Chill",
+    transportMode: "Overnight Sleeper Train / Shared TT",
+    budget: 4800,
+    budgetDisplay: "₹4,800 / person",
+    budgetBreakdown: {
+      transport: 2200,
+      stay: 1400,
+      food: 1200
+    },
+    slots: { total: 8, booked: 5, remaining: 3 },
+    host: {
+      id: "host-pooja",
+      name: "Pooja Venkat",
+      role: "Frontend Dev @ Razorpay",
+      city: "Bengaluru",
+      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&auto=format&fit=crop&q=80",
+      tripsLed: 4,
+      rating: 4.8,
+      verified: true,
+      bio: "Backpacker who knows every quiet cliff and beach shack from Kudle to Half Moon. Teetotaler-friendly and sunset enthusiast."
+    },
+    squad: [
+      { id: "sq-10", name: "Pooja V.", role: "Host", city: "Bengaluru", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400" },
+      { id: "sq-11", name: "Ananya Sen", role: "Content Lead", city: "Bengaluru", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400" },
+      { id: "sq-12", name: "Dev Roy", role: "Product Designer", city: "Pune", avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=400" },
+      { id: "sq-13", name: "Siddharth N.", role: "Founder", city: "Bengaluru", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400" },
+      { id: "sq-14", name: "Meera K.", role: "Student", city: "Delhi", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400" }
+    ],
+    coverImage: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800&auto=format&fit=crop&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800",
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800"
+    ],
+    itinerary: [
+      { day: 1, title: "Friday Night Departure", desc: "Board overnight train from Bengaluru. Jam with acoustic guitar in sleeper coach.", icon: "train" },
+      { day: 2, title: "The 5-Beach Cliff Trek", desc: "Trek from Belekan beach across Paradise, Half Moon, and Om Beach. Sunset dinner at Namaste Cafe.", icon: "compass" },
+      { day: 3, title: "Honnavar Mangrove Boat Ride & Return", desc: "Morning boat safari through Sharavathi backwaters. Evening return train arriving Bengaluru Monday 6 AM.", icon: "sun" }
+    ],
+    inclusions: [
+      "Beachfront hostel / tent accommodation on Kudle Beach",
+      "Guided 5-beach cliff trek route",
+      "Honnavar mangrove boat ride pass",
+      "Saturday seaside breakfast and dinner"
+    ],
+    exclusions: [
+      "Train tickets (coordinated group booking)",
+      "Sunday beach cafe lunch"
+    ],
+    description: "Escape Bangalore traffic for a zero-stress weekend of cliff hikes, ocean sunsets, fresh seafood and thali shacks, and night walks on glowing bioluminescent sand."
+  },
+  {
+    id: "trip-rishi-03",
+    title: "Rishikesh Grade-4 Rafting & Bonfire Camp",
+    destination: "Rishikesh & Shivpuri, Uttarakhand",
+    originCity: "New Delhi",
+    pickupPoint: "Akshardham Metro Station, Delhi",
+    startDate: "2026-12-11T22:00:00",
+    endDate: "2026-12-13T21:00:00",
+    dateDisplay: "Dec 11 – Dec 13, 2026",
+    duration: "Weekend (2 Days, 1 Night)",
+    vibe: "Trekking & Campfire",
+    vibeCategory: "trek",
+    difficulty: "Moderate",
+    transportMode: "AC Tempo Traveller / Carpool",
+    budget: 3900,
+    budgetDisplay: "₹3,900 / person",
+    budgetBreakdown: { transport: 1500, stay: 1400, food: 1000 },
+    slots: { total: 10, booked: 6, remaining: 4 },
+    host: {
+      id: "host-vikram",
+      name: "Vikram Negi",
+      role: "B.Tech Final Year, IIT Roorkee",
+      city: "Dehradun",
+      avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&auto=format&fit=crop&q=80",
+      tripsLed: 6,
+      rating: 4.9,
+      verified: true,
+      bio: "Certified swift-water rescuer and avid trekker. Led 10+ college groups on Ganga rapids."
+    },
+    squad: [
+      { id: "sq-20", name: "Vikram Negi", role: "Host", city: "Dehradun", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400" },
+      { id: "sq-21", name: "Rhea Sen", role: "Media Producer", city: "Mumbai", avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400" },
+      { id: "sq-22", name: "Tanmay Joshi", role: "Dev @ Barclays", city: "Pune", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" }
+    ],
+    coverImage: "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=800&auto=format&fit=crop&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=800"
+    ],
+    itinerary: [
+      { day: 1, title: "Overnight Drive to Shivpuri", desc: "Night drive from Delhi, arrive at riverside camp for sunrise chai.", icon: "car" },
+      { day: 2, title: "16 km White Water Rafting & Cliff Jump", desc: "Navigate Roller Coaster, Golf Course, and Club House rapids with certified guides. Evening acoustic bonfire.", icon: "zap" },
+      { day: 3, title: "Beatles Ashram & Ganga Aarti", desc: "Morning meditation at Beatles Ashram. Triveni Ghat evening aarti before returning to Delhi by 10 PM.", icon: "heart" }
+    ],
+    inclusions: [
+      "16km River Rafting with safety helmets & life jackets",
+      "1 Night riverside dome tent camping",
+      "3 Meals (Buffet lunch, dinner with campfire snacks, breakfast)",
+      "Trek to secret waterfall near camp"
+    ],
+    exclusions: ["Cliff jump video GoPro charges (optional)", "Personal drinks"],
+    description: "Action-packed weekend on the Ganga rapids with riverside bonfires and music under star-filled skies."
+  },
+  {
+    id: "trip-kasol-04",
+    title: "Kasol & Kheerganga Hot Springs Trek",
+    destination: "Parvati Valley, Himachal Pradesh",
+    originCity: "New Delhi",
+    pickupPoint: "Kashmere Gate ISBT, Delhi",
+    startDate: "2026-12-18T18:00:00",
+    endDate: "2026-12-22T08:00:00",
+    dateDisplay: "Dec 18 – Dec 22, 2026",
+    duration: "4 Days, 3 Nights",
+    vibe: "Trekking & Campfire",
+    vibeCategory: "trek",
+    difficulty: "Moderate",
+    transportMode: "Semi-Sleeper Volvo + Local Cab",
+    budget: 6800,
+    budgetDisplay: "₹6,800 / person",
+    budgetBreakdown: { transport: 3200, stay: 2000, food: 1600 },
+    slots: { total: 8, booked: 6, remaining: 2 },
+    host: {
+      id: "host-divya",
+      name: "Divya Nambiar",
+      role: "Data Scientist @ Microsoft",
+      city: "Hyderabad / Delhi",
+      avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400",
+      tripsLed: 3,
+      rating: 4.8,
+      verified: true,
+      bio: "Parvati Valley lover. I know the best riverside cafes in Chalal and secret hot spring spots."
+    },
+    squad: [
+      { id: "sq-30", name: "Divya N.", role: "Host", city: "Delhi", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400" },
+      { id: "sq-31", name: "Aarav Sharma", role: "Frontend Dev", city: "Bengaluru", avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400" }
+    ],
+    coverImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800",
+    gallery: ["https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800"],
+    itinerary: [
+      { day: 1, title: "Overnight Bus to Bhuntar", desc: "Depart Delhi 6 PM, morning arrival in Kasol.", icon: "bus" },
+      { day: 2, title: "Kasol & Chalal Cafe Walk", desc: "Walk along Parvati river, Israeli shakshuka and cinnamon rolls.", icon: "coffee" },
+      { day: 3, title: "Trek to Kheerganga Summit", desc: "12 km pine forest hike to natural hot sulfur springs under snow peaks.", icon: "mountain" },
+      { day: 4, title: "Descent & Manikaran Sahib", desc: "Descend to Barshaini, visit holy Manikaran gurudwara, overnight bus back.", icon: "check" }
+    ],
+    inclusions: ["Roundtrip Volvo transport", "Hostel in Kasol + Summit tent in Kheerganga", "Hot spring entry & guide", "Daily breakfast"],
+    exclusions: ["Cafe meals in Kasol", "Pony/porter service if required"],
+    description: "Trek up through apple orchards and misty pine woods to take a dip in natural hot sulfur springs surrounded by snow-covered peaks."
+  },
+  {
+    id: "trip-pondi-05",
+    title: "Pondicherry French Quarter & Auroville Trail",
+    destination: "Pondicherry & Auroville",
+    originCity: "Chennai",
+    pickupPoint: "Guindy / Koyambedu, Chennai",
+    startDate: "2026-12-25T07:00:00",
+    endDate: "2026-12-27T21:00:00",
+    dateDisplay: "Dec 25 – Dec 27, 2026",
+    duration: "Christmas Weekend (3 Days, 2 Nights)",
+    vibe: "Culture & Heritage",
+    vibeCategory: "culture",
+    difficulty: "Easy / Chill",
+    transportMode: "East Coast Road (ECR) Scenic Drive",
+    budget: 5200,
+    budgetDisplay: "₹5,200 / person",
+    budgetBreakdown: { transport: 1800, stay: 2200, food: 1200 },
+    slots: { total: 6, booked: 4, remaining: 2 },
+    host: {
+      id: "host-aarav",
+      name: "Aarav Sharma",
+      role: "Frontend Engineer @ Swiggy",
+      city: "Bengaluru",
+      avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400",
+      tripsLed: 5,
+      rating: 4.9,
+      verified: true,
+      bio: "French bakery addict, cycle explorer, and ECR roadtrip enthusiast."
+    },
+    squad: [
+      { id: "sq-40", name: "Aarav Sharma", role: "Host", city: "Bengaluru", avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400" },
+      { id: "sq-41", name: "Meera Krishnan", role: "Student", city: "Delhi", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400" }
+    ],
+    coverImage: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=800",
+    gallery: ["https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=800"],
+    itinerary: [
+      { day: 1, title: "ECR Coastal Drive to White Town", desc: "Scenic drive along Bay of Bengal. Check in to colonial heritage villa.", icon: "car" },
+      { day: 2, title: "Auroville Matrimandir & Surfing", desc: "Cycle through Auroville forests, sourdough bakery visits, evening surf session.", icon: "sun" },
+      { day: 3, title: "Promenade Sunrise & Return", desc: "Sunrise filter coffee on Rock Beach, French pastries at Coromandel Cafe.", icon: "coffee" }
+    ],
+    inclusions: ["Shared coastal carpool", "2 nights French villa stay", "Vintage bicycle rental for 2 days", "Daily artisan breakfast"],
+    exclusions: ["Surfing lessons (optional ₹1,000)", "Cafe dinners"],
+    description: "Christmas weekend along the bougainvillea-covered streets of White Town, golden croissants, and Auroville forest trails."
+  },
+  {
+    id: "trip-pushkar-06",
+    title: "Pushkar Desert Stargazing & Camping",
+    destination: "Pushkar & Thar Desert, Rajasthan",
+    originCity: "Jaipur",
+    pickupPoint: "Sindhi Camp Bus Stand, Jaipur",
+    startDate: "2026-11-13T14:00:00",
+    endDate: "2026-11-15T18:00:00",
+    dateDisplay: "Nov 13 – Nov 15, 2026",
+    duration: "Weekend (2 Days, 2 Nights)",
+    vibe: "Culture & Heritage",
+    vibeCategory: "culture",
+    difficulty: "Easy / Chill",
+    transportMode: "AC Mini Coach / Carpool",
+    budget: 3500,
+    budgetDisplay: "₹3,500 / person",
+    budgetBreakdown: { transport: 1200, stay: 1300, food: 1000 },
+    slots: { total: 10, booked: 7, remaining: 3 },
+    host: {
+      id: "host-tanvi",
+      name: "Tanvi Sharma",
+      role: "B.Tech, MNIT Jaipur",
+      city: "Jaipur",
+      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400",
+      tripsLed: 4,
+      rating: 4.8,
+      verified: true,
+      bio: "Local Jaipur traveler who knows secret sunset dunes and authentic dal baati churma spots."
+    },
+    squad: [
+      { id: "sq-50", name: "Tanvi Sharma", role: "Host", city: "Jaipur", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400" }
+    ],
+    coverImage: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=800",
+    gallery: ["https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=800"],
+    itinerary: [
+      { day: 1, title: "Drive through Aravallis to Pushkar", desc: "Afternoon drive from Jaipur, sunset hike up Savitri Temple hill.", icon: "mountain" },
+      { day: 2, title: "Desert Safari, Folk Music & Stargazing", desc: "Camel cart safari to isolated dunes, Kalbelia folk performance, midnight bonfire under clear desert stars.", icon: "moon" },
+      { day: 3, title: "Pushkar Lake Ghats & Return", desc: "Morning stroll around 52 sacred ghats, rabdi malpua breakfast, return to Jaipur by 6 PM.", icon: "coffee" }
+    ],
+    inclusions: ["Roundtrip transport from Jaipur", "1 night Swiss desert tent with attached bath", "Traditional Rajasthani dinner & breakfast", "Desert dune safari"],
+    exclusions: ["Shopping in Pushkar bazaar", "Personal snacks"],
+    description: "Witness golden desert dunes, hypnotic Sufi rhythms by the campfire, and the tranquil spiritual ghats of Pushkar."
+  },
+  {
+    id: "trip-rajmachi-07",
+    title: "Rajmachi Fort Night Trek & Firefly Trail",
+    destination: "Lonavala & Rajmachi, Maharashtra",
+    originCity: "Pune",
+    pickupPoint: "Shivajinagar / Wakad, Pune",
+    startDate: "2026-12-12T16:00:00",
+    endDate: "2026-12-13T14:00:00",
+    dateDisplay: "Dec 12 – Dec 13, 2026",
+    duration: "Overnight Night Trek",
+    vibe: "Trekking & Campfire",
+    vibeCategory: "trek",
+    difficulty: "Easy / Moderate",
+    transportMode: "Local Train to Lonavala + Shared Jeep",
+    budget: 1800,
+    budgetDisplay: "₹1,800 / person",
+    budgetBreakdown: { transport: 600, stay: 600, food: 600 },
+    slots: { total: 12, booked: 9, remaining: 3 },
+    host: {
+      id: "host-tanmay",
+      name: "Tanmay Joshi",
+      role: "Dev @ Barclays",
+      city: "Pune",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400",
+      tripsLed: 7,
+      rating: 4.9,
+      verified: true,
+      bio: "Sahyadri weekend warrior. Passionate about night treks, local village homestays, and pithla bhakri."
+    },
+    squad: [
+      { id: "sq-60", name: "Tanmay Joshi", role: "Host", city: "Pune", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" }
+    ],
+    coverImage: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800",
+    gallery: ["https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800"],
+    itinerary: [
+      { day: 1, title: "Saturday Twilight Ascent", desc: "Catch local train to Lonavala, start 14 km scenic plateau hike as sun sets behind Duke's Nose.", icon: "moon" },
+      { day: 2, title: "Sunrise at Shrivardhan Peak & Return", desc: "Summit Shrivardhan fort for 360-degree Sahyadri sunrise. Village breakfast of hot poha and chai, return to Pune by 2 PM.", icon: "sun" }
+    ],
+    inclusions: ["Village homestay / tent stay at Udhewadi", "Authentic rural Maharashtrian dinner (Pithla Bhakri)", "Morning hot breakfast and tea", "Trek leader & first aid"],
+    exclusions: ["Local train ticket (₹20)", "Torch / headlamp batteries"],
+    description: "The ultimate pocket-friendly weekend night trek for Pune and Mumbai students. Cool Sahyadri breezes, starry skies, and historic Maratha fortifications."
+  },
+  {
+    id: "trip-hampi-08",
+    title: "Hampi Bouldering & Hippie Island Cycle Squad",
+    destination: "Hampi & Anegundi, Karnataka",
+    originCity: "Bengaluru",
+    pickupPoint: "Majestic Bus Stand / Yeshwantpur",
+    startDate: "2027-01-08T22:00:00",
+    endDate: "2027-01-11T06:00:00",
+    dateDisplay: "Jan 08 – Jan 11, 2027",
+    duration: "Long Weekend (2 Days, 1 Night + Travel)",
+    vibe: "Culture & Heritage",
+    vibeCategory: "culture",
+    difficulty: "Easy / Chill",
+    transportMode: "KSRTC Airavat AC Sleeper Bus",
+    budget: 4500,
+    budgetDisplay: "₹4,500 / person",
+    budgetBreakdown: { transport: 2000, stay: 1400, food: 1100 },
+    slots: { total: 8, booked: 5, remaining: 3 },
+    host: {
+      id: "host-dev",
+      name: "Dev Roy",
+      role: "Product Designer & Boulderer",
+      city: "Bengaluru",
+      avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=400",
+      tripsLed: 5,
+      rating: 4.8,
+      verified: true,
+      bio: "Hampi enthusiast who loves climbing giant granite boulders, coracle rides on Tungabhadra, and jamming at sunset point."
+    },
+    squad: [
+      { id: "sq-70", name: "Dev Roy", role: "Host", city: "Bengaluru", avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=400" }
+    ],
+    coverImage: "https://images.unsplash.com/photo-1600100397608-f010f4439c23?w=800",
+    gallery: ["https://images.unsplash.com/photo-1600100397608-f010f4439c23?w=800"],
+    itinerary: [
+      { day: 1, title: "Friday Night Bus Departure", desc: "Board comfortable KSRTC sleeper bus from Majestic.", icon: "bus" },
+      { day: 2, title: "Coracle Boat Ride & Sanapur Lake", desc: "Check in to riverside bamboo huts in Anegundi. Cliff jumping at Sanapur lake and bouldering at sunset point.", icon: "sun" },
+      { day: 3, title: "Vijayanagara Ruins by Moped & Return", desc: "Rent mopeds to explore Vijaya Vittala temple and Lotus Mahal. Sunset at Matanga Hill, evening return bus.", icon: "compass" }
+    ],
+    inclusions: ["2 Days moped rental with helmet", "Riverside guest house stay in Anegundi", "Guided bouldering crash pad session", "Coracle boat ride on Tungabhadra"],
+    exclusions: ["Bus tickets (booked together via KSRTC app)", "Cafe meals (Mango Tree / Laughing Buddha)"],
+    description: "Immerse yourself in surreal boulder-strewn landscapes, ancient monolithic temples, coracle river rides, and magical sunset acoustic jams."
+  }
+];
