@@ -221,3 +221,19 @@ html.dark .skeleton {
     animation: none !important;
   }
 }
+
+
+/* === PHASE 4: POP EFFECT HELPER FOR RATING TAPS === */
+.animate-pop,
+.pop {
+  animation: pop 260ms cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Hide scrollbar utility for mobile city pills */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

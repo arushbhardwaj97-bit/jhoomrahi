@@ -311,3 +311,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }, 0);
 });
+
+
+/* === UNBLOCK ACTIVE PHASE 4 ROUTES (DISCOVER VERTICAL) === */
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    document.querySelectorAll('a[href^="discover/"], a[href*="discover/"], a[href*="city.html"], a[href*="food.html"], a[href*="places.html"], a[href*="fun.html"]').forEach((link) => {
+      const clone = link.cloneNode(true);
+      if (link.parentNode) {
+        link.parentNode.replaceChild(clone, link);
+      }
+    });
+  }, 0);
+});

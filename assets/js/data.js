@@ -1539,3 +1539,820 @@ const TRIPS = [
     description: "Immerse yourself in surreal boulder-strewn landscapes, ancient monolithic temples, coracle river rides, and magical sunset acoustic jams."
   }
 ];
+
+
+/* =========================================================================
+ * PHASE 4 APPEND: PLACES MOCK DATASET (THE DISCOVER VERTICAL)
+ * Categories: food | places | fun
+ * ========================================================================= */
+
+const PLACES = [
+  // --- FOOD CATEGORY ---
+  {
+    id: "place-food-blr-01",
+    name: "V.V. Puram Food Street",
+    category: "food",
+    city: "Bengaluru",
+    area: "Sajjan Rao Circle, VV Puram",
+    priceRange: "₹80 - ₹250",
+    priceLevel: 1,
+    ratingPct: 96,
+    reviewCount: 1420,
+    popularity: 95,
+    recencyDays: 2,
+    userMatchPct: 94,
+    upvotes: 842,
+    downvotes: 28,
+    tagline: "The nocturnal street food paradise with 20+ authentic vegetarian stalls",
+    description: "A bustling vehicle-free culinary lane famous for crispy Congress bun maska, garlic roast butter dosas, piping hot badam milk, and curd kodubale. A rite of passage for students across South Bangalore.",
+    reasonsWhy: [
+      "Over 20 heritage food stalls packed into a 200m vehicle-free stretch",
+      "Pocket-friendly prices under ₹200 for a feast of hot delicacies",
+      "Legendary garlic roast dosa and gulab jamun made fresh right in front of you"
+    ],
+    timings: "5:30 PM – 1:30 AM (Daily)",
+    address: "Old Tharagupet, Bengaluru, Karnataka 560004",
+    tags: ["Late Night", "Street Food", "Pure Veg", "Must Visit", "Budget Eats"],
+    img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=800",
+      "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800",
+      "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800"
+    ],
+    perks: ["Late night open till 1:30 AM", "UPI QR payments everywhere", "No seating hassle - walk and eat"]
+  },
+  {
+    id: "place-food-pune-02",
+    name: "Cafe Goodluck & Irani Chai Hub",
+    category: "food",
+    city: "Pune",
+    area: "Deccan Gymkhana / FC Road",
+    priceRange: "₹90 - ₹220",
+    priceLevel: 1,
+    ratingPct: 95,
+    reviewCount: 1980,
+    popularity: 93,
+    recencyDays: 1,
+    userMatchPct: 92,
+    upvotes: 915,
+    downvotes: 42,
+    tagline: "Pune's oldest Irani cafe running strong since 1935",
+    description: "Iconic meeting ground for Fergusson College students, writers, and techies. Renowned for its crusty bun maska dunked in special elaichi Irani chai, kheema pav, and signature caramel custard.",
+    reasonsWhy: [
+      "Original 1935 recipe bun maska with generous scoops of fresh white butter",
+      "Spicy mutton kheema pav that has fueled Pune student generations",
+      "Fast-moving tables, vibrant college banter, and pocket-friendly menu"
+    ],
+    timings: "7:00 AM – 11:30 PM (Daily)",
+    address: "Fergusson College Rd, Deccan Gymkhana, Pune, Maharashtra 411004",
+    tags: ["Student Legend", "Irani Chai", "Bun Maska", "Breakfast", "FC Road"],
+    img: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800",
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800",
+      "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800"
+    ],
+    perks: ["Authentic Irani ambiance", "Quick service under 5 mins", "Student hotspot for group discussions"]
+  },
+  {
+    id: "place-food-del-03",
+    name: "Moolchand Parantha Thikana",
+    category: "food",
+    city: "New Delhi",
+    area: "Under Moolchand Metro, Lajpat Nagar",
+    priceRange: "₹100 - ₹260",
+    priceLevel: 1,
+    ratingPct: 94,
+    reviewCount: 2240,
+    popularity: 96,
+    recencyDays: 3,
+    userMatchPct: 95,
+    upvotes: 1120,
+    downvotes: 55,
+    tagline: "Late night hot tawa paranthas with melting butter and thick lassi",
+    description: "Situated right beneath the Moolchand metro station, this roadside culinary landmark feeds night owls, students studying for exams, and road-trippers with smoking hot stuffed paranthas and mint chutney.",
+    reasonsWhy: [
+      "Crisp multi-layered egg-keema and paneer pyaaz paranthas",
+      "Open well past 2:00 AM for student midnight hunger cravings",
+      "Iconic sweet lassi served in earthen kulhad"
+    ],
+    timings: "9:00 AM – 3:00 AM (Daily)",
+    address: "Metro Station, Lala Lajpat Rai Marg, Vikram Vihar, New Delhi 110024",
+    tags: ["Late Night", "Paranthas", "Delhi Street Food", "Budget Eats", "Open Past Midnight"],
+    img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=800",
+      "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=800",
+      "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=800"
+    ],
+    perks: ["Immediate metro accessibility", "Outdoor parking bench eating", "Open till 3:00 AM"]
+  },
+  {
+    id: "place-food-mum-04",
+    name: "Ashok Vada Pav & Sardar Pav Bhaji",
+    category: "food",
+    city: "Mumbai",
+    area: "Kirti College Lane, Dadar & Tardeo",
+    priceRange: "₹40 - ₹280",
+    priceLevel: 1,
+    ratingPct: 95,
+    reviewCount: 2600,
+    popularity: 97,
+    recencyDays: 2,
+    userMatchPct: 91,
+    upvotes: 1280,
+    downvotes: 60,
+    tagline: "The golden standard of Mumbai street food since the 1960s",
+    description: "Ashok Vada Pav's secret chura mixture and Sardar's slab of melting Amul butter floating on red spiced pav bhaji define the heart of authentic Bombay indulgence for college youth and office goers alike.",
+    reasonsWhy: [
+      "Exclusive proprietary spicy green chutney and crispy besan chura",
+      "Fresh hot batches coming out every 90 seconds",
+      "Unmatched authentic Mumbai street flavor at an unbeatable price"
+    ],
+    timings: "11:00 AM – 10:30 PM (Daily)",
+    address: "Off Cadel Road, Kirti College Lane, Prabhadevi, Mumbai 400028",
+    tags: ["Mumbai Legend", "Vada Pav", "Pav Bhaji", "Quick Bite", "Must Visit"],
+    img: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=800",
+      "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800"
+    ],
+    perks: ["Iconic celebrity favorite", "Ready in 60 seconds", "Pocket money friendly"]
+  },
+  {
+    id: "place-food-blr-05",
+    name: "CTR (Shri Sagar) Benne Masala Dosa",
+    category: "food",
+    city: "Bengaluru",
+    area: "7th Cross, Margosa Road, Malleshwaram",
+    priceRange: "₹70 - ₹180",
+    priceLevel: 1,
+    ratingPct: 97,
+    reviewCount: 3100,
+    popularity: 98,
+    recencyDays: 1,
+    userMatchPct: 96,
+    upvotes: 1540,
+    downvotes: 35,
+    tagline: "Crispy on the outside, cloud-soft inside with golden pure butter",
+    description: "Central Tiffin Room (CTR) in historic Malleshwaram is the holy shrine of Benne Masala Dosa in India. Served piping hot with coconut mint chutney and aromatic filter coffee poured from brass tumblers.",
+    reasonsWhy: [
+      "Signature crispy red crust with fluffy, porous interior soaked in butter",
+      "Unrivaled filter kaapi that sets the mood for weekend study marathons",
+      "Over 100 years of unbroken culinary tradition"
+    ],
+    timings: "7:00 AM – 12:30 PM, 4:00 PM – 9:30 PM",
+    address: "7th Cross Road, Margosa Rd, Malleshwaram, Bengaluru 560003",
+    tags: ["Heritage Dosa", "Filter Coffee", "Malleshwaram", "Top Rated", "Breakfast"],
+    img: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800",
+      "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800"
+    ],
+    perks: ["Authentic heritage setting", "Consistent taste for decades", "Top ranked breakfast spot"]
+  },
+  {
+    id: "place-food-jai-06",
+    name: "Rawat Mishthan Bhandar & Pyaaz Kachori",
+    category: "food",
+    city: "Jaipur",
+    area: "Station Road, Sindhi Camp",
+    priceRange: "₹60 - ₹200",
+    priceLevel: 1,
+    ratingPct: 93,
+    reviewCount: 2450,
+    popularity: 91,
+    recencyDays: 4,
+    userMatchPct: 90,
+    upvotes: 890,
+    downvotes: 45,
+    tagline: "The undisputable world capital of flaky, spicy Pyaaz Kachoris",
+    description: "No student trip or hostel homecoming in Jaipur is complete without boxes of Rawat's fiery, flaky pyaaz kachoris paired with sweet tamarind chutney, mawa kachoris, and thick kesar lassi.",
+    reasonsWhy: [
+      "Gigantic flaky kachoris stuffed with caramelized spicy onion filling",
+      "Fresh frying round the clock ensures warm crispiness every single order",
+      "Famous sweet mawa kachori dripping in fragrant saffron syrup"
+    ],
+    timings: "6:30 AM – 10:30 PM (Daily)",
+    address: "Station Road, Opposite Polo Victory Cinema, Sindhi Camp, Jaipur 302001",
+    tags: ["Jaipur Specialty", "Pyaaz Kachori", "Spicy Snacks", "Heritage Sweet Shop"],
+    img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=800",
+      "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=800"
+    ],
+    perks: ["Directly opposite central bus terminal", "Bulk packaging for train travels", "Fast token counter"]
+  },
+  {
+    id: "place-food-del-07",
+    name: "Tom Uncle Maggi Point",
+    category: "food",
+    city: "New Delhi",
+    area: "Chhatra Marg, North Campus DU",
+    priceRange: "₹60 - ₹160",
+    priceLevel: 1,
+    ratingPct: 92,
+    reviewCount: 1670,
+    popularity: 90,
+    recencyDays: 2,
+    userMatchPct: 96,
+    upvotes: 790,
+    downvotes: 52,
+    tagline: "The legendary North Campus student hangout with 50+ Maggi varieties",
+    description: "A beloved staple for Delhi University students since 1978. Serving steaming plates of cheese butter masala maggi, peri peri maggi, masala soda, and cold coffee during college breaks and exam weeks.",
+    reasonsWhy: [
+      "Over 50 inventive styles of Maggi cooked with secret spices",
+      "Unrivaled student vibes right in the center of DU North Campus",
+      "Super economical prices that fit any college student pocket"
+    ],
+    timings: "10:00 AM – 10:00 PM (Daily)",
+    address: "Near Ramjas College, University Enclave, New Delhi 110007",
+    tags: ["DU North Campus", "Maggi Point", "Student Hotspot", "Budget Snack", "Quick Bite"],
+    img: "https://images.unsplash.com/photo-1612927601601-6638404737ce?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1612927601601-6638404737ce?w=800",
+      "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800"
+    ],
+    perks: ["DU student discounts", "Shaded outdoor seating benches", "Fast college meetup zone"]
+  },
+  {
+    id: "place-food-hyd-08",
+    name: "Shah Ghouse & Pista House Haleem",
+    category: "food",
+    city: "Hyderabad",
+    area: "Tolichowki / Charminar",
+    priceRange: "₹140 - ₹380",
+    priceLevel: 2,
+    ratingPct: 96,
+    reviewCount: 3800,
+    popularity: 98,
+    recencyDays: 1,
+    userMatchPct: 95,
+    upvotes: 1680,
+    downvotes: 48,
+    tagline: "Aromatic slow-cooked mutton dum biryani and GI-tagged royal haleem",
+    description: "The crown jewel of Hyderabadi culinary royalty. Long grain Basmati rice infused with whole spices and tender meat, crowned with fried onions and accompanied by authentic mirchi ka salan and dahi chutney.",
+    reasonsWhy: [
+      "Slow firewood dum cooking technique preserves intense aromas",
+      "Generous student portions easily shared among flatmates",
+      "Irani chai and Osmania biscuits served on the bustling street counter"
+    ],
+    timings: "11:30 AM – 1:30 AM (Daily)",
+    address: "Opposite Bio Diversity Park, Gachibowli & Tolichowki, Hyderabad 500008",
+    tags: ["Dum Biryani", "Hyderabadi", "Late Night", "Non-Veg Feast", "Group Meal"],
+    img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=800",
+      "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800"
+    ],
+    perks: ["Late night dining till 1:30 AM", "Giant sharing portions", "Authentic spice blend"]
+  },
+  {
+    id: "place-food-kol-09",
+    name: "Kusum Rolls & Arsalan Royal Biryani",
+    category: "food",
+    city: "Kolkata",
+    area: "Park Street & Marina Lane",
+    priceRange: "₹70 - ₹290",
+    priceLevel: 1,
+    ratingPct: 94,
+    reviewCount: 2750,
+    popularity: 92,
+    recencyDays: 2,
+    userMatchPct: 93,
+    upvotes: 1140,
+    downvotes: 56,
+    tagline: "Kolkata's iconic flaky laccha paratha kathi rolls and fragrant biryani with aloo",
+    description: "Park Street's street food institution. Flaky handmade parathas wrapped around juicy spiced chicken skewers, fried onions, and green chilies, finished with a dash of lime and chaat masala.",
+    reasonsWhy: [
+      "The birthplace of Kolkata's legendary double-egg chicken kathi roll",
+      "Crisp, flaky paratha fried with precision on gigantic flat cast iron tawas",
+      "Unmatched flavor profile that is quick, filling, and incredibly cheap"
+    ],
+    timings: "11:00 AM – 11:30 PM (Daily)",
+    address: "21 Karnani Mansion, Park Street, Kolkata, West Bengal 700016",
+    tags: ["Kathi Roll", "Park Street", "Kolkata Street Food", "Quick Bite", "Student Favorite"],
+    img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=800",
+      "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=800"
+    ],
+    perks: ["Central Park Street location", "Ready in under 3 minutes", "Grab and walk snack"]
+  },
+  {
+    id: "place-food-chn-10",
+    name: "Murugan Idli Shop & Ghee Podi Dosa",
+    category: "food",
+    city: "Chennai",
+    area: "GN Chetty Road, T. Nagar",
+    priceRange: "₹80 - ₹240",
+    priceLevel: 1,
+    ratingPct: 95,
+    reviewCount: 2890,
+    popularity: 94,
+    recencyDays: 3,
+    userMatchPct: 92,
+    upvotes: 1290,
+    downvotes: 44,
+    tagline: "Melt-in-mouth steaming hot idlis drenched in spicy gun powder and pure ghee",
+    description: "Famous across Tamil Nadu for cloud-soft mallipoo idlis served on fresh green banana leaves with four distinct varieties of homemade chutneys and piping hot drumstick sambar.",
+    reasonsWhy: [
+      "Signature spicy podi mixed with pure aromatic melted ghee over soft idlis",
+      "Four authentic unlimited chutneys: coconut, coriander, tomato, and mint",
+      "Refreshing Madurai-style cold Jigarthanda dessert"
+    ],
+    timings: "7:00 AM – 11:00 PM (Daily)",
+    address: "46/1 GN Chetty Rd, T. Nagar, Chennai, Tamil Nadu 600017",
+    tags: ["South Indian", "Podi Idli", "T Nagar", "Unlimited Chutneys", "Comfort Food"],
+    img: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800",
+      "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800"
+    ],
+    perks: ["Authentic banana leaf dining", "Unlimited refills of sambar & chutney", "Fast table turnover"]
+  },
+  {
+    id: "place-food-blr-11",
+    name: "Rameshwaram Cafe Indiranagar",
+    category: "food",
+    city: "Bengaluru",
+    area: "12th Main Rd, HAL 2nd Stage, Indiranagar",
+    priceRange: "₹90 - ₹260",
+    priceLevel: 1,
+    ratingPct: 96,
+    reviewCount: 4200,
+    popularity: 99,
+    recencyDays: 1,
+    userMatchPct: 95,
+    upvotes: 1920,
+    downvotes: 72,
+    tagline: "The fastest moving ghee tiffin experience active till 2:00 AM",
+    description: "Bangalore's viral phenomenon known for generous ladles of pure desi ghee poured over thick thatte idlis, open masala dosas, and crispy vada, accompanied by hot filter coffee and spicy garlic chutney.",
+    reasonsWhy: [
+      "Open till 2:00 AM for late-night engineers, designers, and college students",
+      "Ghee podi thatte idlis so soft they dissolve immediately",
+      "Electrifying high-energy open kitchen and lightning fast order tokens"
+    ],
+    timings: "6:30 AM – 2:00 AM (Daily)",
+    address: "2984, 12th Main Rd, Indiranagar, Bengaluru 560008",
+    tags: ["Late Night", "Ghee Dosa", "Indiranagar", "Top Rated", "Fast Food"],
+    img: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800",
+      "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=800"
+    ],
+    perks: ["Open till 2:00 AM", "UPI token pickup under 4 mins", "Unfiltered filter coffee"]
+  },
+  {
+    id: "place-food-pune-12",
+    name: "Vaishali & F.C. Road SPDP Point",
+    category: "food",
+    city: "Pune",
+    area: "Fergusson College Road, Shivajinagar",
+    priceRange: "₹80 - ₹240",
+    priceLevel: 1,
+    ratingPct: 94,
+    reviewCount: 3200,
+    popularity: 94,
+    recencyDays: 2,
+    userMatchPct: 93,
+    upvotes: 1380,
+    downvotes: 52,
+    tagline: "The undisputed epicenter of Pune's college cafe culture",
+    description: "Under the shade of sprawling trees on FC Road, Vaishali has witnessed decades of college romances, startup ideations, and lively political debates over plates of crisp SPDP, Mysore masala dosa, and cold coffee.",
+    reasonsWhy: [
+      "The iconic SPDP (Sev Potato Dahi Puri) with sweet-tangy curd balance",
+      "Open courtyard seating under canopy trees with pure student buzz",
+      "Exceptional filter coffee and crispy cheese onion uthappam"
+    ],
+    timings: "7:00 AM – 11:00 PM (Daily)",
+    address: "1218/1, FC Rd, Shivajinagar, Pune, Maharashtra 411004",
+    tags: ["Pune Icon", "SPDP", "Courtyard Vibe", "College Landmark", "Veg Eatery"],
+    img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800",
+      "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800"
+    ],
+    perks: ["Vibrant garden seating", "Pocket money pricing", "Central location next to campuses"]
+  },
+
+  // --- PLACES CATEGORY (Attractions, Parks, Heritage, Sunset Points) ---
+  {
+    id: "place-spots-blr-01",
+    name: "Cubbon Park & Heritage Reading Circle",
+    category: "places",
+    city: "Bengaluru",
+    area: "Kasturba Road, Sampangi Rama Nagara",
+    priceRange: "Free Entry",
+    priceLevel: 1,
+    ratingPct: 97,
+    reviewCount: 3400,
+    popularity: 98,
+    recencyDays: 1,
+    userMatchPct: 97,
+    upvotes: 1720,
+    downvotes: 30,
+    tagline: "300 acres of lush bamboo groves, dog parks, and silent weekend book clubs",
+    description: "The emerald heart of Bangalore. Vehicles are banned on weekends, turning the historic park into a sanctuary for joggers, acoustic musicians, silent reading clubs ('Cubbon Reads'), and lazy Sunday picnics under colonial canopies.",
+    reasonsWhy: [
+      "Over 6,000 species of trees and flora with shady running avenues",
+      "The home of 'Cubbon Reads' - join hundreds reading peacefully on grass",
+      "Completely free entry with zero commercial noise"
+    ],
+    timings: "6:00 AM – 7:00 PM (Vehicles banned Sundays)",
+    address: "Kasturba Rd, Behind High Court, Bengaluru 560001",
+    tags: ["Green Lung", "Free Entry", "Picnic Spot", "Reading Club", "Dog Friendly"],
+    img: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=800",
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800"
+    ],
+    perks: ["Metro station right at park gate", "Free entry for everyone", "Open outdoor workout zones"]
+  },
+  {
+    id: "place-spots-del-02",
+    name: "Sunder Nursery Heritage Park & Lake",
+    category: "places",
+    city: "New Delhi",
+    area: "Nizamuddin, Near Humayun's Tomb",
+    priceRange: "₹50 entry",
+    priceLevel: 1,
+    ratingPct: 96,
+    reviewCount: 2900,
+    popularity: 96,
+    recencyDays: 2,
+    userMatchPct: 95,
+    upvotes: 1450,
+    downvotes: 40,
+    tagline: "Delhi's Central Park with 16th-century Mughal monuments and tranquil water mirrors",
+    description: "A breathtaking UNESCO-accredited heritage restoration covering 90 acres. Features Mughal-era pavilions, amphitheaters, organic weekend farmers' markets, flower beds, and a serene lake where students relax with books and chai.",
+    reasonsWhy: [
+      "Restored 16th-century monuments juxtaposed with manicured lawns",
+      "Weekend farmer market with artisanal sourdough and cold pressed juices",
+      "Quiet shaded amphitheater steps perfect for group study or photography"
+    ],
+    timings: "7:00 AM – 9:00 PM (Daily)",
+    address: "Bharat Scouts and Guides Marg, Nizamuddin, New Delhi 110013",
+    tags: ["Heritage", "Mughal Architecture", "Picnic Spot", "Peaceful", "Photography"],
+    img: "https://images.unsplash.com/photo-1587474260584-136574528ed5?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?w=800",
+      "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800"
+    ],
+    perks: ["Student discount tickets", "Clean washrooms & drinking water", "FabCafe inside park grounds"]
+  },
+  {
+    id: "place-spots-jai-03",
+    name: "Nahargarh Fort & Padao Sunset Point",
+    category: "places",
+    city: "Jaipur",
+    area: "Krishna Nagar, Brahampuri, Aravalli Hills",
+    priceRange: "₹50 - ₹100",
+    priceLevel: 1,
+    ratingPct: 95,
+    reviewCount: 3100,
+    popularity: 95,
+    recencyDays: 3,
+    userMatchPct: 94,
+    upvotes: 1380,
+    downvotes: 48,
+    tagline: "The highest panoramic sunset view over the Amber and Pink City rooftops",
+    description: "Perched dramatically on the jagged crest of the Aravalli hills, Nahargarh ('Abode of Tigers') offers awe-inspiring sunset vistas. College groups flock here for the windy rooftop cafes and golden hour photography.",
+    reasonsWhy: [
+      "Panoramic 360-degree views of Jaipur lighting up at dusk",
+      "Scenic winding ghat bike ride up the Aravalli hills",
+      "Historic stepwell (Baori) featured in iconic Bollywood films"
+    ],
+    timings: "10:00 AM – 10:00 PM (Daily)",
+    address: "Nahargarh Fort, Brahampuri, Jaipur, Rajasthan 302002",
+    tags: ["Sunset Point", "Aravalli Hills", "Panoramic View", "Roadtrip Ride", "Heritage Fort"],
+    img: "https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800",
+      "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800"
+    ],
+    perks: ["Open till late evening 10 PM", "Spectacular photography spot", "Affordable student entry"]
+  },
+  {
+    id: "place-spots-pune-04",
+    name: "Sinhagad Fort Sunrise Trek & Cloud Point",
+    category: "places",
+    city: "Pune",
+    area: "Thoptewadi, Sinhagad Ghat",
+    priceRange: "₹50 - ₹100",
+    priceLevel: 1,
+    ratingPct: 96,
+    reviewCount: 3500,
+    popularity: 97,
+    recencyDays: 1,
+    userMatchPct: 96,
+    upvotes: 1620,
+    downvotes: 38,
+    tagline: "Pune's sacred weekend sunrise trek with piping hot pitla bhakri",
+    description: "Located 30km from central Pune, Sinhagad rises 1300m above sea level. Students conquer the steep stone trail before dawn to watch the sunrise pierce through monsoon mist, followed by rustic hot kanda bhaji and taak.",
+    reasonsWhy: [
+      "Invigorating 1.5-hour trek with refreshing mountain breeze and cloud cover",
+      "Authentic rural Maharashtrian breakfast: Pitla Bhakri and Thecha made on chulhas",
+      "Deep Maratha historical significance and breathtaking valley drops"
+    ],
+    timings: "5:00 AM – 6:00 PM (Daily)",
+    address: "Sinhagad Ghat Rd, Thoptewadi, Maharashtra 411025",
+    tags: ["Weekend Trek", "Sunrise View", "Pitla Bhakri", "Cloud Walk", "Nature"],
+    img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800",
+      "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=800"
+    ],
+    perks: ["Early 5 AM opening for sunrise catchers", "Direct PMPML bus connection", "Fresh homemade village food"]
+  },
+  {
+    id: "place-spots-mum-05",
+    name: "Marine Drive Promenade & Queen's Necklace",
+    category: "places",
+    city: "Mumbai",
+    area: "Netaji Subhash Chandra Bose Road, South Mumbai",
+    priceRange: "Free Entry",
+    priceLevel: 1,
+    ratingPct: 98,
+    reviewCount: 5200,
+    popularity: 99,
+    recencyDays: 1,
+    userMatchPct: 98,
+    upvotes: 2450,
+    downvotes: 42,
+    tagline: "The timeless 3.6km C-shaped coastal promenade that never sleeps",
+    description: "The ultimate egalitarian space in Mumbai. Sitting on the concrete tetrapods, watching the Arabian Sea waves crash against the promenade while city lights sparkle along the arc of Back Bay. Midnight chai wallahs and cool sea breezes make it therapeutic.",
+    reasonsWhy: [
+      "Free public sanctuary active 24/7 with zero commercial barriers",
+      "Mesmerizing sea breeze and sunset views over the Arabian Sea",
+      "Safe, well-lit corridor for midnight conversations and contemplation"
+    ],
+    timings: "Open 24 Hours (Best after 6:00 PM)",
+    address: "Netaji Subhash Chandra Bose Rd, Churchgate, Mumbai 400020",
+    tags: ["24x7 Open", "Free Entry", "Sea Breeze", "Iconic Mumbai", "Midnight Chill"],
+    img: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=800",
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800"
+    ],
+    perks: ["Open 24 hours everyday", "Walking distance from Churchgate station", "Safe police patrolled avenue"]
+  },
+  {
+    id: "place-spots-del-06",
+    name: "Hauz Khas Fort & Deer Park Lake",
+    category: "places",
+    city: "New Delhi",
+    area: "Hauz Khas Village, South Delhi",
+    priceRange: "₹25 entry",
+    priceLevel: 1,
+    ratingPct: 93,
+    reviewCount: 3100,
+    popularity: 93,
+    recencyDays: 3,
+    userMatchPct: 94,
+    upvotes: 1210,
+    downvotes: 62,
+    tagline: "13th-century stone madrasa ruins overlooking a sparkling urban reservoir",
+    description: "Where Delhi's medieval history collides with vibrant modern youth culture. Explore the stone pavilions, arches, and graves of Alauddin Khilji's royal reservoir, then walk through the adjacent deer park or bohemian Hauz Khas Village cafes.",
+    reasonsWhy: [
+      "Picturesque stone arches and corridors overlooking the lake at sunset",
+      "Right next to HKV's independent art galleries, bookstores, and cafes",
+      "Serene walking loop around the lake inside Deer Park"
+    ],
+    timings: "7:00 AM – 7:00 PM (Daily)",
+    address: "Hauz Khas Village, Deer Park, New Delhi 110016",
+    tags: ["Heritage Ruins", "Lake View", "Sunset Spot", "HKV Village", "Photography"],
+    img: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800",
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?w=800"
+    ],
+    perks: ["Affordable ₹25 student ticket", "Directly beside boutique cafes", "Stunning golden hour light"]
+  },
+  {
+    id: "place-spots-blr-07",
+    name: "Nandi Hills Sunrise & Sea of Clouds",
+    category: "places",
+    city: "Bengaluru",
+    area: "Chikkaballapur District (60km from city)",
+    priceRange: "₹50 entry",
+    priceLevel: 1,
+    ratingPct: 94,
+    reviewCount: 4600,
+    popularity: 96,
+    recencyDays: 1,
+    userMatchPct: 95,
+    upvotes: 1840,
+    downvotes: 75,
+    tagline: "The classic 4 AM motorcycle roadtrip to catch clouds rolling beneath your feet",
+    description: "An ancient hill fortress 4,851 feet above sea level. The quintessential weekend ritual for every Bangalore college student: waking up at 3:30 AM, riding through chilly pre-dawn mist, and sipping roadside ginger chai as the sun emerges above a sea of clouds.",
+    reasonsWhy: [
+      "Spectacular inversion layer creating a realistic 'sea of clouds'",
+      "Exhilarating early morning road trip and winding hairpin curves",
+      "Historic Tipu's Drop and colonial British summer bungalows"
+    ],
+    timings: "6:00 AM – 6:00 PM (Gates open 6:00 AM sharp)",
+    address: "Nandi Hills, Chikkaballapur, Karnataka 562103",
+    tags: ["Weekend Ride", "Sunrise Spot", "Sea of Clouds", "Bangalore Ritual", "Adventure"],
+    img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800",
+      "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=800"
+    ],
+    perks: ["Pre-dawn convoy rides", "Chilly mountain temperature", "Delicious roadside omelettes"]
+  },
+
+  // --- FUN CATEGORY (Activities, Gaming, Arcades, Adventure, Cafes) ---
+  {
+    id: "place-fun-blr-01",
+    name: "The Board Game Den & Guild Cafe",
+    category: "fun",
+    city: "Bengaluru",
+    area: "5th Block, Koramangala",
+    priceRange: "₹150 - ₹350",
+    priceLevel: 1,
+    ratingPct: 96,
+    reviewCount: 1850,
+    popularity: 94,
+    recencyDays: 1,
+    userMatchPct: 96,
+    upvotes: 890,
+    downvotes: 24,
+    tagline: "Over 450+ tabletop games, D&D campaigns, and artisanal coffee",
+    description: "Escape screen fatigue in Koramangala. A warm, welcoming board game lounge where Game Gurus explain rules in 3 minutes for Catan, Ticket to Ride, Secret Hitler, and Wingspan while you sip pour-over coffee with flatmates.",
+    reasonsWhy: [
+      "Massive library of 450+ modern board and strategy games",
+      "On-demand Game Gurus who teach you any game without reading rulebooks",
+      "Cosy loft seating with zero time pressure and friendly college crowds"
+    ],
+    timings: "11:30 AM – 11:00 PM (Daily)",
+    address: "80 Feet Rd, 5th Block, Koramangala, Bengaluru 560095",
+    tags: ["Board Games", "Cozy Cafe", "Group Fun", "Screen Free", "Koramangala"],
+    img: "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?w=800",
+      "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800"
+    ],
+    perks: ["Student discount on weekdays", "Solo players matched with tables", "Unlimited playtime passes"]
+  },
+  {
+    id: "place-fun-del-02",
+    name: "Mystery Rooms Live Escape Quest",
+    category: "fun",
+    city: "New Delhi",
+    area: "Connaught Place (M Block) & Rajouri Garden",
+    priceRange: "₹600 - ₹950",
+    priceLevel: 2,
+    ratingPct: 95,
+    reviewCount: 2200,
+    popularity: 93,
+    recencyDays: 2,
+    userMatchPct: 93,
+    upvotes: 940,
+    downvotes: 35,
+    tagline: "Heart-pounding 60-minute real-life escape adventures with Hollywood set design",
+    description: "Locked in a themed chamber, you and your squad have exactly 60 minutes to crack ciphers, locate hidden doors, and disarm ticking bombs. Missions range from 'The Hurt Locker' to 'Lockout: A Prison Break'.",
+    reasonsWhy: [
+      "Intricate mechanical puzzles, laser triggers, and high-tech secrets",
+      "Thrilling team bonding experience that tests everyone's logic under pressure",
+      "Multiple difficulty ratings suitable for beginners to escape veterans"
+    ],
+    timings: "11:00 AM – 11:00 PM (Daily)",
+    address: "M-Block, Outer Circle, Connaught Place, New Delhi 110001",
+    tags: ["Escape Room", "Puzzles", "Adrenaline", "Team Bonding", "Connaught Place"],
+    img: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800",
+      "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?w=800"
+    ],
+    perks: ["College group discounts (15% off)", "Instant team commemorative polaroid", "Air-conditioned indoor fun"]
+  },
+  {
+    id: "place-fun-mum-03",
+    name: "Smaaash Electric Go-Karting & Arcade",
+    category: "fun",
+    city: "Mumbai",
+    area: "Kamala Mills Compound, Lower Parel",
+    priceRange: "₹500 - ₹1,200",
+    priceLevel: 2,
+    ratingPct: 94,
+    reviewCount: 3100,
+    popularity: 96,
+    recencyDays: 2,
+    userMatchPct: 92,
+    upvotes: 1350,
+    downvotes: 55,
+    tagline: "Multi-level indoor electric kart track with instantaneous torque and neon lighting",
+    description: "The ultimate entertainment hub in Lower Parel. Features high-speed electric go-karts racing across banked chicanes, 360-degree VR flight simulators, twilight bowling lanes, and arcade dance-offs.",
+    reasonsWhy: [
+      "Multi-tiered indoor racing track with electronic lap timing monitors",
+      "Zero fume, high-torque electric karts that reach top speeds in seconds",
+      "Twilight bowling lanes with upbeat DJ music and party vibes"
+    ],
+    timings: "1:00 PM – Midnight (Daily)",
+    address: "Gate 4, Kamala Mills Compound, Lower Parel, Mumbai 400013",
+    tags: ["Go Karting", "Arcade Games", "Bowling", "VR Simulators", "High Energy"],
+    img: "https://images.unsplash.com/photo-1558611848-73f7eb4001a1?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1558611848-73f7eb4001a1?w=800",
+      "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800"
+    ],
+    perks: ["Student happy hours on Wednesdays", "Pro racing helmets & safety gear", "All-in-one game card passes"]
+  },
+  {
+    id: "place-fun-blr-04",
+    name: "Play Arena Multi-Sports & Paintball Hub",
+    category: "fun",
+    city: "Bengaluru",
+    area: "Kasavanahalli, Sarjapur Road",
+    priceRange: "₹250 - ₹800",
+    priceLevel: 2,
+    ratingPct: 95,
+    reviewCount: 3800,
+    popularity: 95,
+    recencyDays: 3,
+    userMatchPct: 94,
+    upvotes: 1480,
+    downvotes: 46,
+    tagline: "30+ sports including tactical woodsball paintball, skatepark, and climbing walls",
+    description: "Spread over 10 sprawling acres on Sarjapur Road, Play Arena is Bangalore's premier adventure sports playground. Compete in tactical paintball wars, conquer 50-foot climbing pinnacles, or skate the half-pipe with friends.",
+    reasonsWhy: [
+      "Realistic military obstacle course for outdoor paintball matches",
+      "Olympic-grade artificial turf for 5v5 midnight football tournaments",
+      "Bowling, laser tag, and dirt go-karts all under one open sky roof"
+    ],
+    timings: "6:00 AM – 11:00 PM (Daily)",
+    address: "Silverwood Regency Apartment Rd, Kasavanahalli, Bengaluru 560035",
+    tags: ["Paintball", "Adventure", "Skatepark", "Laser Tag", "Sarjapur"],
+    img: "https://images.unsplash.com/photo-1526676037777-05a232554f77?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1526676037777-05a232554f77?w=800",
+      "https://images.unsplash.com/photo-1558611848-73f7eb4001a1?w=800"
+    ],
+    perks: ["Group squad packages", "On-site food courts & craft cafe", "Gear rentals included"]
+  },
+  {
+    id: "place-fun-pune-05",
+    name: "High Spirits Cafe & Indie Music Sundays",
+    category: "fun",
+    city: "Pune",
+    area: "Lane 6, Koregaon Park",
+    priceRange: "₹300 - ₹900",
+    priceLevel: 2,
+    ratingPct: 97,
+    reviewCount: 2950,
+    popularity: 98,
+    recencyDays: 1,
+    userMatchPct: 97,
+    upvotes: 1590,
+    downvotes: 32,
+    tagline: "The beating heart of Pune's live indie music and legendary Cookout Sundays",
+    description: "An institution in Koregaon Park. Known for intimate open-air gigs featuring India's best indie rock bands, stand-up comedy nights, student-friendly prices, and Sunday Cookouts with live barbecues and acoustic jams.",
+    reasonsWhy: [
+      "Electric, unpretentious vibes with live indie rock, reggae, and hip-hop",
+      "Legendary 'High Cookout' every Sunday with unlimited grills and craft drinks",
+      "Fair student entry pricing that respects young creative budgets"
+    ],
+    timings: "8:00 PM – 1:30 AM (Cookout Sundays 1:30 PM – 5:00 PM)",
+    address: "35A, 1, N Main Rd, Koregaon Park, Pune, Maharashtra 411001",
+    tags: ["Live Music", "Indie Gigs", "Koregaon Park", "Nightlife", "Student Hotspot"],
+    img: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800",
+      "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800"
+    ],
+    perks: ["Student ID discounts", "Outdoor tree-canopy dance floor", "Safe community atmosphere"]
+  },
+  {
+    id: "place-fun-pune-06",
+    name: "Koregaon Park Artisan Pottery & Clay Studio",
+    category: "fun",
+    city: "Pune",
+    area: "North Main Road, Koregaon Park",
+    priceRange: "₹450 - ₹850",
+    priceLevel: 2,
+    ratingPct: 94,
+    reviewCount: 1420,
+    popularity: 91,
+    recencyDays: 3,
+    userMatchPct: 93,
+    upvotes: 720,
+    downvotes: 28,
+    tagline: "Mindful pottery wheel sessions, handmade terracotta glazing, and herbal teas",
+    description: "A tranquil rustic garden sanctuary where students de-stress from deadlines and exams. Master the potter's wheel, shape terracotta mugs or bowls, and enjoy relaxing conversations in a sun-dappled courtyard.",
+    reasonsWhy: [
+      "Guided 90-minute wheel throwing workshop with all clay and firing included",
+      "Take your baked and glazed ceramic creations home as a keepsake",
+      "Peaceful therapeutic environment that completely melts academic stress away"
+    ],
+    timings: "10:30 AM – 7:30 PM (Closed Mondays)",
+    address: "Lane 5, Koregaon Park, Pune, Maharashtra 411001",
+    tags: ["Pottery Studio", "Mindfulness", "Creative Workshop", "De-stress", "Crafts"],
+    img: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800",
+      "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?w=800"
+    ],
+    perks: ["All materials provided", "Beginner-friendly instructors", "Complementary herbal infusion tea"]
+  }
+];

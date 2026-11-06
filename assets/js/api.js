@@ -346,3 +346,111 @@ async function getTripById(id) {
   const res = await fetch(`/api/v1/travel/trips/${id}`);
   return res.json();
 }
+
+
+/* =========================================================================
+ * PHASE 4 APPEND: DISCOVER VERTICAL API CALLS
+ * ========================================================================= */
+
+/**
+ * Helper to overlay user vote state from localStorage onto places
+ * @param {Object} place 
+ * @returns {Object} place with synced votes and userVote property
+ */
+function applyStoredVotes(place) {
+  if (!place) return null;
+  const clone = { ...place };
+  try {
+    const storedVotes = JSON.parse(localStorage.getItem("jhoomrahi_user_votes") || "{}");
+    const vote = storedVotes[clone.id];
+    if (vote === "up") {
+      clone.userVote = "up";
+      clone.upvotes = (clone.upvotes || 0) + 1;
+    } else if (vote === "down") {
+      clone.userVote = "down";
+      clone.downvotes = (clone.downvotes || 0) + 1;
+    } else {
+      clone.userVote = null;
+    }
+  } catch (err) {
+    console.warn("Could not parse user votes from localStorage", err);
+  }
+  return clone;
+}
+
+/**
+ * Fetches curated and ranked places across categories (food, places, fun)
+ * @param {string} [category="all"] - "all" | "food" | "places" | "fun"
+ * @param {string} [city="all"] - Target city name or "all"
+ * @param {Object} [filters={}] - Optional filters (search, priceLevel, tag, minRating)
+ * @returns {Promise<Array>} List of matching places with applied votes
+ */
+async function getPlaces(category = "all", city = "all", filters = {}) {
+  if (USE_MOCK) {
+    if (typeof PLACES === "undefined") {
+      console.error("PLACES array not loaded in data.js");
+      return mockFetch([]);
+    }
+
+    let results = PLACES.map(p => applyStoredVotes(p));
+
+    // Category filter
+    if (category && category !== "all" && category !== "All") {
+      results = results.filter(p => p.category && p.category.toLowerCase() === category.toLowerCase());
+    }
+
+    // City filter
+    if (city && city !== "all" && city !== "All") {
+      results = results.filter(p => p.city && p.city.toLowerCase() === city.toLowerCase());
+    }
+
+    // Price level filter
+    if (filters.priceLevel && filters.priceLevel !== "all") {
+      results = results.filter(p => p.priceLevel === Number(filters.priceLevel));
+    }
+
+    // Specific tag filter
+    if (filters.tag && filters.tag !== "all") {
+      results = results.filter(p => p.tags && p.tags.some(t => t.toLowerCase() === filters.tag.toLowerCase()));
+    }
+
+    // Search query filter (matches name, area, city, tags, or description)
+    if (filters.search && filters.search.trim()) {
+      const q = filters.search.toLowerCase().trim();
+      results = results.filter(p =>
+        (p.name && p.name.toLowerCase().includes(q)) ||
+        (p.area && p.area.toLowerCase().includes(q)) ||
+        (p.city && p.city.toLowerCase().includes(q)) ||
+        (p.tagline && p.tagline.toLowerCase().includes(q)) ||
+        (p.tags && p.tags.some(t => t.toLowerCase().includes(q)))
+      );
+    }
+
+    return mockFetch(results);
+  }
+
+  const queryParams = new URLSearchParams({ category, city, ...filters }).toString();
+  const res = await fetch(`/api/v1/discover/places?${queryParams}`);
+  return res.json();
+}
+
+/**
+ * Fetches single place details by unique ID
+ * @param {string} id - e.g. "place-food-blr-01"
+ * @returns {Promise<Object|null>} Place detail object or null
+ */
+async function getPlaceById(id) {
+  if (!id) return mockFetch(null);
+
+  if (USE_MOCK) {
+    if (typeof PLACES === "undefined") {
+      return mockFetch(null);
+    }
+    const found = PLACES.find(p => p.id === id);
+    if (!found) return mockFetch(null);
+    return mockFetch(applyStoredVotes(found));
+  }
+
+  const res = await fetch(`/api/v1/discover/places/${id}`);
+  return res.json();
+}
