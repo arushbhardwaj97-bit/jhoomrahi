@@ -361,7 +361,7 @@
             <div class="flex items-center gap-4 p-4 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900">
               <div class="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 font-bold overflow-hidden border border-slate-200 dark:border-slate-700">
                 <template x-if="photoPreview">
-                  <img :src="photoPreview" alt="Preview" class="w-full h-full object-cover">
+                  <img :src="photoPreview" alt="Preview" class="w-full h-full object-cover" loading="lazy">
                 </template>
                 <template x-if="!photoPreview">
                   <i data-lucide="user" class="w-6 h-6"></i>
@@ -620,8 +620,8 @@
             showToast("Account created successfully! Welcome to JhoomRahi.", "success");
 
             setTimeout(() => {
-              window.location.href = "index.html";
-            }, 1600);
+              window.location.href = "dashboard.html";
+            }, 1200);
           }, 800);
         }
       };

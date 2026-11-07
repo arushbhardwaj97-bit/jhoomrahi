@@ -454,3 +454,183 @@ async function getPlaceById(id) {
   const res = await fetch(`/api/v1/discover/places/${id}`);
   return res.json();
 }
+
+/* === 15. CHAT & COMMUNITY API CALLS (PHASE 5 - APPENDED) === */
+
+/**
+ * Retrieves persisted chats or falls back to seed data
+ * @returns {Array} List of chat conversations
+ */
+function getStoredChats() {
+  try {
+    const raw = localStorage.getItem("jhoomrahi_chats");
+    if (raw) {
+      return JSON.parse(raw);
+    }
+  } catch (err) {
+    console.warn("Error reading jhoomrahi_chats from localStorage", err);
+  }
+  return typeof CHATS !== "undefined" ? JSON.parse(JSON.stringify(CHATS)) : [];
+}
+
+/**
+ * Persists updated chats array to localStorage
+ * @param {Array} chatsList 
+ */
+function setStoredChats(chatsList) {
+  try {
+    localStorage.setItem("jhoomrahi_chats", JSON.stringify(chatsList));
+  } catch (err) {
+    console.warn("Error saving jhoomrahi_chats to localStorage", err);
+  }
+}
+
+/**
+ * Fetches all available chat threads
+ * @returns {Promise<Array>} List of chat objects
+ */
+async function getChats() {
+  if (USE_MOCK) {
+    const chats = getStoredChats();
+    return mockFetch(chats);
+  }
+  const res = await fetch("/api/v1/chats");
+  return res.json();
+}
+
+/**
+ * Fetches a single chat thread by conversation ID
+ * @param {string} id - e.g. "chat-01"
+ * @returns {Promise<Object|null>} Conversation object or null
+ */
+async function getChatById(id) {
+  if (!id) return mockFetch(null);
+
+  if (USE_MOCK) {
+    const chats = getStoredChats();
+    const found = chats.find(c => c.id === id);
+    return mockFetch(found || null);
+  }
+  const res = await fetch(`/api/v1/chats/${id}`);
+  return res.json();
+}
+
+/**
+ * Appends a message to a chat thread and updates lastMessage
+ * @param {string} chatId 
+ * @param {Object} messageObj 
+ * @returns {Promise<Object>} Updated conversation
+ */
+async function sendChatMessage(chatId, messageObj) {
+  if (USE_MOCK) {
+    const chats = getStoredChats();
+    const chat = chats.find(c => c.id === chatId);
+    if (chat) {
+      if (!chat.messages) chat.messages = [];
+      chat.messages.push(messageObj);
+      if (!messageObj.isPiiBlocked) {
+        chat.lastMessage = messageObj.text;
+      }
+      chat.time = messageObj.time || "Just now";
+      setStoredChats(chats);
+      return mockFetch(chat);
+    }
+    return mockFetch(null);
+  }
+  const res = await fetch(`/api/v1/chats/${chatId}/messages`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(messageObj)
+  });
+  return res.json();
+}
+
+/**
+ * Retrieves persisted communities or falls back to seed data
+ * @returns {Array} List of communities
+ */
+function getStoredCommunities() {
+  try {
+    const raw = localStorage.getItem("jhoomrahi_communities");
+    if (raw) {
+      return JSON.parse(raw);
+    }
+  } catch (err) {
+    console.warn("Error reading jhoomrahi_communities from localStorage", err);
+  }
+  return typeof COMMUNITIES !== "undefined" ? JSON.parse(JSON.stringify(COMMUNITIES)) : [];
+}
+
+/**
+ * Persists updated communities array to localStorage
+ * @param {Array} commList 
+ */
+function setStoredCommunities(commList) {
+  try {
+    localStorage.setItem("jhoomrahi_communities", JSON.stringify(commList));
+  } catch (err) {
+    console.warn("Error saving jhoomrahi_communities to localStorage", err);
+  }
+}
+
+/**
+ * Fetches all communities with member counts, rules, and feed posts
+ * @returns {Promise<Array>} List of community objects
+ */
+async function getCommunities() {
+  if (USE_MOCK) {
+    const comms = getStoredCommunities();
+    return mockFetch(comms);
+  }
+  const res = await fetch("/api/v1/communities");
+  return res.json();
+}
+
+/**
+ * Toggles user membership in a community
+ * @param {string} communityId 
+ * @returns {Promise<Object>} Updated community object
+ */
+async function toggleCommunityJoin(communityId) {
+  if (USE_MOCK) {
+    const comms = getStoredCommunities();
+    const target = comms.find(c => c.id === communityId);
+    if (target) {
+      target.isJoined = !target.isJoined;
+      target.members = target.isJoined ? target.members + 1 : Math.max(0, target.members - 1);
+      target.membersDisplay = `${(target.members / 1000).toFixed(1)}k members`;
+      setStoredCommunities(comms);
+      return mockFetch(target);
+    }
+    return mockFetch(null);
+  }
+  const res = await fetch(`/api/v1/communities/${communityId}/toggle-join`, { method: "POST" });
+  return res.json();
+}
+
+/**
+ * Posts a new update or inquiry to a community feed
+ * @param {string} communityId 
+ * @param {Object} postObj 
+ * @returns {Promise<Object>} Created post
+ */
+async function createCommunityPost(communityId, postObj) {
+  if (USE_MOCK) {
+    const comms = getStoredCommunities();
+    const target = comms.find(c => c.id === communityId);
+    if (target) {
+      if (!target.posts) target.posts = [];
+      target.posts.unshift(postObj);
+      setStoredCommunities(comms);
+      return mockFetch(postObj);
+    }
+    return mockFetch(null);
+  }
+  const res = await fetch(`/api/v1/communities/${communityId}/posts`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(postObj)
+  });
+  return res.json();
+}
+

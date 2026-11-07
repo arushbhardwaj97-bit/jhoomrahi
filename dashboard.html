@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<!--
+  JhoomRahi — Member Dashboard Hub
+  Phase 5 Final Core Phase
+  Tech Stack: HTML5, Plain CSS, Tailwind CDN, Alpine.js, Lucide Icons
+-->
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — JhoomRahi</title>
+  <meta name="description" content="Your personal JhoomRahi hub connecting Stay & Roommates, Travel Squads, and City Discoveries.">
+
+  <!-- Inline SVG Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236366f1'/><text x='16' y='22' font-family='system-ui,sans-serif' font-size='18' font-weight='bold' fill='white' text-anchor='middle'>J</text></svg>">
+
+  <!-- Google Fonts: Space Grotesk (Headings) + Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6366f1',
+            'primary-600': '#4f46e5',
+            accent: '#a3e635',
+            coral: '#fb7185',
+            amber: '#f59e0b',
+            ink: 'var(--ink)',
+            muted: 'var(--muted)',
+            cream: 'var(--cream)',
+            surface: 'var(--surface)',
+            border: 'var(--border)',
+          },
+          fontFamily: {
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+          borderRadius: {
+            '4xl': '2rem',
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Design System & Animations CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+
+  <!-- Alpine.js CDN -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="bg-[#fafaf7] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white" x-data="dashboardApp()">
+
+  <!-- ========================================================================= -->
+  <!-- 1. STICKY NAV (GLASS)                                                     -->
+  <!-- ========================================================================= -->
+  <header id="navbar" class="sticky top-0 z-40 w-full nav-glass transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+      
+      <!-- Logo Mark -->
+      <a href="index.html" class="flex items-center gap-2 group">
+        <div class="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-heading font-bold text-xl shadow-md group-hover:scale-105 transition-transform">
+          J
+        </div>
+        <div class="flex flex-col">
+          <span class="font-heading font-bold text-2xl tracking-tight text-slate-900 dark:text-white">
+            Jhoom<span class="text-indigo-600 dark:text-indigo-400">Rahi</span>
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-sm font-medium text-slate-600 dark:text-slate-300">
+        <a href="dashboard.html" class="text-indigo-600 dark:text-indigo-400 font-semibold flex items-center gap-1.5 py-2">
+          <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <!-- Stay Dropdown -->
+        <div class="relative" x-data="{ open: false }" @click.away="open = false">
+          <button @click="open = !open" type="button" class="flex items-center gap-1.5 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2">
+            <span>Stay</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="{ 'rotate-180': open }"></i>
+          </button>
+          <div x-show="open" class="absolute top-full left-0 mt-2 w-56 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl p-2 z-50 space-y-1">
+            <a href="stay/browse.html" class="flex items-center gap-2.5 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/80 text-sm">
+              <i data-lucide="home" class="w-4 h-4 text-indigo-500"></i>
+              <span>Browse PGs & Flats</span>
+            </a>
+            <a href="stay/roommate-match.html" class="flex items-center gap-2.5 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/80 text-sm">
+              <i data-lucide="users" class="w-4 h-4 text-lime-500"></i>
+              <span>Roommate Matcher</span>
+            </a>
+          </div>
+        </div>
+
+        <a href="travel/calendar.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2">Travel</a>
+        <a href="discover/city.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2">Discover</a>
+        <a href="community.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2">Communities</a>
+        
+        <a href="chat.html" class="flex items-center gap-1.5 text-indigo-600 dark:text-indigo-400 font-semibold py-2">
+          <span>Chat</span>
+          <span class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span>
+        </a>
+      </nav>
+
+      <!-- Action Utilities -->
+      <div class="hidden md:flex items-center gap-3">
+        <!-- Daily Streak Badge -->
+        <button 
+          @click="showStreakToast()" 
+          type="button" 
+          class="pill bg-amber-50 dark:bg-amber-950/70 border border-amber-300/40 text-amber-700 dark:text-amber-300 font-bold text-xs py-1.5 px-3 hover:scale-105 active:scale-95 transition-all shadow-xs cursor-pointer"
+          title="Daily Streak — Click to see streak perks">
+          <span class="animate-pulse">🔥</span>
+          <span x-text="streakDays + '-Day Streak'">🔥 3-Day Streak</span>
+        </button>
+
+        <!-- Coins / Rewards Balance Badge -->
+        <button 
+          @click="showCoinsToast()" 
+          type="button" 
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border border-amber-300/30 text-amber-700 dark:text-amber-300 text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-xs cursor-pointer"
+          title="Your JhoomCoins balance">
+          <span>🪙</span>
+          <span x-text="coinBalance + ' Coins'">120 Coins</span>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button type="button" data-theme-toggle class="p-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Toggle theme">
+          <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
+          <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
+        </button>
+
+        <!-- User Profile Pill -->
+        <a href="chat.html" class="flex items-center gap-2.5 p-1.5 pr-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-indigo-400 dark:hover:border-indigo-500 transition-colors shadow-sm">
+          <img src="https://picsum.photos/seed/rohan_dev/200/200" alt="Rohan Deshmukh" class="w-8 h-8 rounded-xl object-cover" loading="lazy">
+          <div class="text-left text-xs leading-tight">
+            <p class="font-bold text-slate-900 dark:text-white flex items-center gap-1">
+              <span>Rohan D.</span>
+              <i data-lucide="check-circle" class="w-3 h-3 text-indigo-500"></i>
+            </p>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">Bengaluru</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Trigger & Retention Pills (Responsive for 375px) -->
+      <div class="flex items-center gap-1.5 md:hidden">
+        <!-- Mobile Streak Pill -->
+        <button 
+          @click="showStreakToast()" 
+          type="button" 
+          class="text-xs px-2 py-1 rounded-xl bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-300/40 font-bold active:scale-95 transition-transform"
+          title="Daily Streak">
+          🔥 3d
+        </button>
+        <!-- Mobile Coins Pill -->
+        <button 
+          @click="showCoinsToast()" 
+          type="button" 
+          class="text-xs px-2 py-1 rounded-xl bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-300/40 font-bold active:scale-95 transition-transform"
+          title="Coins">
+          🪙 120
+        </button>
+        <button type="button" data-theme-toggle class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300" aria-label="Toggle theme">
+          <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
+          <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
+        </button>
+        <a href="chat.html" class="p-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400">
+          <i data-lucide="message-square" class="w-5 h-5"></i>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- 2. HERO GREETING & METRICS SUMMARY                                        -->
+  <!-- ========================================================================= -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-10">
+    
+    <!-- Welcome Banner Card -->
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 text-white p-6 sm:p-10 shadow-xl border border-indigo-700/50">
+      <!-- Ambient light blobs -->
+      <div class="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-indigo-500/20 blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-lime-400/10 blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-lime-300 text-xs font-semibold mb-3">
+            <span class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span>
+            <span>Bengaluru Chapter • Active Member</span>
+          </div>
+          <h1 class="font-heading font-bold text-3xl sm:text-4xl text-white tracking-tight leading-tight">
+            <span x-text="greeting">Good evening</span>, Rohan! 👋
+          </h1>
+          <p class="text-indigo-200 text-sm sm:text-base mt-2 max-w-xl">
+            You have <strong class="text-white">2 unread roommate messages</strong> and 1 upcoming trip squad discussion for the weekend.
+          </p>
+        </div>
+
+        <!-- Quick Quick Action Hub -->
+        <div class="flex flex-wrap items-center gap-3">
+          <a href="chat.html" class="btn btn-primary text-sm shadow-lg flex items-center gap-2">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>Open In-App Chat</span>
+            <span class="px-1.5 py-0.5 rounded-full bg-white text-indigo-700 text-xs font-bold">2</span>
+          </a>
+          <a href="community.html" class="btn btn-secondary text-sm flex items-center gap-2">
+            <i data-lucide="users" class="w-4 h-4"></i>
+            <span>Community Feed</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Strip -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-white/10">
+        <div>
+          <p class="text-xs text-indigo-200">Active Inquiries</p>
+          <p class="text-2xl font-bold font-heading text-white mt-1">3 <span class="text-xs text-lime-400 font-normal">verified</span></p>
+        </div>
+        <div>
+          <p class="text-xs text-indigo-200">Trips Joined</p>
+          <p class="text-2xl font-bold font-heading text-white mt-1">2 <span class="text-xs text-indigo-300 font-normal">squads</span></p>
+        </div>
+        <div>
+          <p class="text-xs text-indigo-200">Communities</p>
+          <p class="text-2xl font-bold font-heading text-white mt-1">3 <span class="text-xs text-lime-400 font-normal">joined</span></p>
+        </div>
+        <div>
+          <p class="text-xs text-indigo-200">Safety Score</p>
+          <p class="text-2xl font-bold font-heading text-lime-300 mt-1">98% <span class="text-xs text-white/70 font-normal">trusted</span></p>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ========================================================================= -->
+    <!-- 3. THREE CORE PILLARS SHORTCUT CARDS                                      -->
+    <!-- ========================================================================= -->
+    <div>
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="font-heading font-bold text-2xl text-slate-900 dark:text-white">Three Verticals Hub</h2>
+          <p class="text-sm text-slate-500 dark:text-slate-400">Everything you need for student and young professional living</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Pillar 1: Stay & Roommates -->
+        <div class="card p-6 flex flex-col justify-between group hover:border-indigo-400/80 transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+                <i data-lucide="home" class="w-6 h-6"></i>
+              </div>
+              <span class="pill text-xs">Zero Brokerage</span>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-slate-900 dark:text-white">Stay & Roommates</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+              Find verified flats, co-livings, and compatible roommates with lifestyle trait matching in Bengaluru, Pune, Delhi & Mumbai.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2">
+            <a href="stay/browse.html" class="flex items-center justify-between text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+              <span>Browse 15,400+ PGs</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+            <a href="stay/roommate-match.html" class="flex items-center justify-between text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-indigo-600 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+              <span>Roommate Matcher</span>
+              <i data-lucide="user-check" class="w-4 h-4 text-slate-400"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Pillar 2: Travel Squads -->
+        <div class="card p-6 flex flex-col justify-between group hover:border-lime-400/80 transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-lime-50 dark:bg-lime-950/70 text-lime-600 dark:text-lime-400 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+                <i data-lucide="compass" class="w-6 h-6"></i>
+              </div>
+              <span class="pill text-xs bg-lime-50 dark:bg-lime-950/70 text-lime-700 dark:text-lime-300 border-lime-300/40">Weekend Treks</span>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-slate-900 dark:text-white">Travel Squads</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+              Connect with fellow young travelers. Split road trip cabs, join Spiti expeditions, and explore Western Ghats on student budgets.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2">
+            <a href="travel/calendar.html" class="flex items-center justify-between text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+              <span>Upcoming Group Trips</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+            <a href="community.html" class="flex items-center justify-between text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-indigo-600 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+              <span>Find Travel Buddies</span>
+              <i data-lucide="map-pin" class="w-4 h-4 text-slate-400"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Pillar 3: City Discoveries -->
+        <div class="card p-6 flex flex-col justify-between group hover:border-coral transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-rose-50 dark:bg-rose-950/70 text-rose-500 dark:text-rose-400 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+                <i data-lucide="sparkles" class="w-6 h-6"></i>
+              </div>
+              <span class="pill text-xs bg-rose-50 dark:bg-rose-950/70 text-rose-700 dark:text-rose-300 border-rose-300/40">Curated & Honest</span>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-slate-900 dark:text-white">Discover Spots</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+              Unfiltered community recommendations: 2 AM chai, butter maggi spots, budget thali messes, and quiet coding cafes near you.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2">
+            <a href="discover/city.html" class="flex items-center justify-between text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+              <span>Explore Bengaluru Spots</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+            <a href="discover/food.html" class="flex items-center justify-between text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-indigo-600 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+              <span>Budget Student Eats</span>
+              <i data-lucide="coffee" class="w-4 h-4 text-slate-400"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ========================================================================= -->
+    <!-- 4. "NEAR YOU IN BENGALURU" SECTION                                       -->
+    <!-- ========================================================================= -->
+    <div>
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <div class="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-1">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+            <span>Hyperlocal Recommendations</span>
+          </div>
+          <h2 class="font-heading font-bold text-2xl text-slate-900 dark:text-white">Near You in Bengaluru</h2>
+        </div>
+        <a href="stay/browse.html" class="text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1">
+          <span>View all nearby</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Near You: Flatmate Listing -->
+        <div class="card overflow-hidden">
+          <div class="h-44 w-full relative">
+            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600" alt="HSR Layout Flat" class="w-full h-full object-cover" loading="lazy">
+            <div class="absolute top-3 left-3">
+              <span class="badge verified">Physically Verified</span>
+            </div>
+            <div class="absolute bottom-3 right-3 px-2.5 py-1 rounded-xl bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold">
+              ₹12,500/mo
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-1">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-indigo-500"></i>
+              <span>HSR Layout Sector 2</span>
+            </div>
+            <h4 class="font-bold text-base text-slate-900 dark:text-white line-clamp-1">Sunny 2BHK Room with Balcony</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
+              Looking for a tech flatmate. High-speed fiber, 24/7 power backup, cook already setup.
+            </p>
+            <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200" alt="Aarav" class="w-6 h-6 rounded-full object-cover" loading="lazy">
+                <span class="text-xs font-medium text-slate-700 dark:text-slate-300">Aarav Sharma</span>
+              </div>
+              <a href="chat.html?id=chat-01" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1">
+                <span>Chat Now</span>
+                <i data-lucide="chevron-right" class="w-3 h-3"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Near You: Weekend Trip Squad -->
+        <div class="card overflow-hidden">
+          <div class="h-44 w-full relative">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600" alt="Coorg Trip" class="w-full h-full object-cover" loading="lazy">
+            <div class="absolute top-3 left-3">
+              <span class="badge bg-lime-100 text-lime-800 dark:bg-lime-900/60 dark:text-lime-300">3 slots left</span>
+            </div>
+            <div class="absolute bottom-3 right-3 px-2.5 py-1 rounded-xl bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold">
+              ₹3,800/person
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-1">
+              <i data-lucide="calendar" class="w-3.5 h-3.5 text-lime-500"></i>
+              <span>This Saturday • 2 Days</span>
+            </div>
+            <h4 class="font-bold text-base text-slate-900 dark:text-white line-clamp-1">Coorg Coffee Estate & Waterfalls Drive</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
+              Self-drive carpool from Silk Board. Homestay, bonfire barbecue, and plantation walk.
+            </p>
+            <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <span class="text-xs font-medium text-slate-700 dark:text-slate-300">Organized by Kabir M.</span>
+              <a href="travel/calendar.html" class="text-xs font-semibold text-lime-600 dark:text-lime-400 hover:underline flex items-center gap-1">
+                <span>Join Squad</span>
+                <i data-lucide="chevron-right" class="w-3 h-3"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Near You: Student Spot -->
+        <div class="card overflow-hidden">
+          <div class="h-44 w-full relative">
+            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600" alt="Third Wave" class="w-full h-full object-cover" loading="lazy">
+            <div class="absolute top-3 left-3">
+              <span class="badge bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">Student Favorite</span>
+            </div>
+            <div class="absolute bottom-3 right-3 px-2.5 py-1 rounded-xl bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold">
+              ₹150 - ₹400
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-1">
+              <i data-lucide="clock" class="w-3.5 h-3.5 text-rose-500"></i>
+              <span>Open till 1:00 AM</span>
+            </div>
+            <h4 class="font-bold text-base text-slate-900 dark:text-white line-clamp-1">Third Wave Coffee • 4th Block Koramangala</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
+              Solid Wi-Fi, quiet corners with charging points, and unmatched iced pour-overs.
+            </p>
+            <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <span class="text-xs font-medium text-slate-700 dark:text-slate-300">97% Student Score</span>
+              <a href="discover/city.html" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1">
+                <span>View Guide</span>
+                <i data-lucide="chevron-right" class="w-3 h-3"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ========================================================================= -->
+    <!-- 5. RECENT ACTIVITY & IN-APP CHATS TICKER                                  -->
+    <!-- ========================================================================= -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <!-- Left Column (2/3): In-App Active Chats -->
+      <div class="lg:col-span-2 space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <h2 class="font-heading font-bold text-xl text-slate-900 dark:text-white">Recent In-App Chats</h2>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+          </div>
+          <a href="chat.html" class="text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">
+            Go to Inbox →
+          </a>
+        </div>
+
+        <div class="card p-2 sm:p-4 divide-y divide-slate-100 dark:divide-slate-800">
+          
+          <template x-for="chat in recentChats" :key="chat.id">
+            <a :href="'chat.html?id=' + chat.id" class="flex items-center justify-between p-3 sm:p-4 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors group">
+              <div class="flex items-center gap-3.5 min-w-0">
+                <div class="relative flex-shrink-0">
+                  <img :src="chat.avatar" :alt="chat.name" class="w-12 h-12 rounded-2xl object-cover" loading="lazy">
+                  <span x-show="chat.online" class="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-white dark:border-slate-900"></span>
+                </div>
+                <div class="min-w-0">
+                  <div class="flex items-center gap-2">
+                    <p class="font-bold text-sm text-slate-900 dark:text-white leading-tight truncate" x-text="chat.name"></p>
+                    <span x-show="chat.contextTag" class="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 truncate max-w-[150px]" x-text="chat.contextTag"></span>
+                  </div>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 truncate mt-1" x-text="chat.lastMessage"></p>
+                </div>
+              </div>
+
+              <div class="text-right flex flex-col items-end flex-shrink-0 ml-3">
+                <span class="text-[11px] text-slate-400" x-text="chat.time"></span>
+                <span x-show="chat.unread > 0" class="mt-1 w-5 h-5 rounded-full bg-indigo-600 text-white text-[11px] font-bold flex items-center justify-center" x-text="chat.unread"></span>
+              </div>
+            </a>
+          </template>
+
+        </div>
+      </div>
+
+      <!-- Right Column (1/3): Active Communities -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h2 class="font-heading font-bold text-xl text-slate-900 dark:text-white">Your Communities</h2>
+          <a href="community.html" class="text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">
+            Explore →
+          </a>
+        </div>
+
+        <div class="card p-4 space-y-4">
+          <template x-for="comm in communityHighlights" :key="comm.id">
+            <a href="community.html" class="flex items-start gap-3 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+              <img :src="comm.avatar" :alt="comm.name" class="w-10 h-10 rounded-xl object-cover flex-shrink-0" loading="lazy">
+              <div class="min-w-0 flex-1">
+                <p class="text-sm font-bold text-slate-900 dark:text-white truncate" x-text="comm.name"></p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1" x-text="comm.description"></p>
+                <div class="flex items-center gap-2 mt-1">
+                  <span class="text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold" x-text="comm.membersDisplay"></span>
+                  <span class="text-slate-300 dark:text-slate-600">•</span>
+                  <span class="text-[10px] text-slate-400" x-text="comm.category"></span>
+                </div>
+              </div>
+            </a>
+          </template>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- 6. FOOTER                                                                 -->
+  <!-- ========================================================================= -->
+  <footer class="mt-20 border-t border-slate-200 dark:border-slate-800 bg-[#fafaf7] dark:bg-[#0b1120] py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-xs">J</div>
+        <span class="font-heading font-semibold text-slate-800 dark:text-slate-200">JhoomRahi</span>
+        <span>• Pan-India Student & Young Pro Network</span>
+      </div>
+      <div>
+        <span>© <span id="current-year">2026</span> JhoomRahi. All rights reserved. Zero Brokerage Guarantee.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/dashboard.js"></script>
+</body>
+</html>

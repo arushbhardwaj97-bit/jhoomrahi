@@ -324,3 +324,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }, 0);
 });
+
+/* === UNBLOCK ACTIVE PHASE 5 ROUTES (DASHBOARD, CHAT & COMMUNITY) === */
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    document.querySelectorAll('a[href*="dashboard.html"], a[href*="chat.html"], a[href*="community.html"]').forEach((link) => {
+      const clone = link.cloneNode(true);
+      if (link.parentNode) {
+        link.parentNode.replaceChild(clone, link);
+      }
+    });
+  }, 0);
+});

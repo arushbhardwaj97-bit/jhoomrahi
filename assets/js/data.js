@@ -2356,3 +2356,365 @@ const PLACES = [
     perks: ["All materials provided", "Beginner-friendly instructors", "Complementary herbal infusion tea"]
   }
 ];
+
+/* === 15. IN-APP CHATS MOCK DATA (PHASE 5) === */
+const CHATS = [
+  {
+    id: "chat-01",
+    name: "Aarav Sharma",
+    avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&auto=format&fit=crop&q=80",
+    role: "Frontend Engineer @ Swiggy",
+    city: "Bengaluru",
+    verified: true,
+    online: true,
+    contextTag: "Stay • HSR 2BHK Flat Share",
+    lastMessage: "Sounds good! Can we split the deposit 50-50?",
+    time: "10:42 AM",
+    unread: 2,
+    messages: [
+      {
+        id: "m-101",
+        sender: "them",
+        text: "Hey Rohan! Saw your roommate profile. Are you still looking for a flatmate in HSR Sector 2?",
+        time: "10:30 AM",
+        status: "read"
+      },
+      {
+        id: "m-102",
+        sender: "me",
+        text: "Hey Aarav! Yes, looking to shift by next month. The place has 24/7 power backup and high-speed fiber.",
+        time: "10:34 AM",
+        status: "read"
+      },
+      {
+        id: "m-103",
+        sender: "them",
+        text: "Awesome! Can we split the deposit details and discuss the owner agreement?",
+        time: "10:38 AM",
+        status: "read"
+      },
+      {
+        id: "m-104",
+        sender: "me",
+        text: "No worries, we can use the JhoomRahi Masked Call button above or chat here!",
+        time: "10:40 AM",
+        status: "read"
+      },
+      {
+        id: "m-105",
+        sender: "them",
+        text: "Sounds good! Can we split the deposit 50-50?",
+        time: "10:42 AM",
+        status: "delivered"
+      }
+    ]
+  },
+  {
+    id: "chat-02",
+    name: "Tanvi Sharma",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&auto=format&fit=crop&q=80",
+    role: "B.Tech Final Year, MNIT Jaipur",
+    city: "Jaipur",
+    verified: true,
+    online: true,
+    contextTag: "Campus • Pushkar Weekend Trip",
+    lastMessage: "Should we rent a self-drive Thar or take the sleeper bus?",
+    time: "Yesterday",
+    unread: 0,
+    messages: [
+      {
+        id: "m-201",
+        sender: "them",
+        text: "Hey, 3 of us from MNIT are heading to Pushkar this Saturday. Saw you were interested in weekend road trips!",
+        time: "Yesterday, 4:15 PM",
+        status: "read"
+      },
+      {
+        id: "m-202",
+        sender: "me",
+        text: "Awesome! Yes, count me in if the budget split is around ₹3.5k.",
+        time: "Yesterday, 4:20 PM",
+        status: "read"
+      },
+      {
+        id: "m-203",
+        sender: "them",
+        text: "Should we rent a self-drive Thar or take the sleeper bus?",
+        time: "Yesterday, 4:28 PM",
+        status: "read"
+      }
+    ]
+  },
+  {
+    id: "chat-03",
+    name: "Kabir Malhotra",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    role: "Product Designer @ Zomato",
+    city: "Gurugram",
+    verified: true,
+    online: false,
+    contextTag: "Travel • Spiti Expedition 2026",
+    lastMessage: "Packing list shared in the community group!",
+    time: "Nov 4",
+    unread: 0,
+    messages: [
+      {
+        id: "m-301",
+        sender: "them",
+        text: "Hey Rohan, making sure everyone has high-altitude sickness meds and thermal layers for Kaza.",
+        time: "Nov 4, 11:15 AM",
+        status: "read"
+      },
+      {
+        id: "m-302",
+        sender: "them",
+        text: "Packing list shared in the community group!",
+        time: "Nov 4, 11:16 AM",
+        status: "read"
+      }
+    ]
+  },
+  {
+    id: "chat-04",
+    name: "Priya Nair",
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80",
+    role: "UX Researcher @ Zepto",
+    city: "Bengaluru",
+    verified: true,
+    online: false,
+    contextTag: "Stay • Koramangala 1BHK",
+    lastMessage: "Visiting the flat tomorrow at 11 AM.",
+    time: "Nov 2",
+    unread: 0,
+    messages: [
+      {
+        id: "m-401",
+        sender: "them",
+        text: "Hi Rohan! The Koramangala landlord confirmed we can come inspect the 2BHK terrace flat.",
+        time: "Nov 2, 5:45 PM",
+        status: "read"
+      },
+      {
+        id: "m-402",
+        sender: "them",
+        text: "Visiting the flat tomorrow at 11 AM.",
+        time: "Nov 2, 6:00 PM",
+        status: "read"
+      }
+    ]
+  },
+  {
+    id: "chat-05",
+    name: "Devika & Squad",
+    avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&auto=format&fit=crop&q=80",
+    role: "Sinhagad Sunrise Trek Group (5)",
+    city: "Pune",
+    verified: true,
+    online: true,
+    contextTag: "Discover • Sinhagad Sunrise Trek",
+    lastMessage: "Meeting point: Chandni Chowk McD at 5:00 AM sharp!",
+    time: "Oct 30",
+    unread: 0,
+    messages: [
+      {
+        id: "m-501",
+        sender: "them",
+        text: "Hey everyone! Weather forecast is crisp and clear for the Sunday sunrise trek.",
+        time: "Oct 30, 8:10 PM",
+        status: "read"
+      },
+      {
+        id: "m-502",
+        sender: "them",
+        text: "Meeting point: Chandni Chowk McD at 5:00 AM sharp!",
+        time: "Oct 30, 8:12 PM",
+        status: "read"
+      }
+    ]
+  }
+];
+
+/* === 16. COMMUNITIES & SOCIAL FEED DATA (PHASE 5) === */
+const COMMUNITIES = [
+  {
+    id: "comm-mnit",
+    name: "MNIT Jaipur Students",
+    category: "Campus Tribe",
+    city: "Jaipur",
+    members: 2840,
+    membersDisplay: "2.8k members",
+    avatar: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=200",
+    coverImg: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800",
+    description: "Official student hub for MNITians: hostel room tips, exam prep banter, project team finders, and weekend Aravali drives.",
+    isJoined: true,
+    rules: ["Respect peers", "No promotional spam", "Strictly no brokerage posts"],
+    posts: [
+      {
+        id: "post-mnit-1",
+        author: {
+          name: "Tanvi Sharma",
+          role: "B.Tech Final Year, MNIT",
+          avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200",
+          verified: true
+        },
+        timeAgo: "2 hours ago",
+        content: "Anyone heading from VLTC to Raja Park this evening? Looking to carpool or split an auto. Also looking for 6th sem Signal Processing handwritten notes! 📚☕",
+        likes: 18,
+        isLiked: false,
+        commentsCount: 6,
+        tags: ["#Carpool", "#Academics", "#RajaPark"]
+      },
+      {
+        id: "post-mnit-2",
+        author: {
+          name: "Vikas Meena",
+          role: "Civil Engg '25",
+          avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200",
+          verified: false
+        },
+        timeAgo: "5 hours ago",
+        content: "Selling my study desk + ergonomic mesh chair as I am moving into a shared 2BHK flat near Tonk Road. ₹2,200 for both. DM me directly on JhoomRahi chat!",
+        likes: 12,
+        isLiked: true,
+        commentsCount: 4,
+        tags: ["#CampusMarket", "#HostelShift"]
+      }
+    ]
+  },
+  {
+    id: "comm-blr-techies",
+    name: "Bengaluru Techies",
+    category: "City Chapter",
+    city: "Bengaluru",
+    members: 14200,
+    membersDisplay: "14.2k members",
+    avatar: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=200",
+    coverImg: "https://images.unsplash.com/photo-1596176530529-78163a4f7af2?w=800",
+    description: "Young developers, designers, and founders across HSR, Koramangala, and Indiranagar. Tech meetups, hackathons, and flatmate matching.",
+    isJoined: true,
+    rules: ["Tech & lifestyle discussion only", "No recruiters spamming DMs", "Be collaborative"],
+    posts: [
+      {
+        id: "post-blr-1",
+        author: {
+          name: "Aarav Sharma",
+          role: "Frontend Engineer @ Swiggy",
+          avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200",
+          verified: true
+        },
+        timeAgo: "1 hour ago",
+        content: "PSA for everyone looking in HSR Layout Sector 1 & 2: Landlords are asking 6 months deposit again. Don't pay more than 2-3 months! Check our verified PGs section on JhoomRahi for zero-brokerage, transparent deposit options. 🚫💸",
+        likes: 74,
+        isLiked: false,
+        commentsCount: 23,
+        tags: ["#RentTips", "#HSRLayout", "#ZeroBrokerage"]
+      },
+      {
+        id: "post-blr-2",
+        author: {
+          name: "Rohan Deshmukh",
+          role: "SDE-1 @ Swiggy",
+          avatar: "https://picsum.photos/seed/rohan_dev/200/200",
+          verified: true
+        },
+        timeAgo: "3 hours ago",
+        content: "Hosting a casual weekend open-source and chai session at Third Wave Coffee Koramangala this Saturday at 4 PM. All junior devs and college students welcome! ☕💻",
+        likes: 45,
+        isLiked: true,
+        commentsCount: 14,
+        tags: ["#BengaluruDevs", "#Meetup", "#Koramangala"]
+      }
+    ]
+  },
+  {
+    id: "comm-mumbai-pg",
+    name: "Finding PG in Mumbai",
+    category: "Housing Network",
+    city: "Mumbai",
+    members: 8900,
+    membersDisplay: "8.9k members",
+    avatar: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=200",
+    coverImg: "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?w=800",
+    description: "Navigating Mumbai rent without brokerage tears. Roommate matching, deposit split advice, and suburban reviews from Bandra to Powai.",
+    isJoined: false,
+    rules: ["Direct tenants only", "No agents allowed", "Masked chat mandatory"],
+    posts: [
+      {
+        id: "post-mum-1",
+        author: {
+          name: "Siddharth Rao",
+          role: "Analyst @ Morgan Stanley",
+          avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200",
+          verified: true
+        },
+        timeAgo: "4 hours ago",
+        content: "Single occupancy available in a peaceful 2BHK in Goregaon East, 7 mins from Western Express Highway metro. Rent ₹16k/mo including cook and maid. Ping me on JhoomRahi chat!",
+        likes: 31,
+        isLiked: false,
+        commentsCount: 9,
+        tags: ["#MumbaiRent", "#Goregaon", "#VerifiedFlat"]
+      }
+    ]
+  },
+  {
+    id: "comm-du-tribe",
+    name: "Delhi University Tribe",
+    category: "Campus Tribe",
+    city: "New Delhi",
+    members: 11400,
+    membersDisplay: "11.4k members",
+    avatar: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=200",
+    coverImg: "https://images.unsplash.com/photo-1587560699334-cc4ff634909a?w=800",
+    description: "North & South Campus students sharing flat vacancies, Hudson Lane food spots, college festival updates, and student discounts.",
+    isJoined: false,
+    rules: ["DU students only", "No political flame wars", "Help juniors find verified stays"],
+    posts: [
+      {
+        id: "post-du-1",
+        author: {
+          name: "Ananya Iyer",
+          role: "B.A. Economics, Delhi University",
+          avatar: "https://picsum.photos/seed/ananya_du/200/200",
+          verified: true
+        },
+        timeAgo: "6 hours ago",
+        content: "Need 1 female flatmate for a sunny 3BHK flat in Vijay Nagar (North Campus). Rent comes down to ₹7,800/person with 24/7 water and no landlord interference. Looking for someone clean and respectful of study hours. 🌸",
+        likes: 52,
+        isLiked: false,
+        commentsCount: 17,
+        tags: ["#NorthCampus", "#VijayNagar", "#FlatmateWanted"]
+      }
+    ]
+  },
+  {
+    id: "comm-pune-trekkers",
+    name: "Pune Weekend Explorers",
+    category: "Travel Tribe",
+    city: "Pune",
+    members: 5600,
+    membersDisplay: "5.6k members",
+    avatar: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=200",
+    coverImg: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800",
+    description: "Trek squad for Western Ghats, sunrise bike rides to Lavasa, and weekend Pawna lake campouts for young professionals and college students.",
+    isJoined: true,
+    rules: ["Leave no trace", "Safety first on ghats", "Equal cost split"],
+    posts: [
+      {
+        id: "post-pune-1",
+        author: {
+          name: "Devika & Squad",
+          role: "Sinhagad Sunrise Trek Group",
+          avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&auto=format&fit=crop&q=80",
+          verified: true
+        },
+        timeAgo: "8 hours ago",
+        content: "Next trek announced: Torna Fort Night Trek with sunrise view of the clouds. Carpool slots available from Kothrud and Wakad. Check travel vertical to register! 🎒🌄",
+        likes: 39,
+        isLiked: false,
+        commentsCount: 11,
+        tags: ["#PuneTreks", "#WesternGhats", "#Torna"]
+      }
+    ]
+  }
+];
+

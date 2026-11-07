@@ -237,3 +237,14 @@ html.dark .skeleton {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* === PHASE 5: SHAKE ANIMATION FOR PII WARNING TOAST === */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+.animate-shake {
+  animation: shake 400ms ease-in-out;
+}
+
