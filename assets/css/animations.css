@@ -9,15 +9,33 @@
 /* === 1. KEYFRAME DEFINITIONS === */
 
 /**
- * float: Gentle floating bobbing effect for hero preview cards
- * Usage: .animate-float or .float
+ * float: Continuous floating bobbing effect for hero preview cards
+ * Seamlessly integrates with scroll and mouse parallax via CSS variables
  */
 @keyframes float {
   0%, 100% {
-    transform: translateY(0px) rotate(var(--base-rot, 0deg));
+    transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) + 0px), 0) rotate(var(--base-rot, -6deg));
   }
   50% {
-    transform: translateY(-10px) rotate(var(--base-rot, 0deg));
+    transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) - 12px), 0) rotate(var(--base-rot, -6deg));
+  }
+}
+
+@keyframes float-travel {
+  0%, 100% {
+    transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) + 0px), 0) rotate(var(--base-rot, 6deg));
+  }
+  50% {
+    transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) - 10px), 0) rotate(var(--base-rot, 6deg));
+  }
+}
+
+@keyframes float-discover {
+  0%, 100% {
+    transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) + 0px), 0) rotate(var(--base-rot, -3deg));
+  }
+  50% {
+    transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) - 8px), 0) rotate(var(--base-rot, -3deg));
   }
 }
 
@@ -114,15 +132,48 @@
 
 /* Floating hero elements */
 .float {
-  animation: float 5s ease-in-out infinite;
+  --base-rot: -6deg;
+  animation: float 4.8s ease-in-out infinite;
+  will-change: transform;
 }
 
 .float-slow {
-  animation: float 7s ease-in-out infinite;
+  --base-rot: -3deg;
+  animation: float-discover 6.5s ease-in-out 0.6s infinite;
+  will-change: transform;
 }
 
 .float-delayed {
-  animation: float 6s ease-in-out 1.5s infinite;
+  --base-rot: 6deg;
+  animation: float-travel 5.6s ease-in-out 1.2s infinite;
+  will-change: transform;
+}
+
+@media (max-width: 640px) {
+  @keyframes float {
+    0%, 100% {
+      transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) + 0px), 0) rotate(var(--base-rot, -6deg));
+    }
+    50% {
+      transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) - 6px), 0) rotate(var(--base-rot, -6deg));
+    }
+  }
+  @keyframes float-travel {
+    0%, 100% {
+      transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) + 0px), 0) rotate(var(--base-rot, 6deg));
+    }
+    50% {
+      transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) - 5px), 0) rotate(var(--base-rot, 6deg));
+    }
+  }
+  @keyframes float-discover {
+    0%, 100% {
+      transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) + 0px), 0) rotate(var(--base-rot, -3deg));
+    }
+    50% {
+      transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) - 4px), 0) rotate(var(--base-rot, -3deg));
+    }
+  }
 }
 
 /* Marquee track */

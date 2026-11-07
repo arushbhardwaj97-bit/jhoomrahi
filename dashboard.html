@@ -179,74 +179,65 @@
   <main class="max-w-7xl w-full max-w-full mx-auto px-3 sm:px-6 py-6 sm:py-8 space-y-8 sm:space-y-10 overflow-hidden">
     
     <!-- Welcome Banner Card -->
-    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 text-white p-5 sm:p-10 shadow-xl border border-indigo-700/50 w-full max-w-full">
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-50/95 via-purple-50/80 to-white dark:from-slate-900 dark:via-indigo-950/80 dark:to-slate-900 text-slate-900 dark:text-white p-5 sm:p-10 shadow-xl shadow-indigo-100/50 dark:shadow-none border border-indigo-100/80 dark:border-indigo-900/60 w-full max-w-full">
       <!-- Ambient light blobs -->
-      <div class="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-indigo-500/20 blur-3xl pointer-events-none"></div>
-      <div class="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-lime-400/10 blur-3xl pointer-events-none"></div>
+      <div class="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-indigo-400/20 dark:bg-indigo-500/20 blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-purple-400/15 dark:bg-lime-400/10 blur-3xl pointer-events-none"></div>
 
       <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <div class="flex flex-wrap items-center gap-2 mb-3">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-lime-300 text-xs font-semibold">
-              <span class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100/80 dark:bg-white/10 backdrop-blur-md border border-indigo-200 dark:border-white/15 text-indigo-700 dark:text-lime-300 text-xs font-semibold">
+              <span class="w-2 h-2 rounded-full bg-indigo-600 dark:bg-lime-400 animate-pulse"></span>
               <span>Bengaluru Chapter • Active Member</span>
             </div>
             <!-- Mobile Visible Streak & Coins Badges -->
-            <button @click="showStreakToast()" type="button" class="inline-flex md:hidden items-center gap-1 px-2.5 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs font-bold active:scale-95 transition-transform cursor-pointer">
+            <button @click="showStreakToast()" type="button" class="inline-flex md:hidden items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-400/30 text-xs font-bold active:scale-95 transition-transform cursor-pointer">
               🔥 3-Day Streak
             </button>
-            <button @click="showCoinsToast()" type="button" class="inline-flex md:hidden items-center gap-1 px-2.5 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs font-bold active:scale-95 transition-transform cursor-pointer">
+            <button @click="showCoinsToast()" type="button" class="inline-flex md:hidden items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-400/30 text-xs font-bold active:scale-95 transition-transform cursor-pointer">
               🪙 120 Coins
             </button>
           </div>
-          <h1 class="font-heading font-bold text-2xl sm:text-4xl text-white tracking-tight leading-tight">
+          <h1 class="font-heading font-extrabold text-2xl sm:text-4xl text-slate-900 dark:text-white tracking-tight leading-tight">
             <span x-text="greeting">Good evening</span>, Rohan! 👋
           </h1>
-          <p class="text-indigo-200 text-xs sm:text-base mt-2 max-w-xl">
-            You have <strong class="text-white">2 unread roommate messages</strong> and 1 upcoming trip squad discussion for the weekend.
+          <p class="text-slate-600 dark:text-indigo-200 text-xs sm:text-base mt-2 max-w-xl font-medium">
+            You have <strong class="text-indigo-700 dark:text-white font-bold">2 unread roommate messages</strong> and 1 upcoming trip squad discussion for the weekend.
           </p>
         </div>
 
-        <!-- Quick Quick Action Hub -->
+        <!-- Quick Action Hub -->
         <div class="flex flex-wrap items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
-          <a href="chat.html" class="btn btn-primary text-xs sm:text-sm py-2 px-3.5 sm:px-4 shadow-lg flex items-center gap-2 shrink-0">
+          <a href="chat.html" class="btn btn-primary text-xs sm:text-sm py-2 px-3.5 sm:px-4 shadow-md shadow-indigo-500/25 flex items-center gap-2 shrink-0">
             <i data-lucide="message-circle" class="w-4 h-4"></i>
             <span>Open In-App Chat</span>
             <span class="px-1.5 py-0.5 rounded-full bg-white text-indigo-700 text-xs font-bold">2</span>
           </a>
-          <a href="community.html" class="btn btn-secondary text-xs sm:text-sm py-2 px-3.5 sm:px-4 flex items-center gap-2 shrink-0">
-            <i data-lucide="users" class="w-4 h-4"></i>
-            <span>Community Feed</span>
-          </a>
-        </div>
-      </div>
-            <span>Open In-App Chat</span>
-            <span class="px-1.5 py-0.5 rounded-full bg-white text-indigo-700 text-xs font-bold">2</span>
-          </a>
-          <a href="community.html" class="btn btn-secondary text-sm flex items-center gap-2">
-            <i data-lucide="users" class="w-4 h-4"></i>
+          <a href="community.html" class="btn btn-ghost bg-white/80 dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 hover:border-indigo-400 text-xs sm:text-sm py-2 px-3.5 sm:px-4 flex items-center gap-2 shrink-0">
+            <i data-lucide="users" class="w-4 h-4 text-indigo-600 dark:text-lime-400"></i>
             <span>Community Feed</span>
           </a>
         </div>
       </div>
 
-      <!-- Quick Metrics Strip -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-white/10">
-        <div>
-          <p class="text-xs text-indigo-200">Active Inquiries</p>
-          <p class="text-2xl font-bold font-heading text-white mt-1">3 <span class="text-xs text-lime-400 font-normal">verified</span></p>
+      <!-- Quick Metrics Strip with high-contrast text and bold numbers -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-indigo-100 dark:border-white/10">
+        <div class="bg-white/60 dark:bg-slate-800/40 p-3 sm:p-4 rounded-2xl border border-indigo-50 dark:border-slate-800 backdrop-blur-xs">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Active Inquiries</p>
+          <p class="text-2xl sm:text-3xl font-extrabold font-heading text-slate-900 dark:text-white mt-1.5">3 <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">verified</span></p>
         </div>
-        <div>
-          <p class="text-xs text-indigo-200">Trips Joined</p>
-          <p class="text-2xl font-bold font-heading text-white mt-1">2 <span class="text-xs text-indigo-300 font-normal">squads</span></p>
+        <div class="bg-white/60 dark:bg-slate-800/40 p-3 sm:p-4 rounded-2xl border border-indigo-50 dark:border-slate-800 backdrop-blur-xs">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Trips Joined</p>
+          <p class="text-2xl sm:text-3xl font-extrabold font-heading text-slate-900 dark:text-white mt-1.5">2 <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">squads</span></p>
         </div>
-        <div>
-          <p class="text-xs text-indigo-200">Communities</p>
-          <p class="text-2xl font-bold font-heading text-white mt-1">3 <span class="text-xs text-lime-400 font-normal">joined</span></p>
+        <div class="bg-white/60 dark:bg-slate-800/40 p-3 sm:p-4 rounded-2xl border border-indigo-50 dark:border-slate-800 backdrop-blur-xs">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Communities</p>
+          <p class="text-2xl sm:text-3xl font-extrabold font-heading text-slate-900 dark:text-white mt-1.5">3 <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-purple-50 dark:bg-purple-950 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">joined</span></p>
         </div>
-        <div>
-          <p class="text-xs text-indigo-200">Safety Score</p>
-          <p class="text-2xl font-bold font-heading text-lime-300 mt-1">98% <span class="text-xs text-white/70 font-normal">trusted</span></p>
+        <div class="bg-white/60 dark:bg-slate-800/40 p-3 sm:p-4 rounded-2xl border border-indigo-50 dark:border-slate-800 backdrop-blur-xs">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Safety Score</p>
+          <p class="text-2xl sm:text-3xl font-extrabold font-heading text-emerald-600 dark:text-lime-400 mt-1.5">98% <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">trusted</span></p>
         </div>
       </div>
     </div>

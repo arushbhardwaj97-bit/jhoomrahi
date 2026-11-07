@@ -22,49 +22,73 @@ function initAOS() {
 }
 
 /**
- * Attaches smooth, restrained mousemove parallax to hero floating cards and background blobs.
- * Automatically halts on devices preferring reduced motion or touch screens.
+ * Attaches smooth, restrained mousemove & scroll parallax to hero floating cards and background blobs.
+ * Automatically halts on devices preferring reduced motion.
  */
 function initParallax() {
   const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-  if (isReducedMotion || isTouch) return;
+  if (isReducedMotion) return;
 
-  const heroSection = document.getElementById("hero-section") || document.body;
   const parallaxTargets = document.querySelectorAll("[data-parallax]");
   if (!parallaxTargets.length) return;
+
+  const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  const heroSection = document.getElementById("hero-section") || document.body;
 
   let mouseX = 0;
   let mouseY = 0;
   let currentX = 0;
   let currentY = 0;
+  let scrollY = window.pageYOffset || 0;
+  let currentScrollY = scrollY;
   let rafId = null;
 
-  heroSection.addEventListener("mousemove", (e) => {
-    const rect = heroSection.getBoundingClientRect();
-    const relX = e.clientX - rect.left - rect.width / 2;
-    const relY = e.clientY - rect.top - rect.height / 2;
-    mouseX = relX;
-    mouseY = relY;
+  if (!isTouch) {
+    heroSection.addEventListener("mousemove", (e) => {
+      const rect = heroSection.getBoundingClientRect();
+      mouseX = e.clientX - rect.left - rect.width / 2;
+      mouseY = e.clientY - rect.top - rect.height / 2;
 
+      if (!rafId) {
+        rafId = requestAnimationFrame(updateParallax);
+      }
+    });
+  }
+
+  // Scroll parallax for floating elements on page scroll
+  window.addEventListener("scroll", () => {
+    scrollY = window.pageYOffset || 0;
     if (!rafId) {
       rafId = requestAnimationFrame(updateParallax);
     }
-  });
+  }, { passive: true });
 
   function updateParallax() {
-    currentX += (mouseX - currentX) * 0.06;
-    currentY += (mouseY - currentY) * 0.06;
+    currentX += (mouseX - currentX) * 0.08;
+    currentY += (mouseY - currentY) * 0.08;
+    currentScrollY += (scrollY - currentScrollY) * 0.1;
 
     parallaxTargets.forEach((el) => {
       const depth = parseFloat(el.getAttribute("data-parallax")) || 0.02;
-      const moveX = currentX * depth;
-      const moveY = currentY * depth;
-      const baseTransform = el.getAttribute("data-base-transform") || "";
-      el.style.transform = `${baseTransform} translate3d(${moveX}px, ${moveY}px, 0)`;
+      const moveX = !isTouch ? (currentX * depth).toFixed(2) : "0";
+      const scrollShift = (currentScrollY * (depth * 0.5)).toFixed(2);
+      const moveY = !isTouch ? (currentY * depth - parseFloat(scrollShift)).toFixed(2) : (-parseFloat(scrollShift)).toFixed(2);
+
+      // Set CSS variables for cards using @keyframes float
+      el.style.setProperty("--parallax-x", `${moveX}px`);
+      el.style.setProperty("--parallax-y", `${moveY}px`);
+
+      // For background blobs without CSS animation, apply translate3d directly
+      if (!el.classList.contains("float") && !el.classList.contains("float-delayed") && !el.classList.contains("float-slow")) {
+        const baseTransform = el.getAttribute("data-base-transform") || "";
+        el.style.transform = `${baseTransform} translate3d(${moveX}px, ${moveY}px, 0)`;
+      }
     });
 
-    if (Math.abs(mouseX - currentX) > 0.1 || Math.abs(mouseY - currentY) > 0.1) {
+    const isMovingMouse = Math.abs(mouseX - currentX) > 0.1 || Math.abs(mouseY - currentY) > 0.1;
+    const isMovingScroll = Math.abs(scrollY - currentScrollY) > 0.5;
+
+    if (isMovingMouse || isMovingScroll) {
       rafId = requestAnimationFrame(updateParallax);
     } else {
       rafId = null;

@@ -170,8 +170,12 @@
   <!-- ========================================================================= -->
   <!-- 2. DETAIL VIEW CONTAINER                                                  -->
   <!-- ========================================================================= -->
-  <main class="max-w-7xl w-full max-w-full mx-auto px-4 sm:px-6 pt-6 pb-24">
-    <div id="discover-detail-container">
+  <main class="max-w-7xl w-full max-w-full mx-auto px-4 sm:px-6 pt-6 pb-24 relative">
+    <!-- Ambient 3D Depth Glow Orbs -->
+    <div class="ambient-glow ambient-glow-indigo top-10 left-8 w-96 h-96"></div>
+    <div class="ambient-glow ambient-glow-lime top-72 right-12 w-80 h-80"></div>
+
+    <div id="discover-detail-container" class="relative z-10">
       <!-- Populated dynamically by discover.js (initDiscoverDetail) -->
       <div class="py-24 text-center text-slate-400 animate-pulse space-y-3">
         <i data-lucide="loader-2" class="w-8 h-8 animate-spin mx-auto text-indigo-600"></i>

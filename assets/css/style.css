@@ -76,7 +76,7 @@ body {
   position: relative;
 }
 
-/* === CREATIVE ABSTRACT MESH / TOPOGRAPHIC BACKGROUND === */
+/* === MODERN ULTRA-SUBTLE DOT-GRID & MESH GRADIENT BACKGROUND === */
 body::before {
   content: "";
   position: fixed;
@@ -86,32 +86,65 @@ body::before {
   pointer-events: none;
   z-index: -1;
   background-attachment: fixed;
-  background-repeat: repeat;
-  /* Topographic contour curves & subtle web mesh using brand Indigo (#6366f1) and Lime (#a3e635) */
+  /* Ultra-subtle dot grid (24px) combined with smooth ambient mesh gradient (2-3% effective opacity) */
   background-image: 
-    radial-gradient(circle at 18% 22%, rgba(99, 102, 241, 0.05) 0%, transparent 45%),
-    radial-gradient(circle at 82% 78%, rgba(163, 230, 53, 0.04) 0%, transparent 50%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M0 30 C 45 10, 75 45, 120 25 C 150 15, 165 35, 180 30' stroke='%236366f1' stroke-width='0.75' stroke-opacity='0.16'/%3E%3Cpath d='M0 75 C 35 90, 85 60, 125 75 C 155 85, 170 65, 180 75' stroke='%23a3e635' stroke-width='0.75' stroke-opacity='0.14'/%3E%3Cpath d='M0 120 C 50 105, 70 135, 120 120 C 150 110, 165 130, 180 125' stroke='%236366f1' stroke-width='0.75' stroke-opacity='0.16'/%3E%3Cpath d='M0 165 C 40 180, 90 150, 130 165 C 160 175, 170 155, 180 165' stroke='%23a3e635' stroke-width='0.75' stroke-opacity='0.14'/%3E%3Ccircle cx='45' cy='35' r='1.5' fill='%236366f1' fill-opacity='0.12'/%3E%3Ccircle cx='125' cy='75' r='1.5' fill='%23a3e635' fill-opacity='0.12'/%3E%3Ccircle cx='70' cy='135' r='1.5' fill='%236366f1' fill-opacity='0.12'/%3E%3Ccircle cx='150' cy='165' r='1.5' fill='%23a3e635' fill-opacity='0.12'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: auto, auto, 180px 180px;
-  opacity: 0.32;
+    radial-gradient(circle at 12% 16%, rgba(99, 102, 241, 0.035) 0%, transparent 45%),
+    radial-gradient(circle at 88% 75%, rgba(163, 230, 53, 0.025) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.015) 0%, transparent 60%),
+    radial-gradient(rgba(99, 102, 241, 0.08) 1px, transparent 1px);
+  background-size: auto, auto, auto, 24px 24px;
+  opacity: 0.25; /* ~2-3% effective opacity */
   transition: opacity 300ms ease;
 }
 
 html.dark body::before {
   /* Slightly more visible in Dark mode */
   background-image: 
-    radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.09) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(163, 230, 53, 0.07) 0%, transparent 55%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M0 30 C 45 10, 75 45, 120 25 C 150 15, 165 35, 180 30' stroke='%23818cf8' stroke-width='0.85' stroke-opacity='0.28'/%3E%3Cpath d='M0 75 C 35 90, 85 60, 125 75 C 155 85, 170 65, 180 75' stroke='%23bef264' stroke-width='0.85' stroke-opacity='0.24'/%3E%3Cpath d='M0 120 C 50 105, 70 135, 120 120 C 150 110, 165 130, 180 125' stroke='%23818cf8' stroke-width='0.85' stroke-opacity='0.28'/%3E%3Cpath d='M0 165 C 40 180, 90 150, 130 165 C 160 175, 170 155, 180 165' stroke='%23bef264' stroke-width='0.85' stroke-opacity='0.24'/%3E%3Ccircle cx='45' cy='35' r='1.5' fill='%23818cf8' fill-opacity='0.25'/%3E%3Ccircle cx='125' cy='75' r='1.5' fill='%23bef264' fill-opacity='0.25'/%3E%3Ccircle cx='70' cy='135' r='1.5' fill='%23818cf8' fill-opacity='0.25'/%3E%3Ccircle cx='150' cy='165' r='1.5' fill='%23bef264' fill-opacity='0.25'/%3E%3C/g%3E%3C/svg%3E");
-  opacity: 0.50;
+    radial-gradient(circle at 15% 18%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 85% 80%, rgba(163, 230, 53, 0.04) 0%, transparent 55%),
+    radial-gradient(circle at 50% 45%, rgba(99, 102, 241, 0.03) 0%, transparent 60%),
+    radial-gradient(rgba(129, 140, 248, 0.16) 1px, transparent 1px);
+  opacity: 0.40;
 }
 
 /* Hide or heavily reduce on mobile (<= 640px / 375px) for performance */
 @media (max-width: 640px) {
   body::before {
-    opacity: 0.05;
-    background-size: auto, auto, 120px 120px;
+    opacity: 0.08;
+    background-size: auto, auto, auto, 20px 20px;
   }
+}
+
+/* === AMBIENT GLOWING LIGHT ORBS FOR 3D DEPTH === */
+.ambient-glow-wrapper {
+  position: relative;
+}
+
+.ambient-glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(64px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.45;
+  transition: opacity 300ms ease;
+}
+
+html.dark .ambient-glow {
+  opacity: 0.28;
+  filter: blur(72px);
+}
+
+.ambient-glow-indigo {
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.28) 0%, rgba(99, 102, 241, 0) 70%);
+}
+
+.ambient-glow-lime {
+  background: radial-gradient(circle, rgba(163, 230, 53, 0.22) 0%, rgba(163, 230, 53, 0) 70%);
+}
+
+.ambient-glow-purple {
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, rgba(168, 85, 247, 0) 70%);
 }
 
 /* Accessible focus rings */
@@ -265,14 +298,14 @@ html.dark .card:hover, html.dark [data-card]:hover {
 }
 
 .btn-primary {
-  background-color: var(--primary);
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
   color: #ffffff;
   box-shadow: 0 4px 14px rgba(99, 102, 241, 0.28);
 }
 
 .btn-primary:hover {
-  background-color: var(--primary-600);
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.38);
+  background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+  box-shadow: 0 8px 24px -2px rgba(99, 102, 241, 0.42), 0 0 16px rgba(99, 102, 241, 0.22);
 }
 
 .btn-secondary {

@@ -213,8 +213,12 @@
   <!-- ========================================================================= -->
   <!-- 2. DETAIL VIEW CONTAINER                                                  -->
   <!-- ========================================================================= -->
-  <main class="max-w-7xl w-full max-w-full mx-auto px-4 sm:px-6 pt-6 pb-20">
-    <div id="pg-detail-container">
+  <main class="max-w-7xl w-full max-w-full mx-auto px-4 sm:px-6 pt-6 pb-20 relative">
+    <!-- Ambient 3D Depth Glow Orbs -->
+    <div class="ambient-glow ambient-glow-indigo top-12 left-10 w-96 h-96"></div>
+    <div class="ambient-glow ambient-glow-lime top-80 right-10 w-80 h-80"></div>
+
+    <div id="pg-detail-container" class="relative z-10">
       <!-- Populated dynamically by stay.js (initDetailPage) -->
       <div class="py-24 text-center text-slate-400 animate-pulse">
         <i data-lucide="loader-2" class="w-8 h-8 animate-spin mx-auto mb-3 text-indigo-600"></i>
