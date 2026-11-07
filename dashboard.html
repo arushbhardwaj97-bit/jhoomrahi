@@ -8,8 +8,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard — JhoomRahi</title>
-  <meta name="description" content="Your personal JhoomRahi hub connecting Stay & Roommates, Travel Squads, and City Discoveries.">
+  <title>Dashboard & User Hub — JhoomRahi</title>
+  <meta name="description" content="Your central JhoomRahi command center. Manage verified PG bookings, roommate vibe matches, upcoming weekend trip squads, and community tribe feeds.">
 
   <!-- Inline SVG Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236366f1'/><text x='16' y='22' font-family='system-ui,sans-serif' font-size='18' font-weight='bold' fill='white' text-anchor='middle'>J</text></svg>">
@@ -63,21 +63,21 @@
   <!-- Lucide Icons CDN -->
   <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
-<body class="bg-[#fafaf7] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white" x-data="dashboardApp()">
+<body class="bg-[#fafaf7] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white overflow-x-hidden w-full max-w-full" x-data="dashboardApp()">
 
   <!-- ========================================================================= -->
   <!-- 1. STICKY NAV (GLASS)                                                     -->
   <!-- ========================================================================= -->
-  <header id="navbar" class="sticky top-0 z-40 w-full nav-glass transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+  <header id="navbar" class="sticky top-0 z-40 w-full max-w-full nav-glass transition-all duration-300">
+    <div class="max-w-7xl w-full mx-auto px-3 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-2">
       
       <!-- Logo Mark -->
-      <a href="index.html" class="flex items-center gap-2 group">
-        <div class="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-heading font-bold text-xl shadow-md group-hover:scale-105 transition-transform">
+      <a href="index.html" class="flex items-center gap-2 group shrink-0">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-heading font-bold text-base sm:text-xl shadow-md group-hover:scale-105 transition-transform">
           J
         </div>
         <div class="flex flex-col">
-          <span class="font-heading font-bold text-2xl tracking-tight text-slate-900 dark:text-white">
+          <span class="font-heading font-bold text-lg sm:text-2xl tracking-tight text-slate-900 dark:text-white">
             Jhoom<span class="text-indigo-600 dark:text-indigo-400">Rahi</span>
           </span>
         </div>
@@ -119,7 +119,7 @@
       </nav>
 
       <!-- Action Utilities -->
-      <div class="hidden md:flex items-center gap-3">
+      <div class="hidden md:flex items-center gap-3 shrink-0">
         <!-- Daily Streak Badge -->
         <button 
           @click="showStreakToast()" 
@@ -141,13 +141,13 @@
         </button>
 
         <!-- Theme Toggle -->
-        <button type="button" data-theme-toggle class="p-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Toggle theme">
+        <button type="button" data-theme-toggle class="p-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shrink-0" aria-label="Toggle theme">
           <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
           <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
         </button>
 
         <!-- User Profile Pill -->
-        <a href="chat.html" class="flex items-center gap-2.5 p-1.5 pr-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-indigo-400 dark:hover:border-indigo-500 transition-colors shadow-sm">
+        <a href="chat.html" class="flex items-center gap-2.5 p-1.5 pr-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-indigo-400 dark:hover:border-indigo-500 transition-colors shadow-sm shrink-0">
           <img src="https://picsum.photos/seed/rohan_dev/200/200" alt="Rohan Deshmukh" class="w-8 h-8 rounded-xl object-cover" loading="lazy">
           <div class="text-left text-xs leading-tight">
             <p class="font-bold text-slate-900 dark:text-white flex items-center gap-1">
@@ -159,29 +159,13 @@
         </a>
       </div>
 
-      <!-- Mobile Menu Trigger & Retention Pills (Responsive for 375px) -->
-      <div class="flex items-center gap-1.5 md:hidden">
-        <!-- Mobile Streak Pill -->
-        <button 
-          @click="showStreakToast()" 
-          type="button" 
-          class="text-xs px-2 py-1 rounded-xl bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-300/40 font-bold active:scale-95 transition-transform"
-          title="Daily Streak">
-          🔥 3d
-        </button>
-        <!-- Mobile Coins Pill -->
-        <button 
-          @click="showCoinsToast()" 
-          type="button" 
-          class="text-xs px-2 py-1 rounded-xl bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-300/40 font-bold active:scale-95 transition-transform"
-          title="Coins">
-          🪙 120
-        </button>
-        <button type="button" data-theme-toggle class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300" aria-label="Toggle theme">
+      <!-- Mobile Clean Action Icons (No overflow on 280px-400px) -->
+      <div class="flex items-center gap-1.5 md:hidden shrink-0">
+        <button type="button" data-theme-toggle class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 shrink-0" aria-label="Toggle theme">
           <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
           <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
         </button>
-        <a href="chat.html" class="p-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400">
+        <a href="chat.html" class="p-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 shrink-0" aria-label="Chat">
           <i data-lucide="message-square" class="w-5 h-5"></i>
         </a>
       </div>
@@ -192,32 +176,50 @@
   <!-- ========================================================================= -->
   <!-- 2. HERO GREETING & METRICS SUMMARY                                        -->
   <!-- ========================================================================= -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-10">
+  <main class="max-w-7xl w-full max-w-full mx-auto px-3 sm:px-6 py-6 sm:py-8 space-y-8 sm:space-y-10 overflow-hidden">
     
     <!-- Welcome Banner Card -->
-    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 text-white p-6 sm:p-10 shadow-xl border border-indigo-700/50">
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 text-white p-5 sm:p-10 shadow-xl border border-indigo-700/50 w-full max-w-full">
       <!-- Ambient light blobs -->
       <div class="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-indigo-500/20 blur-3xl pointer-events-none"></div>
       <div class="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-lime-400/10 blur-3xl pointer-events-none"></div>
 
       <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-lime-300 text-xs font-semibold mb-3">
-            <span class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span>
-            <span>Bengaluru Chapter • Active Member</span>
+          <div class="flex flex-wrap items-center gap-2 mb-3">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-lime-300 text-xs font-semibold">
+              <span class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span>
+              <span>Bengaluru Chapter • Active Member</span>
+            </div>
+            <!-- Mobile Visible Streak & Coins Badges -->
+            <button @click="showStreakToast()" type="button" class="inline-flex md:hidden items-center gap-1 px-2.5 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs font-bold active:scale-95 transition-transform cursor-pointer">
+              🔥 3-Day Streak
+            </button>
+            <button @click="showCoinsToast()" type="button" class="inline-flex md:hidden items-center gap-1 px-2.5 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs font-bold active:scale-95 transition-transform cursor-pointer">
+              🪙 120 Coins
+            </button>
           </div>
-          <h1 class="font-heading font-bold text-3xl sm:text-4xl text-white tracking-tight leading-tight">
+          <h1 class="font-heading font-bold text-2xl sm:text-4xl text-white tracking-tight leading-tight">
             <span x-text="greeting">Good evening</span>, Rohan! 👋
           </h1>
-          <p class="text-indigo-200 text-sm sm:text-base mt-2 max-w-xl">
+          <p class="text-indigo-200 text-xs sm:text-base mt-2 max-w-xl">
             You have <strong class="text-white">2 unread roommate messages</strong> and 1 upcoming trip squad discussion for the weekend.
           </p>
         </div>
 
         <!-- Quick Quick Action Hub -->
-        <div class="flex flex-wrap items-center gap-3">
-          <a href="chat.html" class="btn btn-primary text-sm shadow-lg flex items-center gap-2">
+        <div class="flex flex-wrap items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
+          <a href="chat.html" class="btn btn-primary text-xs sm:text-sm py-2 px-3.5 sm:px-4 shadow-lg flex items-center gap-2 shrink-0">
             <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>Open In-App Chat</span>
+            <span class="px-1.5 py-0.5 rounded-full bg-white text-indigo-700 text-xs font-bold">2</span>
+          </a>
+          <a href="community.html" class="btn btn-secondary text-xs sm:text-sm py-2 px-3.5 sm:px-4 flex items-center gap-2 shrink-0">
+            <i data-lucide="users" class="w-4 h-4"></i>
+            <span>Community Feed</span>
+          </a>
+        </div>
+      </div>
             <span>Open In-App Chat</span>
             <span class="px-1.5 py-0.5 rounded-full bg-white text-indigo-700 text-xs font-bold">2</span>
           </a>

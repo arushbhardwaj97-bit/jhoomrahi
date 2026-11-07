@@ -8,8 +8,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Browse Verified PGs & Flats — JhoomRahi</title>
-  <meta name="description" content="Explore physically verified PGs, student co-livings, and shared flats across Bengaluru, Delhi, Pune, Mumbai with zero brokerage.">
+  <title>Verified Student PGs & Shared Flats Across India — JhoomRahi</title>
+  <meta name="description" content="Browse 100% verified student PGs, flats, and co-living spaces in Bengaluru, Delhi, Pune, Mumbai, Hyderabad, and Jaipur with zero brokerage and transparent rent breakdowns.">
 
   <!-- Inline SVG Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236366f1'/><text x='16' y='22' font-family='system-ui,sans-serif' font-size='18' font-weight='bold' fill='white' text-anchor='middle'>J</text></svg>">
@@ -63,7 +63,7 @@
   <!-- Lucide Icons CDN -->
   <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
-<body class="bg-[#fafaf7] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white" x-data="{ mobileMenuOpen: false, filterDrawerOpen: false }">
+<body class="bg-[#fafaf7] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white overflow-x-hidden w-full max-w-full" x-data="{ mobileMenuOpen: false, filterDrawerOpen: false }">
 
   <!-- ========================================================================= -->
   <!-- 1. STICKY GLASS NAVBAR                                                    -->
@@ -222,7 +222,7 @@
   <!-- ========================================================================= -->
   <!-- 2. MAIN BROWSE LAYOUT: SIDEBAR + CONTENT                                  -->
   <!-- ========================================================================= -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-20">
+  <main class="max-w-7xl w-full max-w-full mx-auto px-4 sm:px-6 pt-6 pb-20">
     
     <!-- Header Strip: Title & Map/List Toggle -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
@@ -235,7 +235,7 @@
         </p>
       </div>
 
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
         <!-- Mobile Filter Drawer Toggle Button -->
         <button 
           type="button" 

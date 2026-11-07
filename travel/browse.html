@@ -63,7 +63,7 @@
   <!-- Lucide Icons CDN -->
   <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
-<body class="bg-[#fafaf7] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white" x-data="{ mobileMenuOpen: false, filterDrawerOpen: false }">
+<body class="bg-[#fafaf7] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white overflow-x-hidden w-full max-w-full" x-data="{ mobileMenuOpen: false, filterDrawerOpen: false }">
 
   <!-- ========================================================================= -->
   <!-- 1. STICKY GLASS NAVBAR                                                    -->
@@ -231,7 +231,7 @@
   <!-- ========================================================================= -->
   <!-- 2. BROWSE CONTENT: SIDEBAR + CARDS                                        -->
   <!-- ========================================================================= -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-20">
+  <main class="max-w-7xl w-full max-w-full mx-auto px-4 sm:px-6 pt-6 pb-20">
     
     <!-- Header Strip -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
@@ -244,7 +244,7 @@
         </p>
       </div>
 
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
         <!-- Mobile Filter Button -->
         <button 
           type="button" 

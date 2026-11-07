@@ -420,7 +420,7 @@ function renderRoommatesList() {
           <!-- Profile Head -->
           <div class="flex items-start gap-4 mb-4">
             <div class="relative flex-shrink-0">
-              <img src="${r.avatar}" alt="${r.name}" class="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl object-cover ring-2 ring-indigo-500/20">
+              <img src="${r.avatar}" alt="${r.name}" loading="lazy" class="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl object-cover ring-2 ring-indigo-500/20">
               <span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-white dark:border-slate-900" title="Active today"></span>
             </div>
             <div class="min-w-0 flex-1">
@@ -790,7 +790,7 @@ function openBreakdownModal(roommateId) {
 
   content.innerHTML = `
     <div class="flex items-center gap-4 mb-6">
-      <img src="${r.avatar}" alt="${r.name}" class="w-16 h-16 rounded-2xl object-cover ring-2 ring-indigo-500/20">
+      <img src="${r.avatar}" alt="${r.name}" loading="lazy" class="w-16 h-16 rounded-2xl object-cover ring-2 ring-indigo-500/20">
       <div>
         <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white">${r.name}</h3>
         <p class="text-xs text-indigo-600 dark:text-indigo-400 font-medium">${r.role} · ${r.city}</p>
@@ -909,7 +909,7 @@ function openConnectModal(roommateId) {
 
   content.innerHTML = `
     <div class="flex items-center gap-3.5 mb-4">
-      <img src="${r.avatar}" alt="${r.name}" class="w-14 h-14 rounded-2xl object-cover ring-2 ring-indigo-500/20">
+      <img src="${r.avatar}" alt="${r.name}" loading="lazy" class="w-14 h-14 rounded-2xl object-cover ring-2 ring-indigo-500/20">
       <div>
         <h4 class="font-heading font-bold text-base text-slate-900 dark:text-white">Connect with ${r.name}</h4>
         <p class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold">${score}% Compatibility · ${r.city}</p>
@@ -1096,7 +1096,7 @@ function renderPGListings() {
       <div class="card overflow-hidden flex flex-col group border border-slate-200 dark:border-slate-800 hover:shadow-xl transition-all duration-300">
         <!-- Image & Tags -->
         <div class="relative h-48 w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
-          <img src="${coverImg}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <img src="${coverImg}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
           
           <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
             <span class="badge verified text-[11px]">
@@ -1457,12 +1457,12 @@ function renderDetailView(item) {
     <!-- Photo Gallery Grid -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-3 rounded-3xl overflow-hidden mb-10 shadow-sm border border-slate-200 dark:border-slate-800">
       <div class="md:col-span-2 md:row-span-2 h-72 sm:h-96 relative group cursor-pointer" onclick="openPhotoViewer(0)">
-        <img id="detail-active-img" src="${images[0]}" alt="${item.title}" class="w-full h-full object-cover">
+        <img id="detail-active-img" src="${images[0]}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
       </div>
       ${images.slice(1, 4).map((img, idx) => `
         <div class="h-36 sm:h-48 relative group cursor-pointer" onclick="openPhotoViewer(${idx + 1})">
-          <img src="${img}" alt="${item.title}" class="w-full h-full object-cover">
+          <img src="${img}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover">
           <div class="absolute inset-0 bg-black/15 group-hover:bg-black/0 transition-colors"></div>
         </div>
       `).join('')}

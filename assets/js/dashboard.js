@@ -16,6 +16,21 @@
 const PII_PHONE_REGEX = /(?:(?:\+|0{0,2})91[\s.-]*)?[6-9]\d{2}[\s.-]*\d{3}[\s.-]*\d{4}\b|\b[6-9]\d{9}\b|\b\d{5}[\s.-]+\d{5}\b/g;
 
 /**
+ * HTML escape utility to strictly protect against XSS injection
+ * @param {string} str 
+ * @returns {string}
+ */
+function escapeHTML(str) {
+  if (str === null || str === undefined) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+/**
  * Checks if input text contains an Indian mobile number or external contact pattern
  * @param {string} text 
  * @returns {boolean}
@@ -49,7 +64,7 @@ function showRedWarningToast(message = "⚠️ Number share not allowed for secu
     </div>
     <div class="flex-1">
       <p class="font-bold text-rose-700 dark:text-rose-300 leading-tight">Safety & Privacy Shield</p>
-      <p class="text-xs text-rose-800 dark:text-rose-200 mt-0.5 leading-relaxed">${message}</p>
+      <p class="text-xs text-rose-800 dark:text-rose-200 mt-0.5 leading-relaxed">${escapeHTML(message)}</p>
     </div>
   `;
 

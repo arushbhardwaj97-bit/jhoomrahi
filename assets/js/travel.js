@@ -346,7 +346,7 @@ function renderFeedTrips() {
     const isJoined = TravelState.joinedTrips.includes(t.id);
     const slotsLeft = t.slots ? t.slots.remaining : 2;
     const squadAvatars = (t.squad || []).slice(0, 4).map(m => `
-      <img src="${m.avatar}" alt="${m.name}" title="${m.name} (${m.role})" class="w-7 h-7 rounded-full object-cover ring-2 ring-white dark:ring-slate-900 -ml-2 first:ml-0">
+      <img src="${m.avatar}" alt="${m.name}" title="${m.name} (${m.role})" loading="lazy" class="w-7 h-7 rounded-full object-cover ring-2 ring-white dark:ring-slate-900 -ml-2 first:ml-0">
     `).join("");
 
     const extraSquadCount = (t.squad && t.squad.length > 4) ? `+${t.squad.length - 4}` : "";
@@ -399,7 +399,7 @@ function renderFeedTrips() {
         <!-- Action Links -->
         <div class="flex items-center justify-between pt-1">
           <div class="text-[11px] text-slate-500 flex items-center gap-1.5">
-            <img src="${t.host.avatar}" class="w-5 h-5 rounded-full object-cover">
+            <img src="${t.host.avatar}" alt="${t.host.name}" loading="lazy" class="w-5 h-5 rounded-full object-cover">
             <span class="truncate max-w-[110px]">${t.host.name}</span>
           </div>
 
@@ -501,14 +501,14 @@ function renderBrowseTripCards() {
     const isJoined = TravelState.joinedTrips.includes(t.id);
     const slotsLeft = t.slots ? t.slots.remaining : 2;
     const squadAvatars = (t.squad || []).slice(0, 4).map(m => `
-      <img src="${m.avatar}" alt="${m.name}" title="${m.name}" class="w-6 h-6 rounded-full object-cover ring-2 ring-white dark:ring-slate-900 -ml-1.5 first:ml-0">
+      <img src="${m.avatar}" alt="${m.name}" title="${m.name}" loading="lazy" class="w-6 h-6 rounded-full object-cover ring-2 ring-white dark:ring-slate-900 -ml-1.5 first:ml-0">
     `).join("");
 
     html += `
       <div class="card overflow-hidden flex flex-col group border border-slate-200 dark:border-slate-800 hover:shadow-xl transition-all duration-300">
         <!-- Cover Photo with Badges -->
         <div class="relative h-48 w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
-          <img src="${t.coverImage}" alt="${t.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <img src="${t.coverImage}" alt="${t.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
           
           <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
             <span class="badge verified text-[11px] shadow-sm">
@@ -726,7 +726,7 @@ function renderTripDetailView(t) {
   // Squad Members HTML
   const squadMembersHtml = (t.squad || []).map(m => `
     <div class="flex items-center gap-3 p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
-      <img src="${m.avatar}" alt="${m.name}" class="w-10 h-10 rounded-xl object-cover ring-2 ring-indigo-500/20">
+      <img src="${m.avatar}" alt="${m.name}" loading="lazy" class="w-10 h-10 rounded-xl object-cover ring-2 ring-indigo-500/20">
       <div class="min-w-0 flex-1">
         <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate">${m.name}</h4>
         <p class="text-[11px] text-indigo-600 dark:text-indigo-400 font-medium truncate">${m.role}</p>
@@ -844,7 +844,7 @@ function renderTripDetailView(t) {
         <!-- Cover & Gallery -->
         <div class="card overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800">
           <div class="h-72 sm:h-96 w-full overflow-hidden">
-            <img src="${t.coverImage}" alt="${t.title}" class="w-full h-full object-cover">
+            <img src="${t.coverImage}" alt="${t.title}" loading="lazy" class="w-full h-full object-cover">
           </div>
         </div>
 
@@ -898,7 +898,7 @@ function renderTripDetailView(t) {
 
           <!-- Host Spotlight -->
           <div class="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/60 flex items-center gap-4">
-            <img src="${t.host.avatar}" alt="${t.host.name}" class="w-12 h-12 rounded-xl object-cover ring-2 ring-indigo-500/20">
+            <img src="${t.host.avatar}" alt="${t.host.name}" loading="lazy" class="w-12 h-12 rounded-xl object-cover ring-2 ring-indigo-500/20">
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-1.5">
                 <h4 class="text-xs font-bold text-slate-900 dark:text-white">${t.host.name} (Squad Host)</h4>
@@ -1119,7 +1119,7 @@ function submitJoinTrip(event) {
   if (squadGrid) {
     squadGrid.innerHTML += `
       <div class="flex items-center gap-3 p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60 animate-fade-in">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400" class="w-10 h-10 rounded-xl object-cover ring-2 ring-emerald-500/30">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400" alt="Joined Member" loading="lazy" class="w-10 h-10 rounded-xl object-cover ring-2 ring-emerald-500/30">
         <div class="min-w-0 flex-1">
           <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate">${nameVal} (You)</h4>
           <p class="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">Joined Just Now</p>

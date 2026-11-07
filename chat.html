@@ -63,21 +63,21 @@
   <!-- Lucide Icons CDN -->
   <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
-<body class="bg-[#fafaf7] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 antialiased h-full flex flex-col overflow-hidden" x-data="chatApp()">
+<body class="bg-[#fafaf7] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 antialiased h-full flex flex-col overflow-hidden overflow-x-hidden w-full max-w-full" x-data="chatApp()">
 
   <!-- ========================================================================= -->
   <!-- 1. STICKY NAV (GLASS)                                                     -->
   <!-- ========================================================================= -->
-  <header id="navbar" class="h-16 sm:h-20 w-full nav-glass flex-shrink-0 z-40 border-b border-slate-200 dark:border-slate-800">
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 h-full flex items-center justify-between">
+  <header id="navbar" class="h-16 sm:h-20 w-full max-w-full nav-glass flex-shrink-0 z-40 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl w-full mx-auto px-3 sm:px-6 h-full flex items-center justify-between gap-2">
       
       <!-- Logo Mark -->
-      <a href="dashboard.html" class="flex items-center gap-2 group">
-        <div class="w-9 h-9 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-heading font-bold text-lg shadow-md group-hover:scale-105 transition-transform">
+      <a href="dashboard.html" class="flex items-center gap-2 group shrink-0">
+        <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-heading font-bold text-base sm:text-lg shadow-md group-hover:scale-105 transition-transform">
           J
         </div>
         <div class="flex flex-col">
-          <span class="font-heading font-bold text-xl sm:text-2xl tracking-tight text-slate-900 dark:text-white">
+          <span class="font-heading font-bold text-lg sm:text-2xl tracking-tight text-slate-900 dark:text-white">
             Jhoom<span class="text-indigo-600 dark:text-indigo-400">Rahi</span>
           </span>
         </div>
@@ -97,27 +97,25 @@
       </nav>
 
       <!-- Right Header Actions -->
-      <div class="flex items-center gap-2 sm:gap-3">
-        <!-- Daily Streak Badge -->
+      <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+        <!-- Daily Streak Badge (Hidden on mobile < sm to prevent overflow) -->
         <button 
           @click="showStreakToast()" 
           type="button" 
-          class="pill bg-amber-50 dark:bg-amber-950/70 border border-amber-300/40 text-amber-700 dark:text-amber-300 font-bold text-xs py-1 px-2.5 hover:scale-105 active:scale-95 transition-all shadow-xs cursor-pointer"
+          class="hidden sm:inline-flex pill bg-amber-50 dark:bg-amber-950/70 border border-amber-300/40 text-amber-700 dark:text-amber-300 font-bold text-xs py-1 px-2.5 hover:scale-105 active:scale-95 transition-all shadow-xs cursor-pointer"
           title="Daily Streak">
           <span>🔥</span>
-          <span class="hidden sm:inline" x-text="streakDays + '-Day Streak'">3-Day Streak</span>
-          <span class="sm:hidden" x-text="streakDays + 'd'">3d</span>
+          <span x-text="streakDays + '-Day Streak'">3-Day Streak</span>
         </button>
 
-        <!-- Coins Badge -->
+        <!-- Coins Badge (Hidden on mobile < sm to prevent overflow) -->
         <button 
           @click="showCoinsToast()" 
           type="button" 
-          class="inline-flex items-center gap-1 px-2.5 py-1 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border border-amber-300/30 text-amber-700 dark:text-amber-300 text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-xs cursor-pointer"
+          class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border border-amber-300/30 text-amber-700 dark:text-amber-300 text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-xs cursor-pointer"
           title="JhoomCoins Balance">
           <span>🪙</span>
-          <span class="hidden sm:inline" x-text="coinBalance + ' Coins'">120 Coins</span>
-          <span class="sm:hidden" x-text="coinBalance">120</span>
+          <span x-text="coinBalance + ' Coins'">120 Coins</span>
         </button>
 
         <!-- Masked Badge -->
@@ -127,14 +125,14 @@
         </div>
 
         <!-- Theme Toggle -->
-        <button type="button" data-theme-toggle class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Toggle theme">
+        <button type="button" data-theme-toggle class="p-1.5 sm:p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shrink-0" aria-label="Toggle theme">
           <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
           <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
         </button>
 
         <!-- User Pill -->
-        <a href="dashboard.html" class="flex items-center gap-2 p-1 pr-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs font-bold shadow-sm">
-          <img src="https://picsum.photos/seed/rohan_dev/200/200" alt="Rohan" class="w-7 h-7 rounded-lg object-cover" loading="lazy">
+        <a href="dashboard.html" class="flex items-center gap-1 sm:gap-2 p-1 pr-1.5 sm:pr-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs font-bold shadow-sm shrink-0">
+          <img src="https://picsum.photos/seed/rohan_dev/200/200" alt="Rohan" class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg object-cover" loading="lazy">
           <span class="hidden sm:inline text-slate-800 dark:text-slate-200">Rohan D.</span>
         </a>
       </div>
@@ -145,16 +143,16 @@
   <!-- ========================================================================= -->
   <!-- 2. MAIN CHAT CONTAINER (SPLIT VIEW ON DESKTOP, SWITCHABLE ON MOBILE)     -->
   <!-- ========================================================================= -->
-  <div class="flex-1 max-w-7xl w-full mx-auto p-0 sm:p-4 md:p-6 overflow-hidden flex flex-col">
+  <div class="flex-1 max-w-7xl w-full max-w-full mx-auto p-0 sm:p-4 md:p-6 overflow-hidden flex flex-col">
     
-    <div class="flex-1 w-full bg-white dark:bg-slate-900 border-0 sm:border border-slate-200 dark:border-slate-800 rounded-none sm:rounded-3xl shadow-soft overflow-hidden flex">
+    <div class="flex-1 w-full max-w-full bg-white dark:bg-slate-900 border-0 sm:border border-slate-200 dark:border-slate-800 rounded-none sm:rounded-3xl shadow-soft overflow-hidden flex">
       
       <!-- ===================================================================== -->
-      <!-- LEFT COLUMN: RECENT CHATS INBOX (340px - 380px Desktop)               -->
+      <!-- LEFT COLUMN: RECENT CHATS INBOX (100% on mobile, 320px-380px Desktop) -->
       <!-- ===================================================================== -->
       <aside 
-        class="w-full md:w-80 lg:w-96 border-r border-slate-200 dark:border-slate-800 flex flex-col bg-[#fdfdfb] dark:bg-slate-900/90 h-full flex-shrink-0"
-        :class="{ 'hidden md:flex': mobileView === 'thread', 'flex': mobileView === 'inbox' }">
+        :class="mobileView === 'inbox' ? 'flex w-full' : 'hidden md:flex md:w-80 lg:w-96'"
+        class="flex-col border-r border-slate-200 dark:border-slate-800 bg-[#fdfdfb] dark:bg-slate-900/90 h-full flex-shrink-0 min-w-0">
         
         <!-- Inbox Header & Search -->
         <div class="p-4 border-b border-slate-100 dark:border-slate-800 space-y-3">
@@ -239,7 +237,7 @@
                 <div class="flex items-center justify-between gap-2 mt-1">
                   <p class="text-xs text-slate-500 dark:text-slate-400 truncate flex-1" x-text="chat.lastMessage"></p>
                   <span 
-                    x-show="chat.unread > 0" 
+                    x-show="Boolean(chat.unread)" 
                     class="w-5 h-5 rounded-full bg-indigo-600 text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0 shadow-sm"
                     x-text="chat.unread">
                   </span>
@@ -289,41 +287,41 @@
 
 
       <!-- ===================================================================== -->
-      <!-- RIGHT COLUMN: ACTIVE CHAT THREAD (Flex-1)                             -->
+      <!-- RIGHT COLUMN: ACTIVE CHAT THREAD (100% on mobile, flex-1 Desktop)       -->
       <!-- ===================================================================== -->
       <section 
-        class="flex-1 flex flex-col h-full bg-white dark:bg-slate-900"
-        :class="{ 'hidden md:flex': mobileView === 'inbox', 'flex': mobileView === 'thread' }">
+        :class="mobileView === 'thread' ? 'flex w-full' : 'hidden md:flex md:flex-1'"
+        class="flex-col h-full bg-white dark:bg-slate-900 min-w-0 w-full md:w-auto">
         
         <!-- Thread Header -->
         <template x-if="activeChat">
-          <div class="h-16 sm:h-20 px-3 sm:px-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3 flex-shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md">
+          <div class="h-16 sm:h-20 px-2 sm:px-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2 flex-shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md w-full max-w-full">
             
-            <div class="flex items-center gap-2 sm:gap-3.5 min-w-0">
+            <div class="flex items-center gap-1.5 sm:gap-3.5 min-w-0 flex-1">
               <!-- Mobile Back Button -->
               <button 
                 @click="backToInbox()" 
                 type="button"
-                class="md:hidden p-2 -ml-1 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-1"
+                class="md:hidden p-1.5 -ml-1 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-0.5 shrink-0"
                 aria-label="Back to chats">
                 <i data-lucide="chevron-left" class="w-5 h-5"></i>
-                <span class="text-xs font-semibold">Chats</span>
+                <span class="text-xs font-semibold hidden min-[360px]:inline">Chats</span>
               </button>
 
               <!-- Contact Avatar -->
               <div class="relative flex-shrink-0">
-                <img :src="activeChat.avatar" :alt="activeChat.name" class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl object-cover" loading="lazy">
+                <img :src="activeChat.avatar" :alt="activeChat.name" class="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl object-cover" loading="lazy">
                 <span x-show="activeChat.online" class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 border-2 border-white dark:border-slate-900"></span>
               </div>
 
               <!-- Contact Info -->
-              <div class="min-w-0">
-                <div class="flex items-center gap-1.5 truncate">
-                  <h2 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white leading-tight truncate" x-text="activeChat.name"></h2>
-                  <i x-show="activeChat.verified" data-lucide="check-circle" class="w-4 h-4 text-indigo-500 flex-shrink-0"></i>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center gap-1 truncate">
+                  <h2 class="font-bold text-xs sm:text-base text-slate-900 dark:text-white leading-tight truncate" x-text="activeChat.name"></h2>
+                  <i x-show="activeChat.verified" data-lucide="check-circle" class="w-3.5 h-3.5 text-indigo-500 flex-shrink-0"></i>
                 </div>
-                <div class="flex items-center gap-2 mt-0.5">
-                  <p class="text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[180px] sm:max-w-xs" x-text="activeChat.role || activeChat.contextTag"></p>
+                <div class="flex items-center gap-1 sm:gap-2 mt-0.5 truncate">
+                  <p class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[120px] sm:max-w-xs" x-text="activeChat.role || activeChat.contextTag"></p>
                   <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 hidden sm:inline"></span>
                   <span class="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium hidden sm:inline" x-text="activeChat.online ? 'Online' : 'Offline'"></span>
                 </div>
@@ -331,21 +329,21 @@
             </div>
 
             <!-- Action Buttons: Masked Call Button (Prominent Requirement) -->
-            <div class="flex items-center gap-2 flex-shrink-0">
+            <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
               <button 
                 @click="triggerMaskedCall()" 
                 type="button" 
-                class="btn btn-secondary text-xs px-3 sm:px-4 py-2 flex items-center gap-1.5 shadow-sm hover:scale-105 transition-transform"
+                class="btn btn-secondary text-xs px-2.5 sm:px-4 py-1.5 sm:py-2 flex items-center gap-1 sm:gap-1.5 shadow-sm hover:scale-105 shrink-0"
                 title="Call via JhoomRahi encrypted voice bridge without sharing phone numbers">
                 <i data-lucide="phone-call" class="w-3.5 h-3.5 text-slate-900"></i>
-                <span class="font-bold">Masked Call</span>
+                <span class="font-bold text-[11px] sm:text-xs">Masked Call</span>
                 <span class="hidden lg:inline text-[10px] opacity-80">(100% Private)</span>
               </button>
 
               <button 
                 @click="showRedWarningToast('Direct phone numbers & WhatsApp links are disabled. Chat and Masked Call keep you safe from deposit scams.')"
                 type="button" 
-                class="p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors" 
+                class="p-1.5 sm:p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors shrink-0" 
                 title="Privacy info">
                 <i data-lucide="info" class="w-4 h-4"></i>
               </button>
@@ -394,8 +392,8 @@
                   <div class="max-w-[85%] sm:max-w-md">
                     <!-- Standard Text Bubble -->
                     <template x-if="!msg.type || msg.type === 'text'">
-                      <div class="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 p-3 sm:p-3.5 rounded-2xl rounded-tl-sm border border-slate-200 dark:border-slate-700 shadow-xs text-sm leading-relaxed">
-                        <p x-text="msg.text"></p>
+                      <div class="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 p-3 sm:p-3.5 rounded-2xl rounded-tl-sm border border-slate-200 dark:border-slate-700 shadow-xs text-sm leading-relaxed break-words">
+                        <p class="break-words" x-text="msg.text"></p>
                       </div>
                     </template>
 
@@ -458,7 +456,7 @@
                         x-transition:leave="transition ease-in duration-100"
                         x-transition:leave-start="opacity-100 scale-100"
                         x-transition:leave-end="opacity-0 scale-90"
-                        class="absolute right-0 bottom-full mb-1.5 z-30 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl p-1 min-w-[170px] animate-pop">
+                        class="absolute right-0 bottom-full mb-1.5 z-30 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl p-1 min-w-[160px] max-w-[calc(100vw-2rem)] animate-pop">
                         
                         <!-- 1. Edit (Only available for text messages) -->
                         <button 
@@ -492,8 +490,8 @@
 
                       <!-- Standard Text Bubble -->
                       <template x-if="!msg.type || msg.type === 'text'">
-                        <div class="bg-indigo-600 text-white p-3 sm:p-3.5 rounded-2xl rounded-tr-sm shadow-md text-sm leading-relaxed">
-                          <p x-text="msg.text"></p>
+                        <div class="bg-indigo-600 text-white p-3 sm:p-3.5 rounded-2xl rounded-tr-sm shadow-md text-sm leading-relaxed break-words">
+                          <p class="break-words" x-text="msg.text"></p>
                         </div>
                       </template>
 
@@ -555,7 +553,7 @@
             <div class="flex items-center gap-2 truncate">
               <svg class="w-4 h-4 text-indigo-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
               <span class="font-bold">Editing message:</span>
-              <span class="truncate italic opacity-85 max-w-xs sm:max-w-md" x-text="'\"' + editingOriginalText + '\"'"></span>
+              <span class="truncate italic opacity-85 max-w-xs sm:max-w-md" x-text="'“' + (editingOriginalText || '') + '”'"></span>
             </div>
             <button 
               @click="cancelEditMessage()" 
@@ -575,16 +573,16 @@
             x-transition:leave-start="opacity-100 translate-y-0"
             x-transition:leave-end="opacity-0 translate-y-3"
             @click.away="showMediaPicker = false"
-            class="border-b border-slate-200 dark:border-slate-800 bg-[#fdfdfb] dark:bg-slate-900 p-3 shadow-xl">
+            class="border-b border-slate-200 dark:border-slate-800 bg-[#fdfdfb] dark:bg-slate-900 p-2 sm:p-3 shadow-xl w-full max-w-full overflow-hidden">
             
             <!-- Picker Header with 3 Tabs -->
-            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2 mb-2">
-              <div class="flex items-center gap-1.5">
+            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2 mb-2 gap-1">
+              <div class="flex items-center gap-1 overflow-x-auto no-scrollbar shrink-0">
                 <button 
                   type="button" 
                   @click="activePickerTab = 'emojis'"
                   :class="activePickerTab === 'emojis' ? 'bg-indigo-600 text-white font-semibold shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'"
-                  class="px-3 py-1 rounded-xl text-xs flex items-center gap-1.5 transition-colors cursor-pointer">
+                  class="px-2.5 sm:px-3 py-1 rounded-xl text-xs flex items-center gap-1 transition-colors cursor-pointer shrink-0">
                   <span>😊</span>
                   <span>Emojis</span>
                 </button>
@@ -592,7 +590,7 @@
                   type="button" 
                   @click="activePickerTab = 'stickers'"
                   :class="activePickerTab === 'stickers' ? 'bg-indigo-600 text-white font-semibold shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'"
-                  class="px-3 py-1 rounded-xl text-xs flex items-center gap-1.5 transition-colors cursor-pointer">
+                  class="px-2.5 sm:px-3 py-1 rounded-xl text-xs flex items-center gap-1 transition-colors cursor-pointer shrink-0">
                   <span>🏷️</span>
                   <span>Stickers</span>
                 </button>
@@ -600,7 +598,7 @@
                   type="button" 
                   @click="activePickerTab = 'gifs'"
                   :class="activePickerTab === 'gifs' ? 'bg-indigo-600 text-white font-semibold shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'"
-                  class="px-3 py-1 rounded-xl text-xs flex items-center gap-1.5 transition-colors cursor-pointer">
+                  class="px-2.5 sm:px-3 py-1 rounded-xl text-xs flex items-center gap-1 transition-colors cursor-pointer shrink-0">
                   <span>🎬</span>
                   <span>GIFs</span>
                 </button>
@@ -608,14 +606,14 @@
               <button 
                 type="button" 
                 @click="showMediaPicker = false" 
-                class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 text-xs cursor-pointer"
+                class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 text-xs cursor-pointer shrink-0"
                 title="Close picker">
                 ✕
               </button>
             </div>
 
             <!-- Tab 1: Unicode Emojis -->
-            <div x-show="activePickerTab === 'emojis'" class="max-h-48 overflow-y-auto grid grid-cols-8 sm:grid-cols-12 gap-1.5 p-1 text-xl sm:text-2xl">
+            <div x-show="activePickerTab === 'emojis'" class="max-h-48 overflow-y-auto grid grid-cols-6 sm:grid-cols-10 md:grid-cols-12 gap-1 p-1 text-xl sm:text-2xl">
               <template x-for="emo in emojiList" :key="emo">
                 <button 
                   type="button" 
@@ -627,7 +625,7 @@
             </div>
 
             <!-- Tab 2: Stickers (Sends immediately on click) -->
-            <div x-show="activePickerTab === 'stickers'" class="max-h-48 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 gap-2 p-1">
+            <div x-show="activePickerTab === 'stickers'" class="max-h-48 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 p-1">
               <template x-for="stk in stickerList" :key="stk.id">
                 <button 
                   type="button" 
@@ -644,7 +642,7 @@
             </div>
 
             <!-- Tab 3: GIFs (Sends immediately on click) -->
-            <div x-show="activePickerTab === 'gifs'" class="max-h-48 overflow-y-auto grid grid-cols-2 sm:grid-cols-4 gap-2 p-1">
+            <div x-show="activePickerTab === 'gifs'" class="max-h-48 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 p-1">
               <template x-for="gif in gifList" :key="gif.id">
                 <button 
                   type="button" 
@@ -661,16 +659,16 @@
           </div>
 
           <!-- 3. Actual Input Form -->
-          <div class="p-3 sm:p-4">
-            <form @submit.prevent="handleSendMessage()" class="flex items-center gap-2">
+          <div class="p-2 sm:p-4">
+            <form @submit.prevent="handleSendMessage()" class="flex items-center gap-1.5 sm:gap-2 w-full max-w-full">
               
               <!-- Attachment Button -->
               <button 
                 type="button" 
                 @click="showToast('Photo & flat floorplan sharing coming in next iteration!', 'info')"
-                class="p-2.5 rounded-xl text-slate-400 hover:text-indigo-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" 
+                class="p-2 sm:p-2.5 rounded-xl text-slate-400 hover:text-indigo-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shrink-0" 
                 title="Share document or photo">
-                <i data-lucide="paperclip" class="w-5 h-5"></i>
+                <i data-lucide="paperclip" class="w-4 h-4 sm:w-5 sm:h-5"></i>
               </button>
 
               <!-- Sticker / Emoji Picker Button -->
@@ -678,26 +676,26 @@
                 type="button" 
                 @click="toggleMediaPicker()" 
                 :class="showMediaPicker ? 'bg-indigo-50 dark:bg-indigo-950 text-indigo-600 ring-2 ring-indigo-500/30' : 'text-slate-400 hover:text-indigo-600 hover:bg-slate-100 dark:hover:bg-slate-800'"
-                class="p-2.5 rounded-xl transition-all cursor-pointer" 
+                class="p-2 sm:p-2.5 rounded-xl transition-all cursor-pointer shrink-0" 
                 title="Stickers, GIFs & Emojis">
-                <span class="text-base sm:text-lg">😊</span>
+                <span class="text-base sm:text-lg leading-none">😊</span>
               </button>
 
               <!-- Text Input (With live phone number warning behavior) -->
-              <div class="relative flex-1">
+              <div class="relative flex-1 min-w-0">
                 <input 
                   id="chat-message-input"
                   type="text" 
                   x-model="messageInput"
                   :class="{ 'animate-shake !border-rose-500 ring-2 ring-rose-400': inputShake }"
-                  :placeholder="editingMessageId ? 'Edit your message... (phone numbers still blocked)' : 'Type a message... (phone numbers will be blocked for safety)'"
-                  class="w-full pl-4 pr-10 py-2.5 sm:py-3 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-transparent focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 outline-none transition-all">
+                  :placeholder="editingMessageId ? 'Edit your message...' : 'Type a message... (phone numbers blocked)'"
+                  class="w-full pl-3 sm:pl-4 pr-8 sm:pr-10 py-2 sm:py-2.5 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-transparent focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 outline-none transition-all min-w-0">
                 
                 <!-- Quick wave emoji -->
                 <button 
                   type="button" 
                   @click="messageInput += ' 👋'" 
-                  class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-sm">
+                  class="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs sm:text-sm">
                   👋
                 </button>
               </div>
@@ -706,7 +704,7 @@
               <button 
                 type="submit" 
                 :disabled="!messageInput || !messageInput.trim()"
-                class="btn btn-primary p-2.5 sm:px-4 sm:py-3 rounded-2xl shadow-md disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer">
+                class="btn btn-primary p-2 sm:px-4 sm:py-2.5 rounded-2xl shadow-md disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer shrink-0">
                 <span class="hidden sm:inline text-xs font-bold" x-text="editingMessageId ? 'Save' : 'Send'">Send</span>
                 <template x-if="!editingMessageId">
                   <i data-lucide="send" class="w-4 h-4"></i>
@@ -718,9 +716,9 @@
 
             </form>
 
-            <p class="text-[10px] text-slate-400 text-center mt-2 flex items-center justify-center gap-1">
+            <p class="text-[10px] text-slate-400 text-center mt-1.5 flex items-center justify-center gap-1">
               <i data-lucide="lock" class="w-3 h-3 text-emerald-500"></i>
-              <span>Encrypted in-app chat. Phone numbers are automatically masked to safeguard users.</span>
+              <span>Encrypted in-app chat. Phone numbers are automatically masked.</span>
             </p>
           </div>
         </div>

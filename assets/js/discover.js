@@ -933,6 +933,7 @@ function renderPlaceDetailView(place) {
               id="detail-main-photo" 
               src="${galleryImages[0]}" 
               alt="${place.name}" 
+              loading="lazy"
               class="w-full h-full object-cover transition-all duration-300"
               onerror="this.src='https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800'"
             />
@@ -946,7 +947,7 @@ function renderPlaceDetailView(place) {
                   type="button" 
                   onclick="swapDetailPhoto('${imgUrl}')" 
                   class="w-24 h-16 rounded-xl overflow-hidden border-2 border-transparent hover:border-indigo-500 focus:border-indigo-500 transition-all flex-shrink-0">
-                  <img src="${imgUrl}" alt="Photo ${i + 1}" class="w-full h-full object-cover">
+                  <img src="${imgUrl}" alt="Photo ${i + 1}" loading="lazy" class="w-full h-full object-cover">
                 </button>
               `).join("")}
             </div>
