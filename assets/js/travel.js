@@ -50,6 +50,13 @@ function formatRupee(amount) {
 // 1. CALENDAR SYSTEM (travel/calendar.html)
 // =========================================================================
 
+/**
+ * Initializes the travel calendar view on travel/calendar.html.
+ * Loads upcoming trips, renders month grid and sidebar feed, and binds filter listeners.
+ * @async
+ * @function initTravelCalendar
+ * @returns {Promise<void>}
+ */
 async function initTravelCalendar() {
   const container = document.getElementById("calendar-days-grid");
   if (!container) return;
@@ -241,6 +248,12 @@ function renderCalendar() {
   grid.innerHTML = html;
 }
 
+/**
+ * Selects a calendar day and filters sidebar squads scheduled on that day.
+ * @function selectCalendarDate
+ * @param {string} dateStr - Date formatted as YYYY-MM-DD
+ * @returns {void}
+ */
 function selectCalendarDate(dateStr) {
   if (TravelState.selectedDate === dateStr) {
     TravelState.selectedDate = null; // Toggle unselect
@@ -251,6 +264,11 @@ function selectCalendarDate(dateStr) {
   renderFeedTrips();
 }
 
+/**
+ * Advances calendar view to the previous month.
+ * @function prevMonth
+ * @returns {void}
+ */
 function prevMonth() {
   if (TravelState.currentMonth === 0) {
     TravelState.currentMonth = 11;
@@ -263,6 +281,11 @@ function prevMonth() {
   renderFeedTrips();
 }
 
+/**
+ * Advances calendar view to the next month.
+ * @function nextMonth
+ * @returns {void}
+ */
 function nextMonth() {
   if (TravelState.currentMonth === 11) {
     TravelState.currentMonth = 0;
@@ -275,6 +298,11 @@ function nextMonth() {
   renderFeedTrips();
 }
 
+/**
+ * Resets calendar view to the current month and today's date.
+ * @function jumpToToday
+ * @returns {void}
+ */
 function jumpToToday() {
   TravelState.currentYear = 2026;
   TravelState.currentMonth = 10; // November
@@ -346,7 +374,7 @@ function renderFeedTrips() {
     const isJoined = TravelState.joinedTrips.includes(t.id);
     const slotsLeft = t.slots ? t.slots.remaining : 2;
     const squadAvatars = (t.squad || []).slice(0, 4).map(m => `
-      <img src="${m.avatar}" alt="${m.name}" title="${m.name} (${m.role})" loading="lazy" class="w-7 h-7 rounded-full object-cover ring-2 ring-white dark:ring-slate-900 -ml-2 first:ml-0">
+      <img src="${m.avatar}" alt="${m.name}" title="${m.name} (${m.role})" loading="lazy" class="w-7 h-7 rounded-full object-cover ring-2 ring-white dark:ring-slate-900 -ml-2 first:ml-0" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(m.name || 'Traveler')}&background=6366f1&color=fff';">
     `).join("");
 
     const extraSquadCount = (t.squad && t.squad.length > 4) ? `+${t.squad.length - 4}` : "";
@@ -399,7 +427,7 @@ function renderFeedTrips() {
         <!-- Action Links -->
         <div class="flex items-center justify-between pt-1">
           <div class="text-[11px] text-slate-500 flex items-center gap-1.5">
-            <img src="${t.host.avatar}" alt="${t.host.name}" loading="lazy" class="w-5 h-5 rounded-full object-cover">
+            <img src="${t.host.avatar}" alt="${t.host.name}" loading="lazy" class="w-5 h-5 rounded-full object-cover" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(t.host.name || 'Host')}&background=6366f1&color=fff';">
             <span class="truncate max-w-[110px]">${t.host.name}</span>
           </div>
 
@@ -420,6 +448,13 @@ function renderFeedTrips() {
 // 2. BROWSE TRIPS (travel/browse.html)
 // =========================================================================
 
+/**
+ * Initializes the travel browse catalog on travel/browse.html.
+ * Fetches trips, renders skeletons, displays cards, and binds filter listeners.
+ * @async
+ * @function initTravelBrowse
+ * @returns {Promise<void>}
+ */
 async function initTravelBrowse() {
   const container = document.getElementById("travel-browse-grid");
   if (!container) return;
@@ -436,6 +471,13 @@ async function initTravelBrowse() {
   }
 }
 
+/**
+ * Renders animated skeleton placeholder cards while travel squads are loading.
+ * @function renderTripSkeletons
+ * @param {HTMLElement} container - DOM container element
+ * @param {number} [count=6] - Number of skeleton cards
+ * @returns {void}
+ */
 function renderTripSkeletons(container, count = 6) {
   let html = "";
   for (let i = 0; i < count; i++) {
@@ -453,6 +495,11 @@ function renderTripSkeletons(container, count = 6) {
   container.innerHTML = html;
 }
 
+/**
+ * Renders filtered travel squad cards onto travel/browse.html.
+ * @function renderBrowseTripCards
+ * @returns {void}
+ */
 function renderBrowseTripCards() {
   const container = document.getElementById("travel-browse-grid");
   const countEl = document.getElementById("travel-browse-count");
@@ -501,14 +548,14 @@ function renderBrowseTripCards() {
     const isJoined = TravelState.joinedTrips.includes(t.id);
     const slotsLeft = t.slots ? t.slots.remaining : 2;
     const squadAvatars = (t.squad || []).slice(0, 4).map(m => `
-      <img src="${m.avatar}" alt="${m.name}" title="${m.name}" loading="lazy" class="w-6 h-6 rounded-full object-cover ring-2 ring-white dark:ring-slate-900 -ml-1.5 first:ml-0">
+      <img src="${m.avatar}" alt="${m.name}" title="${m.name}" loading="lazy" class="w-6 h-6 rounded-full object-cover ring-2 ring-white dark:ring-slate-900 -ml-1.5 first:ml-0" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(m.name || 'Traveler')}&background=6366f1&color=fff';">
     `).join("");
 
     html += `
       <div class="card overflow-hidden flex flex-col group border border-slate-200 dark:border-slate-800 hover:shadow-xl transition-all duration-300">
         <!-- Cover Photo with Badges -->
         <div class="relative h-48 w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
-          <img src="${t.coverImage}" alt="${t.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <img src="${t.coverImage}" alt="${t.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600';">
           
           <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
             <span class="badge verified text-[11px] shadow-sm">
@@ -574,6 +621,11 @@ function renderBrowseTripCards() {
   if (typeof lucide !== "undefined") lucide.createIcons();
 }
 
+/**
+ * Binds change and input listeners to travel search, vibe, and budget filters.
+ * @function setupBrowseTripFilterListeners
+ * @returns {void}
+ */
 function setupBrowseTripFilterListeners() {
   const citySelect = document.getElementById("travel-filter-city");
   if (citySelect) citySelect.addEventListener("change", renderBrowseTripCards);
@@ -597,6 +649,11 @@ function setupBrowseTripFilterListeners() {
   }
 }
 
+/**
+ * Resets all travel filters to their default values and refreshes listings.
+ * @function resetTravelFilters
+ * @returns {void}
+ */
 function resetTravelFilters() {
   const citySelect = document.getElementById("travel-filter-city");
   if (citySelect) citySelect.value = "all";
@@ -622,6 +679,13 @@ function resetTravelFilters() {
 // 3. TRIP DETAIL & LIVE COUNTDOWN TIMER (travel/detail.html)
 // =========================================================================
 
+/**
+ * Initializes travel trip detail view on travel/detail.html.
+ * Reads ID from URL query parameters, fetches trip details, and starts countdown timer.
+ * @async
+ * @function initTripDetail
+ * @returns {Promise<void>}
+ */
 async function initTripDetail() {
   const container = document.getElementById("trip-detail-container");
   if (!container) return;
@@ -697,6 +761,12 @@ function startLiveCountdown(targetIsoDate) {
   TravelState.countdownInterval = setInterval(update, 1000);
 }
 
+/**
+ * Renders full trip details including host bio, itinerary timeline, squad roster, and cost split.
+ * @function renderTripDetailView
+ * @param {Object} t - Trip details object
+ * @returns {void}
+ */
 function renderTripDetailView(t) {
   const container = document.getElementById("trip-detail-container");
   if (!container) return;
@@ -726,7 +796,7 @@ function renderTripDetailView(t) {
   // Squad Members HTML
   const squadMembersHtml = (t.squad || []).map(m => `
     <div class="flex items-center gap-3 p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
-      <img src="${m.avatar}" alt="${m.name}" loading="lazy" class="w-10 h-10 rounded-xl object-cover ring-2 ring-indigo-500/20">
+      <img src="${m.avatar}" alt="${m.name}" loading="lazy" class="w-10 h-10 rounded-xl object-cover ring-2 ring-indigo-500/20" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(m.name || 'Traveler')}&background=6366f1&color=fff';">
       <div class="min-w-0 flex-1">
         <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate">${m.name}</h4>
         <p class="text-[11px] text-indigo-600 dark:text-indigo-400 font-medium truncate">${m.role}</p>
@@ -844,7 +914,7 @@ function renderTripDetailView(t) {
         <!-- Cover & Gallery -->
         <div class="card overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800">
           <div class="h-72 sm:h-96 w-full overflow-hidden">
-            <img src="${t.coverImage}" alt="${t.title}" loading="lazy" class="w-full h-full object-cover">
+            <img src="${t.coverImage}" alt="${t.title}" loading="lazy" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600';">
           </div>
         </div>
 
@@ -898,7 +968,7 @@ function renderTripDetailView(t) {
 
           <!-- Host Spotlight -->
           <div class="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/60 flex items-center gap-4">
-            <img src="${t.host.avatar}" alt="${t.host.name}" loading="lazy" class="w-12 h-12 rounded-xl object-cover ring-2 ring-indigo-500/20">
+            <img src="${t.host.avatar}" alt="${t.host.name}" loading="lazy" class="w-12 h-12 rounded-xl object-cover ring-2 ring-indigo-500/20" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(t.host.name || 'Host')}&background=6366f1&color=fff';">
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-1.5">
                 <h4 class="text-xs font-bold text-slate-900 dark:text-white">${t.host.name} (Squad Host)</h4>
@@ -987,7 +1057,7 @@ function renderTripDetailView(t) {
           <button 
             type="button" 
             id="join-trip-action-btn"
-            onclick="openJoinTripModal('${t.id}')"
+            onclick="if(requireLogin('join_trip')) { openJoinTripModal('${t.id}'); }"
             class="w-full btn ${isJoined ? 'bg-emerald-500 text-white cursor-default' : 'btn-primary'} text-sm py-3.5 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg">
             <i data-lucide="${isJoined ? 'check-circle' : 'users'}" class="w-4 h-4"></i>
             <span id="join-btn-text">${isJoined ? 'You are in the Squad! ✓' : 'Join This Squad'}</span>
@@ -1006,6 +1076,12 @@ function renderTripDetailView(t) {
   if (typeof lucide !== "undefined") lucide.createIcons();
 }
 
+/**
+ * Triggers native Web Share API or copies trip URL to user clipboard.
+ * @function shareTrip
+ * @param {string} title - Trip title to share
+ * @returns {void}
+ */
 function shareTrip(title) {
   if (navigator.share) {
     navigator.share({
@@ -1022,7 +1098,16 @@ function shareTrip(title) {
 // 4. JOIN TRIP MODAL & STATE UPDATE
 // =========================================================================
 
+/**
+ * Opens modal dialog to join squad and reserve a slot.
+ * @function openJoinTripModal
+ * @param {string} tripId - Target trip ID
+ * @returns {void}
+ */
 function openJoinTripModal(tripId) {
+  if (typeof requireAuth === "function" && !requireAuth()) {
+    return;
+  }
   const t = TravelState.activeDetailTrip;
   if (!t) return;
 
@@ -1044,6 +1129,11 @@ function openJoinTripModal(tripId) {
   document.body.style.overflow = "hidden";
 }
 
+/**
+ * Closes the join trip squad modal.
+ * @function closeJoinTripModal
+ * @returns {void}
+ */
 function closeJoinTripModal() {
   const modal = document.getElementById("join-trip-modal");
   if (!modal) return;
@@ -1052,8 +1142,17 @@ function closeJoinTripModal() {
   document.body.style.overflow = "";
 }
 
+/**
+ * Processes squad join form submission, saves to localStorage, and triggers celebration confetti.
+ * @function submitJoinTrip
+ * @param {Event} event - Submit event
+ * @returns {void}
+ */
 function submitJoinTrip(event) {
   if (event) event.preventDefault();
+  if (typeof requireAuth === "function" && !requireAuth()) {
+    return;
+  }
 
   const t = TravelState.activeDetailTrip;
   if (!t) return;
@@ -1119,7 +1218,7 @@ function submitJoinTrip(event) {
   if (squadGrid) {
     squadGrid.innerHTML += `
       <div class="flex items-center gap-3 p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60 animate-fade-in">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400" alt="Joined Member" loading="lazy" class="w-10 h-10 rounded-xl object-cover ring-2 ring-emerald-500/30">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400" alt="Joined Member" loading="lazy" class="w-10 h-10 rounded-xl object-cover ring-2 ring-emerald-500/30" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(nameVal || 'Member')}&background=10b981&color=fff';">
         <div class="min-w-0 flex-1">
           <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate">${nameVal} (You)</h4>
           <p class="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">Joined Just Now</p>
@@ -1136,6 +1235,12 @@ function submitJoinTrip(event) {
 // 5. POST A TRIP (travel/post.html)
 // =========================================================================
 
+/**
+ * Initializes trip creation wizard on travel/post.html.
+ * Sets up live preview synchronization and form submission handlers.
+ * @function initPostTripPage
+ * @returns {void}
+ */
 function initPostTripPage() {
   const form = document.getElementById("post-trip-form");
   if (!form) return;
@@ -1143,6 +1248,11 @@ function initPostTripPage() {
   setupPostTripLivePreview();
 }
 
+/**
+ * Binds input listeners to trip planner form fields to mirror changes into the preview card.
+ * @function setupPostTripLivePreview
+ * @returns {void}
+ */
 function setupPostTripLivePreview() {
   const inputs = [
     "trip-post-title", "trip-post-dest", "trip-post-city", "trip-post-budget", "trip-post-vibe", "trip-post-dates"
@@ -1153,6 +1263,11 @@ function setupPostTripLivePreview() {
   });
 }
 
+/**
+ * Updates DOM elements of live preview card from active form input values.
+ * @function updatePostTripLivePreview
+ * @returns {void}
+ */
 function updatePostTripLivePreview() {
   const pTitle = document.getElementById("preview-trip-title");
   const pDest = document.getElementById("preview-trip-dest");
@@ -1170,6 +1285,12 @@ function updatePostTripLivePreview() {
   if (pCity) pCity.textContent = `From ${city}`;
 }
 
+/**
+ * Validates trip planner form and saves new trip plan to localStorage.
+ * @function publishTripPlan
+ * @param {Event} e - Form submit event
+ * @returns {void}
+ */
 function publishTripPlan(e) {
   if (e) e.preventDefault();
 
@@ -1264,6 +1385,13 @@ function publishTripPlan(e) {
 }
 
 // Utility debounce
+/**
+ * Delays function execution until specified debounce threshold has elapsed.
+ * @function debounce
+ * @param {Function} fn - Function to debounce
+ * @param {number} [wait=200] - Milliseconds to wait
+ * @returns {Function}
+ */
 function debounce(fn, wait = 200) {
   let timer;
   return function (...args) {

@@ -461,6 +461,8 @@
             }
 
             showToast("Login successful! Welcome back, Rohan.", "success");
+            localStorage.setItem("jhoomrahi_isLoggedIn", "true");
+            localStorage.setItem("isLoggedIn", "true");
 
             // Redirect to dashboard hub
             setTimeout(() => {

@@ -171,14 +171,16 @@
           <i data-lucide="moon" class="w-5 h-5 block dark:hidden text-indigo-600"></i>
         </button>
 
-        <a href="post.html" class="btn btn-ghost text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5">
+        <a href="post.html" onclick="if(!requireLogin('plan_trip')) return false;" class="btn btn-ghost text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5">
           <i data-lucide="plus" class="w-4 h-4"></i>
           <span>Plan a Trip</span>
         </a>
 
-        <a href="../login.html" class="btn btn-primary text-xs py-2 px-4 rounded-xl shadow-md">
-          Log in
-        </a>
+        <div data-nav-auth-slot>
+          <a href="../login.html" class="btn btn-primary text-xs py-2 px-4 rounded-xl shadow-md">
+            Log in
+          </a>
+        </div>
       </div>
 
       <!-- Mobile Hamburger -->
@@ -217,12 +219,12 @@
           <i data-lucide="calendar" class="w-4 h-4 text-indigo-600"></i>
           <span>Trip Calendar</span>
         </a>
-        <a href="post.html" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-medium">
+        <a href="post.html" onclick="if(!requireLogin('plan_trip')) return false;" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-medium">
           <i data-lucide="plus-circle" class="w-4 h-4 text-primary"></i>
           <span>Plan a Trip</span>
         </a>
       </div>
-      <div class="pt-3 border-t border-slate-100 dark:border-slate-800">
+      <div class="pt-3 border-t border-slate-100 dark:border-slate-800" data-mobile-drawer-auth>
         <a href="../login.html" class="w-full btn btn-primary text-xs py-2.5 rounded-xl text-center block">Log in / Sign up</a>
       </div>
     </div>

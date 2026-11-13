@@ -126,7 +126,7 @@
               </div>
             </a>
 
-            <a href="post.html" @click="open = false" class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors group">
+            <a href="post.html" onclick="if(!requireLogin('post_listing')) return false;" @click="open = false" class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors group">
               <div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center flex-shrink-0">
                 <i data-lucide="plus-circle" class="w-4 h-4"></i>
               </div>
@@ -153,14 +153,16 @@
           <i data-lucide="moon" class="w-5 h-5 block dark:hidden text-indigo-600"></i>
         </button>
 
-        <a href="post.html" class="btn btn-ghost text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5">
+        <a href="post.html" onclick="if(!requireLogin('post_listing')) return false;" class="btn btn-ghost text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5">
           <i data-lucide="plus" class="w-4 h-4"></i>
           <span>Post Listing</span>
         </a>
 
-        <a href="../login.html" class="btn btn-primary text-xs py-2 px-4 rounded-xl shadow-md">
-          Log in
-        </a>
+        <div data-nav-auth-slot>
+          <a href="../login.html" class="btn btn-primary text-xs py-2 px-4 rounded-xl shadow-md font-semibold" data-nav-auth-btn>
+            Log In
+          </a>
+        </div>
       </div>
 
       <!-- Mobile Hamburger -->
@@ -251,7 +253,7 @@
         </button>
       </div>
 
-      <form onsubmit="submitScheduleVisit(event)" class="space-y-4">
+      <form onsubmit="if(!requireLogin('visit')) return false; submitScheduleVisit(event);" class="space-y-4">
         <div>
           <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Preferred Visit Date</label>
           <input type="date" id="visit-date" required class="input text-xs py-2.5">
@@ -330,7 +332,7 @@
         </div>
       </div>
 
-      <form onsubmit="sendHostMessage(event)" class="space-y-4">
+      <form onsubmit="if(!requireLogin('chat')) return false; sendHostMessage(event);" class="space-y-4">
         <div>
           <textarea 
             id="host-chat-input" 

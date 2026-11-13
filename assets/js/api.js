@@ -1,20 +1,44 @@
 /**
- * JhoomRahi — Mock API Layer
- * Phase 1 Foundation
- * 
- * Provides an asynchronous abstraction layer over static mock data.
- * Ready for future seamless migration to REST/GraphQL endpoints without UI refactoring.
+ * JhoomRahi — Mock API Layer & Backend Architecture Specification
+ * @file api.js
+ * @description Provides an asynchronous client abstraction layer over local mock data
+ * and client-side persistence, fully architected for drop-in migration to production
+ * REST/GraphQL endpoints without requiring any changes to UI view layer code.
+ *
+ * ============================================================================
+ * BACKEND HANDOFF: LOCALSTORAGE PERSISTENCE REGISTRY
+ * ============================================================================
+ * | Storage Key                     | Data Type   | Default Value       | Description & Architectural Payload Schema                                                                                             |
+ * |---------------------------------|-------------|---------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+ * | `isLoggedIn`                    | string      | "true"              | Mock authentication status ("true" | "false"). Route guards redirect unauthenticated visits to login.html.                              |
+ * | `jhoomrahi_theme`               | string      | "light"             | User active theme preference ("light" | "dark"). Synchronized with documentElement .dark class.                                               |
+ * | `jhoomrahi_saved_pgs`           | string[]    | ["pg-blr-01"]       | JSON array of PG / Flat listing IDs bookmarked by the user for comparison.                                                            |
+ * | `jhoomrahi_joined_trips`         | string[]    | ["trip-spiti-01"]   | JSON array of Travel Squad IDs user has joined. Controls "In Squad ✓" state and roster participation.                                  |
+ * | `jhoomrahi_chats`                | object[]    | [...] (Seed CHATS)  | Complete conversational threads array: `{ id, name, avatar, lastMessage, time, unread, online, messages: [...] }`.                     |
+ * | `jhoomrahi_communities`          | object[]    | [...] (Seed COMMS)  | Community hubs with membership state, member counts, and feed post array: `{ id, name, isJoined, members, posts: [...] }`.            |
+ * | `jhoomrahi_user_listings`       | object[]    | []                  | User-posted PG listings created via stay/post.html multi-step form. Merged automatically into getPGs().                               |
+ * | `jhoomrahi_user_roommates`      | object[]    | []                  | User roommate matching requests. Merged dynamically into getRoommates().                                                              |
+ * | `jhoomrahi_user_trips`          | object[]    | []                  | User-created travel group plans posted via travel/post.html. Merged into getTrips().                                                   |
+ * | `jhoomrahi_user_votes`          | object      | {}                  | Spot rating dictionary in Discover: `{ [placeId]: "up" | "down" }`. Overlays dynamic voting delta on discover cards.                  |
+ * | `jhoomrahi_pg_inquiries`        | object[]    | []                  | User inquiries sent to landlords/hosts: `[{ listingId, listingTitle, name, phone, moveInDate, notes, timestamp }]`.                    |
+ * | `jhoomrahi_quiz_answers`        | object      | null                | 12-question roommate compatibility quiz preferences: `{ sleep, clean, social, cooking, budget, city, targetAreas }`.                  |
+ * | `jhoomrahi_connection_requests` | string[]    | []                  | Candidate IDs user has connected with via the roommate quiz matcher.                                                                  |
+ * | `jhoomrahi_streak_days`         | number      | 3                   | Consecutive daily login counter. Increments daily and unlocks tiered JhoomCoin rewards.                                                |
+ * | `jhoomrahi_coin_balance`        | number      | 120                 | Platform loyalty coins balance. Redeemable for zero-deposit fees and roadtrip gear discounts.                                           |
+ * ============================================================================
  */
 
 const USE_MOCK = true;
 const MOCK_LATENCY_MS = 60; // Simulates snappy local response
 
 /**
- * Helper utility to simulate network latency with resolution
+ * Simulates network request latency before resolving provided mock payload.
+ *
  * @template T
+ * @function mockFetch
  * @param {T} data - Data to resolve
- * @param {number} [latency=MOCK_LATENCY_MS] - Milliseconds to delay
- * @returns {Promise<T>}
+ * @param {number} [latency=MOCK_LATENCY_MS] - Milliseconds delay
+ * @returns {Promise<T>} Resolves with payload data
  */
 function mockFetch(data, latency = MOCK_LATENCY_MS) {
   return new Promise((resolve) => {
@@ -24,84 +48,211 @@ function mockFetch(data, latency = MOCK_LATENCY_MS) {
   });
 }
 
+/* ========================================================================= */
+/* 1. PLATFORM METRICS & TESTIMONIALS (LANDING PAGE)                         */
+/* ========================================================================= */
+
 /**
- * Fetches platform macro statistics for landing counter section
- * @returns {Promise<Array<{target: number, prefix: string, suffix: string, label: string, subtext: string}>>}
+ * BACKEND REST ENDPOINT SPECIFICATION:
+ * Method:  GET
+ * Route:   /api/v1/stats
+ * Headers: None required (Public endpoint)
+ *
+ * Success Response (200 OK):
+ * [
+ *   {
+ *     "target": 48000,
+ *     "prefix": "",
+ *     "suffix": "+",
+ *     "label": "Verified Members",
+ *     "subtext": "Active flatmates & co-travelers"
+ *   },
+ *   ...
+ * ]
+ *
+ * @async
+ * @function getStats
+ * @returns {Promise<Array<{target: number, prefix: string, suffix: string, label: string, subtext: string}>>} Platform macro statistics
  */
 async function getStats() {
   if (USE_MOCK) {
     return mockFetch(STATS);
   }
-  // Production fallback placeholder
   const res = await fetch("/api/v1/stats");
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   return res.json();
 }
 
 /**
- * Fetches community testimonials across students and young professionals
- * @returns {Promise<Array<{quote: string, name: string, role: string, city: string, avatar: string}>>}
+ * BACKEND REST ENDPOINT SPECIFICATION:
+ * Method:  GET
+ * Route:   /api/v1/testimonials
+ * Headers: None required (Public endpoint)
+ *
+ * Success Response (200 OK):
+ * [
+ *   {
+ *     "quote": "Koramangala shift hone ke 3 din me flatmate mil gaya...",
+ *     "name": "Rohan Deshmukh",
+ *     "role": "SDE-1, Swiggy",
+ *     "city": "Bengaluru",
+ *     "avatar": "https://ui-avatars.com/api/?name=Rohan+Deshmukh&background=6366f1&color=fff"
+ *   },
+ *   ...
+ * ]
+ *
+ * @async
+ * @function getTestimonials
+ * @returns {Promise<Array<{quote: string, name: string, role: string, city: string, avatar: string}>>} Community member reviews
  */
 async function getTestimonials() {
   if (USE_MOCK) {
     return mockFetch(TESTIMONIALS);
   }
   const res = await fetch("/api/v1/testimonials");
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   return res.json();
 }
 
 /**
- * Fetches featured PG and Flat listings for the Stay vertical
- * @returns {Promise<Array<{id: string, title: string, area: string, city: string, rent: string, deposit: string, verified: boolean, match: number, rating: number, amenities: string[], note: string, img: string}>>}
+ * BACKEND REST ENDPOINT SPECIFICATION:
+ * Method:  GET
+ * Route:   /api/v1/stay/featured
+ * Headers: None required
+ *
+ * Success Response (200 OK):
+ * [
+ *   {
+ *     "id": "pg-blr-01",
+ *     "title": "Greenwood Co-Living Single Suite",
+ *     "area": "HSR Layout, Sector 2",
+ *     "city": "Bengaluru",
+ *     "rent": "₹14,500/mo",
+ *     "deposit": "1 Month",
+ *     "verified": true,
+ *     "match": 96,
+ *     "rating": 4.8,
+ *     "amenities": ["Geyser 24h", "RO Water", "300Mbps Wi-Fi"],
+ *     "img": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600"
+ *   }
+ * ]
+ *
+ * @async
+ * @function getFeaturedPGs
+ * @returns {Promise<Array>} List of featured PG accommodations
  */
 async function getFeaturedPGs() {
   if (USE_MOCK) {
     return mockFetch(FEATURED_PGS);
   }
   const res = await fetch("/api/v1/stay/featured");
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   return res.json();
 }
 
 /**
- * Fetches upcoming travel partner groups and weekend roadtrips
- * @returns {Promise<Array<{id: string, dest: string, from: string, to: string, dates: string, daysLeft: string, going: number, maxSlots: number, budget: string, host: string, hostRole: string, tags: string[], img: string}>>}
+ * BACKEND REST ENDPOINT SPECIFICATION:
+ * Method:  GET
+ * Route:   /api/v1/travel/upcoming
+ * Headers: None required
+ *
+ * Success Response (200 OK):
+ * [
+ *   {
+ *     "id": "trip-spiti-01",
+ *     "dest": "Spiti Valley Winter Roadtrip",
+ *     "from": "Delhi",
+ *     "to": "Kaza & Tabo",
+ *     "dates": "Nov 14 - Nov 20",
+ *     "going": 4,
+ *     "maxSlots": 6,
+ *     "budget": "₹14,000",
+ *     "host": "Arjun Mehta"
+ *   }
+ * ]
+ *
+ * @async
+ * @function getUpcomingTrips
+ * @returns {Promise<Array>} Upcoming weekend getaways and roadtrips
  */
 async function getUpcomingTrips() {
   if (USE_MOCK) {
     return mockFetch(UPCOMING_TRIPS);
   }
   const res = await fetch("/api/v1/travel/upcoming");
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   return res.json();
 }
 
 /**
- * Fetches top rated and curated food, work, and community spots
- * @returns {Promise<Array<{id: string, name: string, category: string, city: string, area: string, ratingPct: number, priceRange: string, highlight: string, badge: string, img: string}>>}
+ * BACKEND REST ENDPOINT SPECIFICATION:
+ * Method:  GET
+ * Route:   /api/v1/discover/trending
+ * Headers: None required
+ *
+ * @async
+ * @function getTrendingPlaces
+ * @returns {Promise<Array>} Trending spots across food, fun, and work hubs
  */
 async function getTrendingPlaces() {
   if (USE_MOCK) {
     return mockFetch(TRENDING_PLACES);
   }
   const res = await fetch("/api/v1/discover/trending");
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   return res.json();
 }
 
-
-/* === 8. STAY & ROOMMATE API CALLS (PHASE 2 - APPENDED) === */
+/* ========================================================================= */
+/* 2. STAY & ROOMMATE APIS (PHASE 2)                                         */
+/* ========================================================================= */
 
 /**
- * Fetches PG and Flat listings with filter criteria
- * Automatically merges user-created listings from localStorage
- * @param {Object} [filters={}] - Optional query filters
- * @param {string} [filters.city] - Target city ("All" or specific city)
+ * BACKEND REST ENDPOINT SPECIFICATION:
+ * Method:  GET
+ * Route:   /api/v1/stay/listings
+ * Query Parameters:
+ *   - city: string (e.g. "Bengaluru" | "All")
+ *   - gender: string ("all" | "male" | "female" | "unisex")
+ *   - maxRent: number (e.g. 15000)
+ *   - type: string ("PG / Co-Living" | "Shared Flat" | "1BHK Studio")
+ *   - search: string (Free-text search)
+ *   - page: number (Default: 1)
+ *   - limit: number (Default: 20)
+ *
+ * Success Response (200 OK):
+ * {
+ *   "success": true,
+ *   "total": 42,
+ *   "page": 1,
+ *   "data": [
+ *     {
+ *       "id": "pg-blr-hsr-01",
+ *       "title": "Greenwood Co-Living Single Suite",
+ *       "area": "HSR Layout, Sector 2",
+ *       "city": "Bengaluru",
+ *       "rent": 14500,
+ *       "deposit": "1 Month",
+ *       "gender": "male",
+ *       "type": "PG / Co-Living",
+ *       "verified": true,
+ *       "amenities": ["Wi-Fi", "AC", "Power Backup", "Geyser"]
+ *     }
+ *   ]
+ * }
+ *
+ * @async
+ * @function getPGs
+ * @param {Object} [filters={}] - Query filters
+ * @param {string} [filters.city] - Target city
  * @param {string} [filters.gender] - "all" | "male" | "female" | "unisex"
  * @param {number} [filters.maxRent] - Maximum budget in INR
- * @param {string} [filters.type] - "all" | "PG / Co-Living" | "Shared Flat" | "1BHK Studio" | "Student PG"
- * @param {string} [filters.search] - Substring search across title, area, amenities
- * @returns {Promise<Array>} List of matching PG listings
+ * @param {string} [filters.type] - Listing accommodation category
+ * @param {string} [filters.search] - Substring query
+ * @returns {Promise<Array>} Matching PG and Flat listings
  */
 async function getPGs(filters = {}) {
   if (USE_MOCK) {
-    // Check for user-generated listings in localStorage
     let customListings = [];
     try {
       const stored = localStorage.getItem("jhoomrahi_user_listings");
@@ -112,7 +263,7 @@ async function getPGs(filters = {}) {
       console.warn("Could not parse jhoomrahi_user_listings from localStorage", e);
     }
 
-    let allListings = [...customListings, ...PGS];
+    let allListings = [...customListings, ...(typeof PGS !== "undefined" ? PGS : [])];
 
     if (filters.city && filters.city !== "All" && filters.city !== "all") {
       allListings = allListings.filter(
@@ -128,7 +279,7 @@ async function getPGs(filters = {}) {
 
     if (filters.maxRent && !isNaN(filters.maxRent)) {
       allListings = allListings.filter(
-        item => item.rent <= Number(filters.maxRent)
+        item => (item.rent || 0) <= Number(filters.maxRent)
       );
     }
 
@@ -151,23 +302,48 @@ async function getPGs(filters = {}) {
     return mockFetch(allListings);
   }
 
-  // Fallback to REST endpoint
   const queryParams = new URLSearchParams(filters).toString();
   const res = await fetch(`/api/v1/stay/listings?${queryParams}`);
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   return res.json();
 }
 
 /**
- * Fetches roommate profiles filtered by gender tab, city, and lifestyle criteria
- * @param {string} [gender="all"] - "all" | "male" | "female" | "co-ed"
- * @param {Object} [filters={}] - Additional filters (city, maxBudget, search)
- * @returns {Promise<Array>} List of roommate candidates
+ * BACKEND REST ENDPOINT SPECIFICATION:
+ * Method:  GET
+ * Route:   /api/v1/stay/roommates
+ * Query Parameters:
+ *   - gender: string ("all" | "male" | "female" | "co-ed")
+ *   - city: string ("all" | "Bengaluru" | "Delhi" | "Pune")
+ *   - maxBudget: number
+ *   - search: string
+ *
+ * Success Response (200 OK):
+ * [
+ *   {
+ *     "id": "rm-01",
+ *     "name": "Aarav Sharma",
+ *     "age": 23,
+ *     "gender": "male",
+ *     "role": "Frontend Dev @ Razorpay",
+ *     "city": "Bengaluru",
+ *     "budget": 15000,
+ *     "matchScore": 96,
+ *     "verified": true,
+ *     "lifestyle": { "sleep": "Night Owl", "cleanliness": "High", "cooking": "Yes" }
+ *   }
+ * ]
+ *
+ * @async
+ * @function getRoommates
+ * @param {string} [gender="all"] - Target gender tab
+ * @param {Object} [filters={}] - Additional query options
+ * @returns {Promise<Array>} List of roommate candidate profiles
  */
 async function getRoommates(gender = "all", filters = {}) {
   if (USE_MOCK) {
-    let allRoommates = [...ROOMMATES];
+    let allRoommates = [...(typeof ROOMMATES !== "undefined" ? ROOMMATES : [])];
 
-    // Check for user-generated roommate requests in localStorage
     try {
       const customRoommates = localStorage.getItem("jhoomrahi_user_roommates");
       if (customRoommates) {
@@ -194,7 +370,7 @@ async function getRoommates(gender = "all", filters = {}) {
 
     if (filters.maxBudget && !isNaN(filters.maxBudget)) {
       allRoommates = allRoommates.filter(
-        r => r.budget <= Number(filters.maxBudget)
+        r => (r.budget || 0) <= Number(filters.maxBudget)
       );
     }
 
@@ -213,19 +389,24 @@ async function getRoommates(gender = "all", filters = {}) {
   }
 
   const res = await fetch(`/api/v1/stay/roommates?gender=${gender}`);
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   return res.json();
 }
 
 /**
- * Fetches a single PG listing by unique ID
- * @param {string} id - e.g. "pg-blr-hsr-01"
- * @returns {Promise<Object|null>} PG Listing object or null
+ * BACKEND REST ENDPOINT SPECIFICATION:
+ * Method:  GET
+ * Route:   /api/v1/stay/listings/:id
+ *
+ * @async
+ * @function getPGById
+ * @param {string} id - Unique listing ID (e.g. "pg-blr-hsr-01")
+ * @returns {Promise<Object|null>} Listing details object or null
  */
 async function getPGById(id) {
   if (!id) return mockFetch(null);
 
   if (USE_MOCK) {
-    // Check in user-created listings first
     try {
       const stored = localStorage.getItem("jhoomrahi_user_listings");
       if (stored) {
@@ -237,26 +418,51 @@ async function getPGById(id) {
       console.warn("Error reading custom listings", e);
     }
 
-    const listing = PGS.find(p => p.id === id) || null;
+    const listing = (typeof PGS !== "undefined" ? PGS : []).find(p => p.id === id) || null;
     return mockFetch(listing);
   }
 
   const res = await fetch(`/api/v1/stay/listings/${id}`);
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   return res.json();
 }
 
-
-/* === 9. TRAVEL VERTICAL API CALLS (PHASE 3 - APPENDED) === */
+/* ========================================================================= */
+/* 3. TRAVEL SQUADS & CALENDAR APIS (PHASE 3)                                */
+/* ========================================================================= */
 
 /**
- * Fetches upcoming travel squads with city, vibe, and date filtering
- * Automatically merges user-created trip plans from localStorage
- * @param {Object} [filters={}] - Query filters
- * @param {string} [filters.originCity] - e.g. "Bengaluru", "New Delhi", "Pune", "all"
- * @param {string} [filters.vibe] - "all" | "roadtrip" | "trek" | "beach" | "culture"
- * @param {number} [filters.maxBudget] - Max budget in INR
- * @param {string} [filters.month] - "YYYY-MM" (e.g. "2026-11", "2026-12")
- * @param {string} [filters.search] - Search keyword
+ * BACKEND REST ENDPOINT SPECIFICATION:
+ * Method:  GET
+ * Route:   /api/v1/travel/trips
+ * Query Parameters:
+ *   - originCity: string ("Bengaluru" | "New Delhi" | "Pune" | "all")
+ *   - vibe: string ("roadtrip" | "trek" | "beach" | "culture" | "all")
+ *   - maxBudget: number
+ *   - month: string ("YYYY-MM")
+ *   - date: string ("YYYY-MM-DD")
+ *   - search: string
+ *
+ * Success Response (200 OK):
+ * [
+ *   {
+ *     "id": "trip-spiti-01",
+ *     "title": "Spiti Valley Winter Roadtrip",
+ *     "originCity": "New Delhi",
+ *     "destination": "Spiti Valley, HP",
+ *     "startDate": "2026-11-14T06:00:00Z",
+ *     "endDate": "2026-11-20T20:00:00Z",
+ *     "budget": 14000,
+ *     "slots": { "total": 6, "remaining": 2 },
+ *     "squad": [
+ *       { "name": "Arjun Mehta", "avatar": "...", "role": "Host" }
+ *     ]
+ *   }
+ * ]
+ *
+ * @async
+ * @function getTrips
+ * @param {Object} [filters={}] - Trip filter options
  * @returns {Promise<Array>} List of travel squads
  */
 async function getTrips(filters = {}) {
@@ -271,7 +477,7 @@ async function getTrips(filters = {}) {
       console.warn("Could not read jhoomrahi_user_trips from localStorage", e);
     }
 
-    let allTrips = [...customTrips, ...TRIPS];
+    let allTrips = [...customTrips, ...(typeof TRIPS !== "undefined" ? TRIPS : [])];
 
     if (filters.originCity && filters.originCity !== "all" && filters.originCity !== "All") {
       allTrips = allTrips.filter(
@@ -287,7 +493,7 @@ async function getTrips(filters = {}) {
     }
 
     if (filters.maxBudget && !isNaN(filters.maxBudget)) {
-      allTrips = allTrips.filter(t => t.budget <= Number(filters.maxBudget));
+      allTrips = allTrips.filter(t => (t.budget || 0) <= Number(filters.maxBudget));
     }
 
     if (filters.month) {
@@ -295,7 +501,6 @@ async function getTrips(filters = {}) {
     }
 
     if (filters.date) {
-      // Check if a given date string "YYYY-MM-DD" falls within trip's start & end dates
       allTrips = allTrips.filter(t => {
         const startDay = t.startDate.split("T")[0];
         const endDay = t.endDate.split("T")[0];
@@ -319,13 +524,19 @@ async function getTrips(filters = {}) {
 
   const queryParams = new URLSearchParams(filters).toString();
   const res = await fetch(`/api/v1/travel/trips?${queryParams}`);
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   return res.json();
 }
 
 /**
- * Fetches single trip by unique ID
- * @param {string} id - e.g. "trip-spiti-01"
- * @returns {Promise<Object|null>} Trip object or null
+ * BACKEND REST ENDPOINT SPECIFICATION:
+ * Method:  GET
+ * Route:   /api/v1/travel/trips/:id
+ *
+ * @async
+ * @function getTripById
+ * @param {string} id - Unique Trip ID (e.g. "trip-spiti-01")
+ * @returns {Promise<Object|null>} Trip details object or null
  */
 async function getTripById(id) {
   if (!id) return mockFetch(null);
@@ -339,23 +550,25 @@ async function getTripById(id) {
       console.warn("Error reading custom trips", e);
     }
 
-    const trip = TRIPS.find(t => t.id === id) || null;
+    const trip = (typeof TRIPS !== "undefined" ? TRIPS : []).find(t => t.id === id) || null;
     return mockFetch(trip);
   }
 
   const res = await fetch(`/api/v1/travel/trips/${id}`);
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   return res.json();
 }
 
-
-/* =========================================================================
- * PHASE 4 APPEND: DISCOVER VERTICAL API CALLS
- * ========================================================================= */
+/* ========================================================================= */
+/* 4. DISCOVER VERTICAL APIS & USER VOTES (PHASE 4)                          */
+/* ========================================================================= */
 
 /**
- * Helper to overlay user vote state from localStorage onto places
- * @param {Object} place 
- * @returns {Object} place with synced votes and userVote property
+ * Overlays client upvote/downvote delta from localStorage onto a spot model.
+ *
+ * @function applyStoredVotes
+ * @param {Object} place - Spot entity
+ * @returns {Object} Hydrated spot with current user vote state
  */
 function applyStoredVotes(place) {
   if (!place) return null;
@@ -379,11 +592,22 @@ function applyStoredVotes(place) {
 }
 
 /**
- * Fetches curated and ranked places across categories (food, places, fun)
- * @param {string} [category="all"] - "all" | "food" | "places" | "fun"
- * @param {string} [city="all"] - Target city name or "all"
- * @param {Object} [filters={}] - Optional filters (search, priceLevel, tag, minRating)
- * @returns {Promise<Array>} List of matching places with applied votes
+ * BACKEND REST ENDPOINT SPECIFICATION:
+ * Method:  GET
+ * Route:   /api/v1/discover/places
+ * Query Parameters:
+ *   - category: string ("all" | "food" | "places" | "fun")
+ *   - city: string ("all" | "Bengaluru" | "Delhi" | "Pune" | "Jaipur")
+ *   - priceLevel: number (1 | 2 | 3)
+ *   - tag: string (e.g. "#LateNight", "#WiFiSpot")
+ *   - search: string
+ *
+ * @async
+ * @function getPlaces
+ * @param {string} [category="all"] - Target category
+ * @param {string} [city="all"] - Target city
+ * @param {Object} [filters={}] - Filter criteria
+ * @returns {Promise<Array>} Ranked places with community vote counts
  */
 async function getPlaces(category = "all", city = "all", filters = {}) {
   if (USE_MOCK) {
@@ -394,27 +618,22 @@ async function getPlaces(category = "all", city = "all", filters = {}) {
 
     let results = PLACES.map(p => applyStoredVotes(p));
 
-    // Category filter
     if (category && category !== "all" && category !== "All") {
       results = results.filter(p => p.category && p.category.toLowerCase() === category.toLowerCase());
     }
 
-    // City filter
     if (city && city !== "all" && city !== "All") {
       results = results.filter(p => p.city && p.city.toLowerCase() === city.toLowerCase());
     }
 
-    // Price level filter
     if (filters.priceLevel && filters.priceLevel !== "all") {
       results = results.filter(p => p.priceLevel === Number(filters.priceLevel));
     }
 
-    // Specific tag filter
     if (filters.tag && filters.tag !== "all") {
       results = results.filter(p => p.tags && p.tags.some(t => t.toLowerCase() === filters.tag.toLowerCase()));
     }
 
-    // Search query filter (matches name, area, city, tags, or description)
     if (filters.search && filters.search.trim()) {
       const q = filters.search.toLowerCase().trim();
       results = results.filter(p =>
@@ -431,34 +650,43 @@ async function getPlaces(category = "all", city = "all", filters = {}) {
 
   const queryParams = new URLSearchParams({ category, city, ...filters }).toString();
   const res = await fetch(`/api/v1/discover/places?${queryParams}`);
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   return res.json();
 }
 
 /**
- * Fetches single place details by unique ID
- * @param {string} id - e.g. "place-food-blr-01"
- * @returns {Promise<Object|null>} Place detail object or null
+ * BACKEND REST ENDPOINT SPECIFICATION:
+ * Method:  GET
+ * Route:   /api/v1/discover/places/:id
+ *
+ * @async
+ * @function getPlaceById
+ * @param {string} id - Place ID (e.g. "place-food-blr-01")
+ * @returns {Promise<Object|null>} Spot details or null
  */
 async function getPlaceById(id) {
   if (!id) return mockFetch(null);
 
   if (USE_MOCK) {
-    if (typeof PLACES === "undefined") {
-      return mockFetch(null);
-    }
+    if (typeof PLACES === "undefined") return mockFetch(null);
     const found = PLACES.find(p => p.id === id);
     if (!found) return mockFetch(null);
     return mockFetch(applyStoredVotes(found));
   }
 
   const res = await fetch(`/api/v1/discover/places/${id}`);
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   return res.json();
 }
 
-/* === 15. CHAT & COMMUNITY API CALLS (PHASE 5 - APPENDED) === */
+/* ========================================================================= */
+/* 5. MESSAGING, CHAT & COMMUNITIES (PHASE 5 & 6)                            */
+/* ========================================================================= */
 
 /**
- * Retrieves persisted chats or falls back to seed data
+ * Retrieves persisted chats or falls back to seed data.
+ *
+ * @function getStoredChats
  * @returns {Array} List of chat conversations
  */
 function getStoredChats() {
@@ -474,8 +702,11 @@ function getStoredChats() {
 }
 
 /**
- * Persists updated chats array to localStorage
- * @param {Array} chatsList 
+ * Persists updated chats array to localStorage.
+ *
+ * @function setStoredChats
+ * @param {Array} chatsList - Array of conversations
+ * @returns {void}
  */
 function setStoredChats(chatsList) {
   try {
@@ -486,8 +717,27 @@ function setStoredChats(chatsList) {
 }
 
 /**
- * Fetches all available chat threads
- * @returns {Promise<Array>} List of chat objects
+ * BACKEND REST ENDPOINT SPECIFICATION:
+ * Method:  GET
+ * Route:   /api/v1/chats
+ * Headers: Authorization: Bearer <jwt>
+ *
+ * Success Response (200 OK):
+ * [
+ *   {
+ *     "id": "chat-01",
+ *     "name": "Aarav Sharma",
+ *     "avatar": "...",
+ *     "lastMessage": "Hey! When can you visit the HSR flat?",
+ *     "time": "10:30 AM",
+ *     "unread": 0,
+ *     "online": true
+ *   }
+ * ]
+ *
+ * @async
+ * @function getChats
+ * @returns {Promise<Array>} List of chat conversation threads
  */
 async function getChats() {
   if (USE_MOCK) {
@@ -495,13 +745,20 @@ async function getChats() {
     return mockFetch(chats);
   }
   const res = await fetch("/api/v1/chats");
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   return res.json();
 }
 
 /**
- * Fetches a single chat thread by conversation ID
- * @param {string} id - e.g. "chat-01"
- * @returns {Promise<Object|null>} Conversation object or null
+ * BACKEND REST ENDPOINT SPECIFICATION:
+ * Method:  GET
+ * Route:   /api/v1/chats/:id
+ * Headers: Authorization: Bearer <jwt>
+ *
+ * @async
+ * @function getChatById
+ * @param {string} id - Conversation ID (e.g. "chat-01")
+ * @returns {Promise<Object|null>} Conversation entity or null
  */
 async function getChatById(id) {
   if (!id) return mockFetch(null);
@@ -512,14 +769,40 @@ async function getChatById(id) {
     return mockFetch(found || null);
   }
   const res = await fetch(`/api/v1/chats/${id}`);
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   return res.json();
 }
 
 /**
- * Appends a message to a chat thread and updates lastMessage
- * @param {string} chatId 
- * @param {Object} messageObj 
- * @returns {Promise<Object>} Updated conversation
+ * BACKEND REST ENDPOINT SPECIFICATION:
+ * Method:  POST
+ * Route:   /api/v1/chats/:chatId/messages
+ * Headers:
+ *   - Authorization: Bearer <jwt>
+ *   - Content-Type: application/json
+ *
+ * Request Body Schema:
+ * {
+ *   "id": "msg-123",
+ *   "sender": "me",
+ *   "text": "Sounds good! I will be there at 5 PM.",
+ *   "time": "4:15 PM",
+ *   "gif": null,
+ *   "isPiiBlocked": false
+ * }
+ *
+ * Success Response (201 Created):
+ * {
+ *   "success": true,
+ *   "messageId": "msg-123",
+ *   "timestamp": "2026-11-13T16:45:00Z"
+ * }
+ *
+ * @async
+ * @function sendChatMessage
+ * @param {string} chatId - Target chat thread ID
+ * @param {Object} messageObj - Message model
+ * @returns {Promise<Object>} Updated conversation object
  */
 async function sendChatMessage(chatId, messageObj) {
   if (USE_MOCK) {
@@ -542,11 +825,14 @@ async function sendChatMessage(chatId, messageObj) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(messageObj)
   });
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   return res.json();
 }
 
 /**
- * Retrieves persisted communities or falls back to seed data
+ * Retrieves persisted communities or falls back to seed data.
+ *
+ * @function getStoredCommunities
  * @returns {Array} List of communities
  */
 function getStoredCommunities() {
@@ -562,8 +848,11 @@ function getStoredCommunities() {
 }
 
 /**
- * Persists updated communities array to localStorage
- * @param {Array} commList 
+ * Persists updated communities array to localStorage.
+ *
+ * @function setStoredCommunities
+ * @param {Array} commList - Array of communities
+ * @returns {void}
  */
 function setStoredCommunities(commList) {
   try {
@@ -574,8 +863,14 @@ function setStoredCommunities(commList) {
 }
 
 /**
- * Fetches all communities with member counts, rules, and feed posts
- * @returns {Promise<Array>} List of community objects
+ * BACKEND REST ENDPOINT SPECIFICATION:
+ * Method:  GET
+ * Route:   /api/v1/communities
+ * Headers: None required
+ *
+ * @async
+ * @function getCommunities
+ * @returns {Promise<Array>} List of communities with feeds
  */
 async function getCommunities() {
   if (USE_MOCK) {
@@ -583,13 +878,20 @@ async function getCommunities() {
     return mockFetch(comms);
   }
   const res = await fetch("/api/v1/communities");
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   return res.json();
 }
 
 /**
- * Toggles user membership in a community
- * @param {string} communityId 
- * @returns {Promise<Object>} Updated community object
+ * BACKEND REST ENDPOINT SPECIFICATION:
+ * Method:  POST
+ * Route:   /api/v1/communities/:communityId/toggle-join
+ * Headers: Authorization: Bearer <jwt>
+ *
+ * @async
+ * @function toggleCommunityJoin
+ * @param {string} communityId - ID of community
+ * @returns {Promise<Object>} Updated community object with new membership count
  */
 async function toggleCommunityJoin(communityId) {
   if (USE_MOCK) {
@@ -605,13 +907,30 @@ async function toggleCommunityJoin(communityId) {
     return mockFetch(null);
   }
   const res = await fetch(`/api/v1/communities/${communityId}/toggle-join`, { method: "POST" });
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   return res.json();
 }
 
 /**
- * Posts a new update or inquiry to a community feed
- * @param {string} communityId 
- * @param {Object} postObj 
+ * BACKEND REST ENDPOINT SPECIFICATION:
+ * Method:  POST
+ * Route:   /api/v1/communities/:communityId/posts
+ * Headers:
+ *   - Authorization: Bearer <jwt>
+ *   - Content-Type: application/json
+ *
+ * Request Body Schema:
+ * {
+ *   "id": "post-xyz",
+ *   "author": { "name": "Rohan Deshmukh", "role": "SDE-1 @ Swiggy", "avatar": "..." },
+ *   "content": "Hosting open-source session this weekend!",
+ *   "tags": ["#Meetup", "#Devs"]
+ * }
+ *
+ * @async
+ * @function createCommunityPost
+ * @param {string} communityId - Community ID
+ * @param {Object} postObj - Feed post entity
  * @returns {Promise<Object>} Created post
  */
 async function createCommunityPost(communityId, postObj) {
@@ -631,6 +950,6 @@ async function createCommunityPost(communityId, postObj) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(postObj)
   });
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   return res.json();
 }
-

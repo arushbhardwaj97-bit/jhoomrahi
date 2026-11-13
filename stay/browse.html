@@ -130,7 +130,7 @@
               </div>
             </a>
 
-            <a href="post.html" @click="open = false" class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors group">
+            <a href="post.html" onclick="if(!requireLogin('post_listing')) return false;" @click="open = false" class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors group">
               <div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center flex-shrink-0">
                 <i data-lucide="plus-circle" class="w-4 h-4"></i>
               </div>
@@ -145,7 +145,7 @@
         <a href="../travel/calendar.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2">Travel</a>
         <a href="../discover/city.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2">Discover</a>
         <a href="../community.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2">Communities</a>
-        <a href="../chat.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2 flex items-center gap-1.5">
+        <a href="../chat.html" onclick="if(!requireLogin('chat')) return false;" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2 flex items-center gap-1.5">
           <span>Chat</span>
           <span class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span>
         </a>
@@ -162,14 +162,16 @@
           <i data-lucide="moon" class="w-5 h-5 block dark:hidden text-indigo-600"></i>
         </button>
 
-        <a href="post.html" class="btn btn-ghost text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5">
+        <a href="post.html" onclick="if(!requireLogin('post_listing')) return false;" class="btn btn-ghost text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5">
           <i data-lucide="plus" class="w-4 h-4"></i>
           <span>Post Listing</span>
         </a>
 
-        <a href="../dashboard.html" class="btn btn-primary text-xs py-2 px-4 rounded-xl shadow-md">
-          Dashboard
-        </a>
+        <div data-nav-auth-slot>
+          <a href="../login.html" class="btn btn-primary text-xs py-2 px-4 rounded-xl shadow-md font-semibold" data-nav-auth-btn>
+            Log In
+          </a>
+        </div>
       </div>
 
       <!-- Mobile Hamburger -->
@@ -212,9 +214,13 @@
           <i data-lucide="plus-circle" class="w-4 h-4 text-primary"></i>
           <span>Post a Listing</span>
         </a>
+        <a href="../profile.html" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-medium">
+          <i data-lucide="user" class="w-4 h-4 text-teal-500"></i>
+          <span>Profile</span>
+        </a>
       </div>
-      <div class="pt-3 border-t border-slate-100 dark:border-slate-800">
-        <a href="../login.html" class="w-full btn btn-primary text-xs py-2.5 rounded-xl text-center block">Log in / Sign up</a>
+      <div class="pt-3 border-t border-slate-100 dark:border-slate-800" data-mobile-drawer-auth>
+        <a href="../login.html" class="w-full btn btn-primary text-xs py-2.5 rounded-xl text-center block font-semibold">Log in / Sign up</a>
       </div>
     </div>
   </header>

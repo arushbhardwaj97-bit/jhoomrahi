@@ -67,7 +67,7 @@ const TESTIMONIALS = [
     name: "Rohan Deshmukh",
     role: "SDE-1, Swiggy",
     city: "Bengaluru",
-    avatar: "https://picsum.photos/seed/rohan_dev/200/200"
+    avatar: "https://ui-avatars.com/api/?name=Rohan+Deshmukh&background=6366f1&color=fff"
   },
   {
     quote: "College hostel se nikal kar pehli baar flat lene ka darr tha. Verified filter helped me find a calm 2BHK near North Campus with 24/7 water and zero hassle.",
@@ -2614,7 +2614,7 @@ const COMMUNITIES = [
         author: {
           name: "Rohan Deshmukh",
           role: "SDE-1 @ Swiggy",
-          avatar: "https://picsum.photos/seed/rohan_dev/200/200",
+          avatar: "https://ui-avatars.com/api/?name=Rohan+Deshmukh&background=6366f1&color=fff",
           verified: true
         },
         timeAgo: "3 hours ago",

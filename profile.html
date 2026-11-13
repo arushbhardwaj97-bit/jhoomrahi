@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Rohan Deshmukh (@rohan_dev) — Member Profile | JhoomRahi</title>
+  <meta name="description" content="View verified member profile, trust score, saved PG listings, joined travel squads, and roommate preferences on JhoomRahi.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%236366f1'/><text x='50' y='68' font-size='56' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='white'>J</text></svg>">
+
+  <!-- Inter & Plus Jakarta Sans Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#6366f1',
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            },
+            accent: {
+              DEFAULT: '#a3e635',
+              400: '#a3e635',
+              500: '#84cc16'
+            }
+          },
+          fontFamily: {
+            heading: ['Plus Jakarta Sans', 'sans-serif'],
+            body: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+
+  <!-- Alpine.js -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col font-body transition-colors duration-200 overflow-x-hidden antialiased w-full max-w-full" x-data="profileApp()" x-init="init()">
+
+  <!-- ========================================================================= -->
+  <!-- MOBILE SLIDE-OUT DRAWER                                                   -->
+  <!-- ========================================================================= -->
+  <div id="mobile-drawer-backdrop" class="mobile-drawer-backdrop" data-mobile-drawer-close></div>
+
+  <aside id="mobile-drawer" class="mobile-drawer-panel flex flex-col justify-between" aria-label="Mobile Navigation Drawer">
+    <div>
+      <!-- Drawer Header -->
+      <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-heading font-bold text-lg shadow-md">
+            J
+          </div>
+          <span class="font-heading font-bold text-xl tracking-tight text-slate-900 dark:text-white">
+            Jhoom<span class="text-indigo-600 dark:text-indigo-400">Rahi</span>
+          </span>
+        </a>
+        <button type="button" class="p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" data-mobile-drawer-close aria-label="Close navigation menu">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- User Profile Header in Drawer -->
+      <div class="p-4 mx-4 mt-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex items-center gap-3">
+        <img src="https://ui-avatars.com/api/?name=Rohan+Deshmukh&background=6366f1&color=fff" alt="Rohan Deshmukh" class="w-10 h-10 rounded-xl object-cover shrink-0 shadow-xs" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=Rohan+Deshmukh&background=6366f1&color=fff';" loading="lazy">
+        <div class="min-w-0 flex-1">
+          <p class="text-xs font-bold text-slate-900 dark:text-white truncate flex items-center gap-1">
+            <span>Rohan Deshmukh</span>
+            <i data-lucide="check-circle" class="w-3.5 h-3.5 text-indigo-500 shrink-0"></i>
+          </p>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400 truncate">SDE-1 @ Swiggy • Bengaluru</p>
+        </div>
+      </div>
+
+      <!-- Drawer Nav Links -->
+      <nav class="p-4 space-y-1 text-sm font-medium">
+        <a href="dashboard.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+          <i data-lucide="layout-dashboard" class="w-4 h-4 text-indigo-500 shrink-0"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="stay/browse.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+          <i data-lucide="home" class="w-4 h-4 text-indigo-500 shrink-0"></i>
+          <span>Stay (PGs & Flats)</span>
+        </a>
+        <a href="travel/calendar.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+          <i data-lucide="plane" class="w-4 h-4 text-lime-500 shrink-0"></i>
+          <span>Travel Partners</span>
+        </a>
+        <a href="discover/city.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+          <i data-lucide="compass" class="w-4 h-4 text-amber-500 shrink-0"></i>
+          <span>Discover City</span>
+        </a>
+        <a href="community.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+          <i data-lucide="users" class="w-4 h-4 text-purple-500 shrink-0"></i>
+          <span>Communities</span>
+        </a>
+        <a href="chat.html" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+          <div class="flex items-center gap-3">
+            <i data-lucide="message-square" class="w-4 h-4 text-indigo-500 shrink-0"></i>
+            <span>Chat</span>
+          </div>
+          <span class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span>
+        </a>
+        <a href="profile.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-semibold transition-colors">
+          <i data-lucide="user" class="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0"></i>
+          <span>Profile</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Drawer Footer (Streak, Coins & Logout) -->
+    <div class="p-4 border-t border-slate-200 dark:border-slate-800 space-y-3">
+      <div class="flex items-center justify-between gap-2 px-1">
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-300/30 text-amber-700 dark:text-amber-300 text-xs font-bold">
+          <span>🔥</span>
+          <span>3-Day Streak</span>
+        </div>
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-300/30 text-amber-700 dark:text-amber-300 text-xs font-bold">
+          <span>🪙</span>
+          <span>120 Coins</span>
+        </div>
+      </div>
+      
+      <button type="button" onclick="localStorage.setItem('jhoomrahi_isLoggedIn', 'false'); localStorage.setItem('isLoggedIn', 'false'); sessionStorage.clear(); window.location.replace('login.html');" class="w-full flex items-center justify-center gap-2 p-2.5 rounded-xl text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-sm font-semibold transition-colors border border-rose-200/50 dark:border-rose-900/40 cursor-pointer" aria-label="Log out of account">
+        <i data-lucide="log-out" class="w-4 h-4 shrink-0"></i>
+        <span>Log Out</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ========================================================================= -->
+  <!-- PRIMARY NAVBAR                                                            -->
+  <!-- ========================================================================= -->
+  <header id="navbar" class="sticky top-0 z-40 w-full max-w-full nav-glass transition-all duration-300">
+    <div class="max-w-7xl w-full mx-auto px-3 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-2">
+      
+      <!-- Left: Hamburger (Mobile) + Logo -->
+      <div class="flex items-center gap-2.5">
+        <button type="button" data-mobile-drawer-toggle class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors md:hidden shrink-0 cursor-pointer" aria-label="Open Navigation Menu">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+
+        <a href="index.html" class="flex items-center gap-2 group shrink-0">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-heading font-bold text-base sm:text-xl shadow-md group-hover:scale-105 transition-transform">
+            J
+          </div>
+          <span class="font-heading font-bold text-lg sm:text-2xl tracking-tight text-slate-900 dark:text-white">
+            Jhoom<span class="text-indigo-600 dark:text-indigo-400">Rahi</span>
+          </span>
+        </a>
+      </div>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-sm font-medium text-slate-600 dark:text-slate-300">
+        <a href="dashboard.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2 flex items-center gap-1.5">
+          <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <!-- Stay Dropdown -->
+        <div class="relative" x-data="{ open: false }" @click.away="open = false">
+          <button @click="open = !open" type="button" class="flex items-center gap-1.5 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2 cursor-pointer">
+            <span>Stay</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="{ 'rotate-180': open }"></i>
+          </button>
+          <div x-show="open" class="absolute top-full left-0 mt-2 w-56 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl p-2 z-50 space-y-1" style="display: none;">
+            <a href="stay/browse.html" class="flex items-center gap-2.5 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/80 text-sm">
+              <i data-lucide="home" class="w-4 h-4 text-indigo-500"></i>
+              <span>Browse PGs & Flats</span>
+            </a>
+            <a href="stay/roommate-match.html" class="flex items-center gap-2.5 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/80 text-sm">
+              <i data-lucide="users" class="w-4 h-4 text-lime-500"></i>
+              <span>Roommate Matcher</span>
+            </a>
+          </div>
+        </div>
+
+        <a href="travel/calendar.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2">Travel</a>
+        <a href="discover/city.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2">Discover</a>
+        <a href="community.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2">Communities</a>
+        
+        <a href="chat.html" class="flex items-center gap-1.5 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2">
+          <span>Chat</span>
+          <span class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span>
+        </a>
+      </nav>
+
+      <!-- Right Action Utilities (Desktop) -->
+      <div class="hidden md:flex items-center gap-3 shrink-0">
+        <!-- Daily Streak Badge -->
+        <button 
+          @click="showStreakToast()" 
+          type="button" 
+          class="pill bg-amber-50 dark:bg-amber-950/70 border border-amber-300/40 text-amber-700 dark:text-amber-300 font-bold text-xs py-1.5 px-3 hover:scale-105 active:scale-95 transition-all shadow-xs cursor-pointer"
+          title="Daily Streak — Click to see streak perks"
+          aria-label="View Daily Streak Perks">
+          <span class="animate-pulse">🔥</span>
+          <span x-text="streakDays + '-Day Streak'">3-Day Streak</span>
+        </button>
+
+        <!-- Coins Balance Badge -->
+        <button 
+          @click="showCoinsToast()" 
+          type="button" 
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border border-amber-300/30 text-amber-700 dark:text-amber-300 text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-xs cursor-pointer"
+          title="Your JhoomCoins balance"
+          aria-label="View JhoomCoins Balance">
+          <span>🪙</span>
+          <span x-text="coinBalance + ' Coins'">120 Coins</span>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button type="button" data-theme-toggle class="p-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shrink-0 cursor-pointer" aria-label="Toggle theme">
+          <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
+          <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
+        </button>
+
+        <!-- User Profile Pill -->
+        <div data-nav-auth-slot>
+          <a href="profile.html" class="flex items-center gap-2.5 p-1.5 pr-3.5 rounded-2xl border border-indigo-400 dark:border-indigo-500 bg-indigo-50/50 dark:bg-indigo-950/40 shadow-xs shrink-0" aria-label="Current User Profile">
+            <img src="https://ui-avatars.com/api/?name=Rohan+Deshmukh&background=6366f1&color=fff" alt="Rohan Deshmukh" class="w-8 h-8 rounded-xl object-cover shrink-0" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=Rohan+Deshmukh&background=6366f1&color=fff';" loading="lazy">
+            <div class="text-left text-xs leading-tight">
+              <p class="font-bold text-slate-900 dark:text-white flex items-center gap-1">
+                <span>Rohan D.</span>
+                <i data-lucide="check-circle" class="w-3 h-3 text-indigo-500"></i>
+              </p>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400">Bengaluru</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Action Utilities (Mobile) -->
+      <div class="flex items-center gap-1.5 md:hidden shrink-0">
+        <button type="button" data-theme-toggle class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 shrink-0 cursor-pointer" aria-label="Toggle theme">
+          <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
+          <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
+        </button>
+        <a href="chat.html" class="p-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 shrink-0" aria-label="Chat messages">
+          <i data-lucide="message-square" class="w-5 h-5"></i>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN PROFILE WORKSPACE                                                    -->
+  <!-- ========================================================================= -->
+  <main class="max-w-7xl w-full max-w-full mx-auto px-3 sm:px-6 py-6 sm:py-10 space-y-8 flex-1 overflow-x-hidden">
+    
+    <!-- ======================================================================= -->
+    <!-- 1. PROFILE HEADER CARD                                                  -->
+    <!-- ======================================================================= -->
+    <div class="relative overflow-hidden rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 sm:p-8 shadow-xl shadow-slate-200/40 dark:shadow-none w-full max-w-full">
+      
+      <!-- Top Decorative Mesh Gradient Banner -->
+      <div class="absolute top-0 left-0 right-0 h-28 sm:h-36 bg-gradient-to-r from-indigo-500 via-purple-600 to-indigo-700 opacity-90"></div>
+      <div class="absolute top-4 right-4 flex items-center gap-2 z-10">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-semibold border border-white/25">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-lime-300"></i>
+          <span>KYC Verified Member</span>
+        </span>
+      </div>
+
+      <!-- Avatar & Identity Info Block -->
+      <div class="relative z-10 pt-16 sm:pt-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div class="flex flex-col sm:flex-row items-start sm:items-end gap-4 sm:gap-6">
+          <!-- Profile Avatar with Online Ring -->
+          <div class="relative group">
+            <img 
+              :src="user.avatar" 
+              :alt="user.name" 
+              class="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl object-cover border-4 border-white dark:border-slate-900 shadow-xl bg-indigo-50"
+              onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=Rohan+Deshmukh&background=6366f1&color=fff';"
+              loading="lazy">
+            <span class="absolute bottom-1 right-1 w-5 h-5 rounded-full bg-lime-400 border-2 border-white dark:border-slate-900 shadow-sm" title="Online now"></span>
+          </div>
+
+          <!-- User Names & Subtitles -->
+          <div class="space-y-1.5 min-w-0">
+            <div class="flex flex-wrap items-center gap-2">
+              <h1 class="text-2xl sm:text-3xl font-heading font-bold text-slate-900 dark:text-white tracking-tight break-words" x-text="user.name">
+                Rohan Deshmukh
+              </h1>
+              <i data-lucide="check-circle" class="w-5 h-5 text-indigo-500 shrink-0" title="Identity Verified"></i>
+              <span class="text-xs px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 font-semibold border border-indigo-200 dark:border-indigo-800" x-text="user.handle">
+                @rohan_dev
+              </span>
+            </div>
+
+            <p class="text-sm font-medium text-slate-600 dark:text-slate-300 flex items-center gap-2 flex-wrap">
+              <span class="flex items-center gap-1 text-slate-700 dark:text-slate-200 font-semibold">
+                <i data-lucide="briefcase" class="w-3.5 h-3.5 text-indigo-500"></i>
+                <span x-text="user.role">SDE-1 @ Swiggy</span>
+              </span>
+              <span>•</span>
+              <span class="flex items-center gap-1 text-slate-500 dark:text-slate-400">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-rose-500"></i>
+                <span x-text="user.location">Koramangala, Bengaluru</span>
+              </span>
+            </p>
+
+            <!-- Trust & Safety Score Pill -->
+            <div class="flex flex-wrap items-center gap-2 pt-1">
+              <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300/40 text-emerald-700 dark:text-emerald-300 text-xs font-bold shadow-xs">
+                <i data-lucide="award" class="w-4 h-4 text-emerald-600 dark:text-emerald-400"></i>
+                <span>98% Trust Score</span>
+              </div>
+              <div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-300/30 text-amber-700 dark:text-amber-300 text-xs font-bold">
+                <span>🔥</span>
+                <span x-text="streakDays + '-Day Streak'">3-Day Streak</span>
+              </div>
+              <div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-300/30 text-indigo-700 dark:text-indigo-300 text-xs font-bold">
+                <span>🪙</span>
+                <span x-text="coinBalance + ' Coins'">120 Coins</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons (Edit Profile, Logout) -->
+        <div class="flex items-center gap-2.5 shrink-0 pt-2 md:pt-0">
+          <button 
+            @click="openEditModal = true" 
+            type="button" 
+            class="btn bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 text-xs sm:text-sm py-2.5 px-4 rounded-2xl shadow-xs transition-all flex items-center gap-2 cursor-pointer"
+            aria-label="Edit Profile Details">
+            <i data-lucide="edit-3" class="w-4 h-4"></i>
+            <span>Edit Profile</span>
+          </button>
+
+          <button 
+            onclick="localStorage.setItem('jhoomrahi_isLoggedIn', 'false'); localStorage.setItem('isLoggedIn', 'false'); sessionStorage.clear(); window.location.replace('login.html');"
+            @click="logout()" 
+            type="button" 
+            class="btn bg-rose-50 dark:bg-rose-950/60 hover:bg-rose-100 dark:hover:bg-rose-900/60 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-900/50 text-xs sm:text-sm py-2.5 px-4 rounded-2xl shadow-xs transition-all flex items-center gap-2 cursor-pointer"
+            aria-label="Log out of session">
+            <i data-lucide="log-out" class="w-4 h-4"></i>
+            <span>Log Out</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Strip -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 mt-6 border-t border-slate-100 dark:border-slate-800/80">
+        <div class="p-3.5 rounded-2xl bg-slate-50/80 dark:bg-slate-800/40 border border-slate-200/50 dark:border-slate-800">
+          <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Saved PGs</p>
+          <p class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white" x-text="savedPGs.length">1</p>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-slate-50/80 dark:bg-slate-800/40 border border-slate-200/50 dark:border-slate-800">
+          <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Joined Trips</p>
+          <p class="text-xl sm:text-2xl font-heading font-bold text-indigo-600 dark:text-indigo-400" x-text="joinedTrips.length">1</p>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-slate-50/80 dark:bg-slate-800/40 border border-slate-200/50 dark:border-slate-800">
+          <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Active Inquiries</p>
+          <p class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white">3</p>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-slate-50/80 dark:bg-slate-800/40 border border-slate-200/50 dark:border-slate-800">
+          <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Profile Completeness</p>
+          <p class="text-xl sm:text-2xl font-heading font-bold text-lime-600 dark:text-lime-400">96%</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- 2. NAVIGATION TABS                                                      -->
+    <!-- ======================================================================= -->
+    <div class="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 overflow-x-auto pb-px scrollbar-none">
+      <button 
+        @click="activeTab = 'saved'" 
+        type="button" 
+        class="flex items-center gap-2 py-3 px-4 border-b-2 font-heading font-semibold text-sm transition-all whitespace-nowrap cursor-pointer"
+        :class="activeTab === 'saved' ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white'">
+        <i data-lucide="bookmark" class="w-4 h-4"></i>
+        <span>Saved Items</span>
+        <span class="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300" x-text="savedPGs.length + joinedTrips.length">2</span>
+      </button>
+
+      <button 
+        @click="activeTab = 'activity'" 
+        type="button" 
+        class="flex items-center gap-2 py-3 px-4 border-b-2 font-heading font-semibold text-sm transition-all whitespace-nowrap cursor-pointer"
+        :class="activeTab === 'activity' ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white'">
+        <i data-lucide="activity" class="w-4 h-4"></i>
+        <span>Recent Activity</span>
+      </button>
+
+      <button 
+        @click="activeTab = 'preferences'" 
+        type="button" 
+        class="flex items-center gap-2 py-3 px-4 border-b-2 font-heading font-semibold text-sm transition-all whitespace-nowrap cursor-pointer"
+        :class="activeTab === 'preferences' ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white'">
+        <i data-lucide="sliders" class="w-4 h-4"></i>
+        <span>Roommate Vibe & Preferences</span>
+      </button>
+
+      <button 
+        @click="activeTab = 'trust'" 
+        type="button" 
+        class="flex items-center gap-2 py-3 px-4 border-b-2 font-heading font-semibold text-sm transition-all whitespace-nowrap cursor-pointer"
+        :class="activeTab === 'trust' ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white'">
+        <i data-lucide="shield" class="w-4 h-4"></i>
+        <span>Trust & Security</span>
+      </button>
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- TAB 1: SAVED ITEMS (SAVED PGS & JOINED TRIPS)                           -->
+    <!-- ======================================================================= -->
+    <div x-show="activeTab === 'saved'" class="space-y-8" style="display: none;">
+      
+      <!-- Sub-filter Pills -->
+      <div class="flex items-center justify-between gap-4 flex-wrap">
+        <div class="flex items-center gap-2">
+          <button 
+            @click="savedSubFilter = 'all'" 
+            type="button" 
+            class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer"
+            :class="savedSubFilter === 'all' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'">
+            All Saved (<span x-text="savedPGs.length + joinedTrips.length"></span>)
+          </button>
+          <button 
+            @click="savedSubFilter = 'pgs'" 
+            type="button" 
+            class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer"
+            :class="savedSubFilter === 'pgs' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'">
+            PGs & Flats (<span x-text="savedPGs.length"></span>)
+          </button>
+          <button 
+            @click="savedSubFilter = 'trips'" 
+            type="button" 
+            class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer"
+            :class="savedSubFilter === 'trips' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'">
+            Travel Trips (<span x-text="joinedTrips.length"></span>)
+          </button>
+        </div>
+
+        <a href="stay/browse.html" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1">
+          <span>Explore More Listings</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+
+      <!-- SAVED PGS SECTION -->
+      <div x-show="savedSubFilter === 'all' || savedSubFilter === 'pgs'" class="space-y-4">
+        <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white flex items-center gap-2">
+          <i data-lucide="home" class="w-5 h-5 text-indigo-500"></i>
+          <span>Saved PGs & Flatshares</span>
+        </h3>
+
+        <!-- PGs List Container -->
+        <template x-if="savedPGsList.length > 0">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <template x-for="item in savedPGsList" :key="item.id">
+              <div class="card rounded-3xl overflow-hidden flex flex-col justify-between border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-md">
+                <div class="relative h-44 overflow-hidden bg-slate-100 dark:bg-slate-800">
+                  <img 
+                    :src="item.img" 
+                    :alt="item.title" 
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600';"
+                    loading="lazy">
+                  <span class="absolute top-3 left-3 px-2.5 py-1 rounded-xl bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold" x-text="item.rent"></span>
+                  <button 
+                    @click="removeSavedPG(item.id)" 
+                    type="button" 
+                    class="absolute top-3 right-3 p-2 rounded-xl bg-white/90 dark:bg-slate-900/90 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950 transition-colors shadow-sm cursor-pointer" 
+                    title="Remove from saved"
+                    aria-label="Remove saved PG">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                  </button>
+                </div>
+                <div class="p-4 space-y-2 flex-1 flex flex-col justify-between">
+                  <div>
+                    <p class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold" x-text="item.area + ', ' + item.city"></p>
+                    <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base line-clamp-1" x-text="item.title"></h4>
+                  </div>
+                  <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
+                    <span class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                      <i data-lucide="shield-check" class="w-3.5 h-3.5 text-indigo-500"></i>
+                      <span>Verified Stay</span>
+                    </span>
+                    <a :href="'stay/detail.html?id=' + item.id" class="px-3 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-600 text-xs font-bold transition-all flex items-center gap-1">
+                      <span>View</span>
+                      <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </template>
+
+        <!-- Empty State for PGs -->
+        <template x-if="savedPGsList.length === 0">
+          <div class="p-8 sm:p-12 text-center rounded-3xl border border-dashed border-slate-300 dark:border-slate-800 bg-white/50 dark:bg-slate-900/40 space-y-3">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl">
+              🏠
+            </div>
+            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base sm:text-lg">No saved PG listings yet</h4>
+            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+              Save flatshares, 1BHKs, and student co-living spaces in Bengaluru, Delhi, or Pune to compare them side by side.
+            </p>
+            <a href="stay/browse.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold transition-transform hover:scale-105 active:scale-95 shadow-md">
+              <i data-lucide="compass" class="w-4 h-4"></i>
+              <span>Browse Verified PGs</span>
+            </a>
+          </div>
+        </template>
+      </div>
+
+      <!-- JOINED TRIPS SECTION -->
+      <div x-show="savedSubFilter === 'all' || savedSubFilter === 'trips'" class="space-y-4 pt-4">
+        <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white flex items-center gap-2">
+          <i data-lucide="plane" class="w-5 h-5 text-lime-500"></i>
+          <span>Joined Travel Squads</span>
+        </h3>
+
+        <!-- Trips List Container -->
+        <template x-if="joinedTripsList.length > 0">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <template x-for="trip in joinedTripsList" :key="trip.id">
+              <div class="card rounded-3xl overflow-hidden flex flex-col justify-between border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-md">
+                <div class="relative h-44 overflow-hidden bg-slate-100 dark:bg-slate-800">
+                  <img 
+                    :src="trip.coverImage || trip.img" 
+                    :alt="trip.title || trip.dest" 
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600';"
+                    loading="lazy">
+                  <span class="absolute top-3 left-3 px-2.5 py-1 rounded-xl bg-lime-500 text-slate-900 text-xs font-bold" x-text="'Joined • ' + (trip.dates || 'Upcoming')"></span>
+                  <button 
+                    @click="leaveTrip(trip.id)" 
+                    type="button" 
+                    class="absolute top-3 right-3 p-2 rounded-xl bg-white/90 dark:bg-slate-900/90 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950 transition-colors shadow-sm cursor-pointer" 
+                    title="Leave trip squad"
+                    aria-label="Leave travel squad">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                  </button>
+                </div>
+                <div class="p-4 space-y-2 flex-1 flex flex-col justify-between">
+                  <div>
+                    <p class="text-xs text-lime-600 dark:text-lime-400 font-semibold" x-text="trip.dest || trip.destination"></p>
+                    <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base line-clamp-1" x-text="trip.title || trip.dest"></h4>
+                  </div>
+                  <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
+                    <span class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                      <i data-lucide="users" class="w-3.5 h-3.5 text-lime-500"></i>
+                      <span x-text="(trip.going || 4) + ' Squad Members'"></span>
+                    </span>
+                    <a :href="'travel/detail.html?id=' + trip.id" class="px-3 py-1.5 rounded-xl bg-lime-50 dark:bg-lime-950/70 text-lime-700 dark:text-lime-300 hover:bg-lime-500 hover:text-slate-900 text-xs font-bold transition-all flex items-center gap-1">
+                      <span>Trip Room</span>
+                      <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </template>
+
+        <!-- Empty State for Trips -->
+        <template x-if="joinedTripsList.length === 0">
+          <div class="p-8 sm:p-12 text-center rounded-3xl border border-dashed border-slate-300 dark:border-slate-800 bg-white/50 dark:bg-slate-900/40 space-y-3">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-lime-50 dark:bg-lime-950/60 text-lime-600 dark:text-lime-400 flex items-center justify-center text-2xl">
+              ✈️
+            </div>
+            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base sm:text-lg">No joined travel squads yet</h4>
+            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+              Find verified weekend getaway groups, roadtrips to Spiti, or trekking squads with shared vehicle budgets.
+            </p>
+            <a href="travel/calendar.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-lime-500 hover:bg-lime-600 text-slate-900 text-xs sm:text-sm font-semibold transition-transform hover:scale-105 active:scale-95 shadow-md">
+              <i data-lucide="calendar" class="w-4 h-4"></i>
+              <span>Explore Travel Calendar</span>
+            </a>
+          </div>
+        </template>
+      </div>
+
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- TAB 2: RECENT ACTIVITY TIMELINE                                         -->
+    <!-- ======================================================================= -->
+    <div x-show="activeTab === 'activity'" class="space-y-6" style="display: none;">
+      <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-6 sm:p-8 shadow-md">
+        <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+          <i data-lucide="history" class="w-5 h-5 text-indigo-500"></i>
+          <span>Activity Timeline</span>
+        </h3>
+
+        <div class="relative pl-6 sm:pl-8 border-l-2 border-indigo-200 dark:border-indigo-900/60 space-y-8">
+          
+          <!-- Activity Item 1 -->
+          <div class="relative group">
+            <div class="absolute -left-[31px] sm:-left-[39px] top-1 w-6 h-6 rounded-full bg-lime-500 border-4 border-white dark:border-slate-900 flex items-center justify-center shadow-xs"></div>
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-lime-50 dark:bg-lime-950/80 text-lime-700 dark:text-lime-300">Travel Squad</span>
+                <span class="text-xs text-slate-400">2 days ago</span>
+              </div>
+              <p class="text-sm font-semibold text-slate-900 dark:text-white">Joined "Spiti Valley Winter Roadtrip" squad</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Confirmed seat with host Kabir Malhotra. Squad group chat unlocked in Chat hub.</p>
+            </div>
+          </div>
+
+          <!-- Activity Item 2 -->
+          <div class="relative group">
+            <div class="absolute -left-[31px] sm:-left-[39px] top-1 w-6 h-6 rounded-full bg-indigo-600 border-4 border-white dark:border-slate-900 flex items-center justify-center shadow-xs"></div>
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300">Stay Inquiry</span>
+                <span class="text-xs text-slate-400">4 days ago</span>
+              </div>
+              <p class="text-sm font-semibold text-slate-900 dark:text-white">Inquired about "Greenwood Co-Living Single Suite"</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Scheduled site inspection for this Sunday with landlord via verified in-app chat.</p>
+            </div>
+          </div>
+
+          <!-- Activity Item 3 -->
+          <div class="relative group">
+            <div class="absolute -left-[31px] sm:-left-[39px] top-1 w-6 h-6 rounded-full bg-amber-500 border-4 border-white dark:border-slate-900 flex items-center justify-center shadow-xs"></div>
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-amber-50 dark:bg-amber-950/80 text-amber-700 dark:text-amber-300">Discover Upvote</span>
+                <span class="text-xs text-slate-400">1 week ago</span>
+              </div>
+              <p class="text-sm font-semibold text-slate-900 dark:text-white">Upvoted "The Hole in the Wall Cafe" in Koramangala</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Rated best waffle & breakfast spot for remote dev sprint sessions.</p>
+            </div>
+          </div>
+
+          <!-- Activity Item 4 -->
+          <div class="relative group">
+            <div class="absolute -left-[31px] sm:-left-[39px] top-1 w-6 h-6 rounded-full bg-teal-500 border-4 border-white dark:border-slate-900 flex items-center justify-center shadow-xs"></div>
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-teal-50 dark:bg-teal-950/80 text-teal-700 dark:text-teal-300">JhoomRewards</span>
+                <span class="text-xs text-slate-400">2 weeks ago</span>
+              </div>
+              <p class="text-sm font-semibold text-slate-900 dark:text-white">Earned +50 Coins for complete work email verification</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Swiggy employee verification passed. Added trusted developer badge to profile.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- TAB 3: ROOMMATE VIBE & PREFERENCES                                      -->
+    <!-- ======================================================================= -->
+    <div x-show="activeTab === 'preferences'" class="space-y-6" style="display: none;">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        
+        <!-- Sleep & Daily Schedule -->
+        <div class="card rounded-3xl p-6 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+              🌙
+            </div>
+            <div>
+              <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base">Sleep Schedule</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Night Owl (1:00 AM - 8:30 AM)</p>
+            </div>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+            Prefers a quiet room past midnight for coding & reading. Flexible with morning routines.
+          </p>
+        </div>
+
+        <!-- Cleanliness & Hygiene -->
+        <div class="card rounded-3xl p-6 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-lime-50 dark:bg-lime-950/70 text-lime-600 dark:text-lime-400 flex items-center justify-center">
+              ✨
+            </div>
+            <div>
+              <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base">Cleanliness Standards</h4>
+              <p class="text-xs text-lime-600 dark:text-lime-400 font-semibold">9/10 (High Priority)</p>
+            </div>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+            Believes in shared maid service, clean kitchen sink after cooking, and no shoes in bedrooms.
+          </p>
+        </div>
+
+        <!-- Food & Dietary Preferences -->
+        <div class="card rounded-3xl p-6 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-amber-950/70 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+              🍳
+            </div>
+            <div>
+              <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base">Food & Kitchen Vibe</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Eggetarian / Non-Veg Friendly</p>
+            </div>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+            Loves quick egg toast breakfast, Swiggy dinner orders, and weekend Biryani cooking experiments.
+          </p>
+        </div>
+
+        <!-- Budget & Location -->
+        <div class="card rounded-3xl p-6 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-teal-50 dark:bg-teal-950/70 text-teal-600 dark:text-teal-400 flex items-center justify-center">
+              💰
+            </div>
+            <div>
+              <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base">Budget Target</h4>
+              <p class="text-xs text-teal-600 dark:text-teal-400 font-semibold">₹14,000 - ₹18,000 / month</p>
+            </div>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+            Looking for 2BHK/3BHK shared flat in Koramangala 4th/5th Block or HSR Sector 2/3 with high-speed WiFi.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- TAB 4: TRUST & SECURITY                                                 -->
+    <!-- ======================================================================= -->
+    <div x-show="activeTab === 'trust'" class="space-y-6" style="display: none;">
+      <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-6 sm:p-8 shadow-md space-y-6">
+        
+        <div>
+          <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white flex items-center gap-2">
+            <i data-lucide="shield-check" class="w-5 h-5 text-emerald-500"></i>
+            <span>Verified Credentials & Trust Badges</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+            JhoomRahi ensures member safety by verifying professional email domains and phone identity without sharing raw PII with other users.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          
+          <!-- Corporate Email -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                <i data-lucide="mail" class="w-4 h-4"></i>
+              </div>
+              <div class="min-w-0">
+                <p class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Corporate Email Verification</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 truncate">rohan.d***@swiggy.in (Verified Tech Domain)</p>
+              </div>
+            </div>
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 text-xs font-bold shrink-0">
+              <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              <span>Active</span>
+            </span>
+          </div>
+
+          <!-- Phone OTP -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-9 h-9 rounded-xl bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+                <i data-lucide="smartphone" class="w-4 h-4"></i>
+              </div>
+              <div class="min-w-0">
+                <p class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Phone Number Authenticated</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 truncate">+91 98*** ***12 (Masked from public view)</p>
+              </div>
+            </div>
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 text-xs font-bold shrink-0">
+              <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              <span>Active</span>
+            </span>
+          </div>
+
+          <!-- Govt ID / College ID -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-9 h-9 rounded-xl bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+                <i data-lucide="id-card" class="w-4 h-4"></i>
+              </div>
+              <div class="min-w-0">
+                <p class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">DigiLocker / ID Card Check</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 truncate">Identity name matches registered profile</p>
+              </div>
+            </div>
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 text-xs font-bold shrink-0">
+              <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              <span>Active</span>
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- EDIT PROFILE MODAL                                                      -->
+    <!-- ======================================================================= -->
+    <div 
+      x-show="openEditModal" 
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm"
+      x-transition:enter="transition ease-out duration-200"
+      x-transition:enter-start="opacity-0"
+      x-transition:enter-end="opacity-100"
+      x-transition:leave="transition ease-in duration-150"
+      x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0"
+      style="display: none;">
+      
+      <div 
+        @click.away="openEditModal = false"
+        class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 max-w-lg w-full max-w-full shadow-2xl space-y-6 relative max-h-[90vh] overflow-y-auto">
+        
+        <div class="flex items-center justify-between">
+          <h3 class="font-heading font-bold text-xl text-slate-900 dark:text-white">Edit Profile Details</h3>
+          <button @click="openEditModal = false" type="button" class="p-2 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer" aria-label="Close edit profile dialog">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <form @submit.prevent="saveProfile()" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Full Name</label>
+            <input 
+              type="text" 
+              x-model="editForm.name" 
+              class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:outline-hidden focus:ring-2 focus:ring-indigo-500" 
+              required>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Role & Workplace / College</label>
+            <input 
+              type="text" 
+              x-model="editForm.role" 
+              class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:outline-hidden focus:ring-2 focus:ring-indigo-500" 
+              required>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Location / Target Neighborhood</label>
+            <input 
+              type="text" 
+              x-model="editForm.location" 
+              class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:outline-hidden focus:ring-2 focus:ring-indigo-500" 
+              required>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Avatar Image URL</label>
+            <input 
+              type="url" 
+              x-model="editForm.avatar" 
+              class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white text-sm focus:outline-hidden focus:ring-2 focus:ring-indigo-500">
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Recommended: Clean headshot or UI Avatars link.</p>
+          </div>
+
+          <div class="pt-2 flex items-center justify-end gap-3">
+            <button 
+              @click="openEditModal = false" 
+              type="button" 
+              class="px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-semibold cursor-pointer">
+              Cancel
+            </button>
+            <button 
+              type="submit" 
+              class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer">
+              Save Changes
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- FOOTER                                                                    -->
+  <!-- ========================================================================= -->
+  <footer class="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-xs py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="w-6 h-6 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-xs">J</span>
+        <span class="font-bold text-slate-800 dark:text-slate-200">JhoomRahi</span>
+        <span>• Student & Early Career Hyperlocal Network</span>
+      </div>
+      <p>© <span id="current-year">2026</span> JhoomRahi Inc. Built for Indian Gen-Z & Young Professionals.</p>
+    </div>
+  </footer>
+
+  <!-- Mock Data & Core Scripts -->
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <!-- Profile Controller Logic -->
+  <script>
+    function profileApp() {
+      return {
+        user: {
+          name: "Rohan Deshmukh",
+          handle: "@rohan_dev",
+          role: "SDE-1 @ Swiggy",
+          location: "Koramangala, Bengaluru",
+          avatar: "https://ui-avatars.com/api/?name=Rohan+Deshmukh&background=6366f1&color=fff"
+        },
+        streakDays: 3,
+        coinBalance: 120,
+        activeTab: "saved",
+        savedSubFilter: "all",
+        savedPGs: [],
+        savedPGsList: [],
+        joinedTrips: [],
+        joinedTripsList: [],
+        openEditModal: false,
+        editForm: {
+          name: "",
+          role: "",
+          location: "",
+          avatar: ""
+        },
+
+        init() {
+          // Sync streak & coins
+          const storedStreak = localStorage.getItem("jhoomrahi_streak_days");
+          if (storedStreak) this.streakDays = parseInt(storedStreak, 10);
+          const storedCoins = localStorage.getItem("jhoomrahi_coin_balance");
+          if (storedCoins) this.coinBalance = parseInt(storedCoins, 10);
+
+          // Populate edit form
+          this.editForm = { ...this.user };
+
+          // Load Saved PGs from localStorage
+          const rawSaved = localStorage.getItem("jhoomrahi_saved_pgs");
+          if (rawSaved) {
+            try {
+              this.savedPGs = JSON.parse(rawSaved);
+            } catch (e) {
+              this.savedPGs = ["pg-blr-01"];
+            }
+          } else {
+            // Default demo bookmark
+            this.savedPGs = ["pg-blr-01"];
+            localStorage.setItem("jhoomrahi_saved_pgs", JSON.stringify(this.savedPGs));
+          }
+
+          // Hydrate Saved PGs from FEATURED_PGS / STAY_LISTINGS
+          const pool = (typeof STAY_LISTINGS !== "undefined" ? STAY_LISTINGS : []).concat(
+            typeof FEATURED_PGS !== "undefined" ? FEATURED_PGS : []
+          );
+          this.savedPGsList = pool.filter(p => this.savedPGs.includes(p.id));
+          if (this.savedPGsList.length === 0 && this.savedPGs.length > 0) {
+            this.savedPGsList = [
+              {
+                id: "pg-blr-01",
+                title: "Greenwood Co-Living Single Suite",
+                area: "HSR Layout, Sector 2",
+                city: "Bengaluru",
+                rent: "₹14,500/mo",
+                img: "https://picsum.photos/seed/hsr_room_stay/800/600"
+              }
+            ];
+          }
+
+          // Load Joined Trips from localStorage
+          const rawTrips = localStorage.getItem("jhoomrahi_joined_trips");
+          if (rawTrips) {
+            try {
+              this.joinedTrips = JSON.parse(rawTrips);
+            } catch (e) {
+              this.joinedTrips = ["trip-spiti-01"];
+            }
+          } else {
+            this.joinedTrips = ["trip-spiti-01"];
+            localStorage.setItem("jhoomrahi_joined_trips", JSON.stringify(this.joinedTrips));
+          }
+
+          // Hydrate Joined Trips
+          const tripPool = (typeof TRAVEL_TRIPS !== "undefined" ? TRAVEL_TRIPS : []).concat(
+            typeof UPCOMING_TRIPS !== "undefined" ? UPCOMING_TRIPS : []
+          );
+          this.joinedTripsList = tripPool.filter(t => this.joinedTrips.includes(t.id));
+          if (this.joinedTripsList.length === 0 && this.joinedTrips.length > 0) {
+            this.joinedTripsList = [
+              {
+                id: "trip-spiti-01",
+                title: "Spiti Valley Winter Roadtrip",
+                dest: "Spiti Valley, Himachal Pradesh",
+                dates: "Dec 18 - Dec 26",
+                going: 4,
+                img: "https://picsum.photos/seed/spiti_snow_mountains/800/600"
+              }
+            ];
+          }
+
+          this.$nextTick(() => {
+            initLucideIcons();
+          });
+        },
+
+        removeSavedPG(id) {
+          this.savedPGs = this.savedPGs.filter(x => x !== id);
+          this.savedPGsList = this.savedPGsList.filter(x => x.id !== id);
+          localStorage.setItem("jhoomrahi_saved_pgs", JSON.stringify(this.savedPGs));
+          showToast("Removed listing from saved items", "info");
+          this.$nextTick(() => initLucideIcons());
+        },
+
+        leaveTrip(id) {
+          this.joinedTrips = this.joinedTrips.filter(x => x !== id);
+          this.joinedTripsList = this.joinedTripsList.filter(x => x.id !== id);
+          localStorage.setItem("jhoomrahi_joined_trips", JSON.stringify(this.joinedTrips));
+          showToast("Left travel squad", "info");
+          this.$nextTick(() => initLucideIcons());
+        },
+
+        saveProfile() {
+          this.user.name = this.editForm.name.trim();
+          this.user.role = this.editForm.role.trim();
+          this.user.location = this.editForm.location.trim();
+          if (this.editForm.avatar.trim()) {
+            this.user.avatar = this.editForm.avatar.trim();
+          }
+          this.openEditModal = false;
+          showToast("Profile details saved successfully!", "success");
+          if (typeof confetti === "function") {
+            confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
+          }
+          this.$nextTick(() => initLucideIcons());
+        },
+
+        showStreakToast() {
+          showToast(`🔥 ${this.streakDays}-Day Daily Login Streak active! +10 JhoomCoins daily reward.`, "success");
+        },
+
+        showCoinsToast() {
+          showToast(`🪙 JhoomCoins: ${this.coinBalance}. Redeem for PG deposit discounts and trip vouchers!`, "info");
+        },
+
+        logout() {
+          localStorage.setItem('jhoomrahi_isLoggedIn', 'false');
+          localStorage.setItem('isLoggedIn', 'false');
+          sessionStorage.clear();
+          window.location.replace('login.html');
+        }
+      };
+    }
+  </script>
+</body>
+</html>

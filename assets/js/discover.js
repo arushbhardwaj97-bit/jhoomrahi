@@ -488,7 +488,7 @@ function renderRankedCards(places) {
                 alt="${place.name}" 
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 loading="lazy"
-                onerror="this.src='https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800'"
+                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800';"
               />
               <span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-lg text-[10px] font-bold bg-slate-950/80 text-white backdrop-blur-sm">
                 ${place.priceRange}
@@ -732,7 +732,7 @@ async function loadAndRenderCityHighlights() {
                 alt="${place.name}" 
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 loading="lazy"
-                onerror="this.src='https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800'"
+                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800';"
               />
               <span class="absolute top-3 left-3 px-2.5 py-1 rounded-xl text-xs font-bold bg-slate-950/80 text-white backdrop-blur-md">
                 #${index + 1} in ${place.city}
@@ -935,7 +935,7 @@ function renderPlaceDetailView(place) {
               alt="${place.name}" 
               loading="lazy"
               class="w-full h-full object-cover transition-all duration-300"
-              onerror="this.src='https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800'"
+              onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800';"
             />
           </div>
 
@@ -947,7 +947,7 @@ function renderPlaceDetailView(place) {
                   type="button" 
                   onclick="swapDetailPhoto('${imgUrl}')" 
                   class="w-24 h-16 rounded-xl overflow-hidden border-2 border-transparent hover:border-indigo-500 focus:border-indigo-500 transition-all flex-shrink-0">
-                  <img src="${imgUrl}" alt="Photo ${i + 1}" loading="lazy" class="w-full h-full object-cover">
+                  <img src="${imgUrl}" alt="Photo ${i + 1}" loading="lazy" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800';">
                 </button>
               `).join("")}
             </div>

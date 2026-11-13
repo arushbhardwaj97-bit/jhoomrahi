@@ -113,9 +113,11 @@
           <i data-lucide="moon" class="w-5 h-5 block dark:hidden text-indigo-600"></i>
         </button>
 
-        <a href="../login.html" class="btn btn-primary text-xs py-2 px-4 rounded-xl shadow-md">
-          Log in
-        </a>
+        <div data-nav-auth-slot>
+          <a href="../login.html" class="btn btn-primary text-xs py-2 px-4 rounded-xl shadow-md">
+            Log in
+          </a>
+        </div>
       </div>
 
       <!-- Mobile Controls -->
@@ -161,6 +163,9 @@
         <i data-lucide="gamepad-2" class="w-4 h-4 text-indigo-500"></i>
         <span>Fun Activities</span>
       </a>
+      <div class="pt-3 border-t border-slate-100 dark:border-slate-800" data-mobile-drawer-auth>
+        <a href="../login.html" class="w-full btn btn-primary text-xs py-2.5 rounded-xl text-center block font-semibold">Log in / Sign up</a>
+      </div>
     </div>
   </header>
 

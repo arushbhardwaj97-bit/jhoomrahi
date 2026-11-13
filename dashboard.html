@@ -66,22 +66,118 @@
 <body class="bg-[#fafaf7] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white overflow-x-hidden w-full max-w-full" x-data="dashboardApp()">
 
   <!-- ========================================================================= -->
+  <!-- MOBILE SLIDE-OUT DRAWER                                                   -->
+  <!-- ========================================================================= -->
+  <div id="mobile-drawer-backdrop" class="mobile-drawer-backdrop" data-mobile-drawer-close></div>
+
+  <aside id="mobile-drawer" class="mobile-drawer-panel flex flex-col justify-between" aria-label="Mobile Navigation Drawer">
+    <div>
+      <!-- Drawer Header -->
+      <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-heading font-bold text-lg shadow-md">
+            J
+          </div>
+          <span class="font-heading font-bold text-xl tracking-tight text-slate-900 dark:text-white">
+            Jhoom<span class="text-indigo-600 dark:text-indigo-400">Rahi</span>
+          </span>
+        </a>
+        <button type="button" class="p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer" data-mobile-drawer-close aria-label="Close navigation menu">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- User Profile Header in Drawer -->
+      <div class="p-4 mx-4 mt-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex items-center gap-3">
+        <img src="https://ui-avatars.com/api/?name=Rohan+Deshmukh&background=6366f1&color=fff" alt="Rohan Deshmukh" class="w-10 h-10 rounded-xl object-cover shrink-0 shadow-xs" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=Rohan+Deshmukh&background=6366f1&color=fff';" loading="lazy">
+        <div class="min-w-0 flex-1">
+          <p class="text-xs font-bold text-slate-900 dark:text-white truncate flex items-center gap-1">
+            <span>Rohan Deshmukh</span>
+            <i data-lucide="check-circle" class="w-3.5 h-3.5 text-indigo-500 shrink-0"></i>
+          </p>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400 truncate">SDE-1 @ Swiggy • Bengaluru</p>
+        </div>
+      </div>
+
+      <!-- Drawer Nav Links -->
+      <nav class="p-4 space-y-1 text-sm font-medium">
+        <a href="dashboard.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-semibold transition-colors">
+          <i data-lucide="layout-dashboard" class="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="stay/browse.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+          <i data-lucide="home" class="w-4 h-4 text-indigo-500 shrink-0"></i>
+          <span>Stay (PGs & Flats)</span>
+        </a>
+        <a href="travel/calendar.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+          <i data-lucide="plane" class="w-4 h-4 text-lime-500 shrink-0"></i>
+          <span>Travel Partners</span>
+        </a>
+        <a href="discover/city.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+          <i data-lucide="compass" class="w-4 h-4 text-amber-500 shrink-0"></i>
+          <span>Discover City</span>
+        </a>
+        <a href="community.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+          <i data-lucide="users" class="w-4 h-4 text-purple-500 shrink-0"></i>
+          <span>Communities</span>
+        </a>
+        <a href="chat.html" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+          <div class="flex items-center gap-3">
+            <i data-lucide="message-square" class="w-4 h-4 text-indigo-500 shrink-0"></i>
+            <span>Chat</span>
+          </div>
+          <span class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span>
+        </a>
+        <a href="profile.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+          <i data-lucide="user" class="w-4 h-4 text-teal-500 shrink-0"></i>
+          <span>Profile</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Drawer Footer (Streak, Coins & Logout) -->
+    <div class="p-4 border-t border-slate-200 dark:border-slate-800 space-y-3">
+      <div class="flex items-center justify-between gap-2 px-1">
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-300/30 text-amber-700 dark:text-amber-300 text-xs font-bold">
+          <span>🔥</span>
+          <span x-text="streakDays + '-Day Streak'">3-Day Streak</span>
+        </div>
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-300/30 text-amber-700 dark:text-amber-300 text-xs font-bold">
+          <span>🪙</span>
+          <span x-text="coinBalance + ' Coins'">120 Coins</span>
+        </div>
+      </div>
+      
+      <button type="button" onclick="logout()" class="w-full flex items-center justify-center gap-2 p-2.5 rounded-xl text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-sm font-semibold transition-colors border border-rose-200/50 dark:border-rose-900/40 cursor-pointer" aria-label="Log out of account">
+        <i data-lucide="log-out" class="w-4 h-4 shrink-0"></i>
+        <span>Log Out</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ========================================================================= -->
   <!-- 1. STICKY NAV (GLASS)                                                     -->
   <!-- ========================================================================= -->
   <header id="navbar" class="sticky top-0 z-40 w-full max-w-full nav-glass transition-all duration-300">
     <div class="max-w-7xl w-full mx-auto px-3 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-2">
       
-      <!-- Logo Mark -->
-      <a href="index.html" class="flex items-center gap-2 group shrink-0">
-        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-heading font-bold text-base sm:text-xl shadow-md group-hover:scale-105 transition-transform">
-          J
-        </div>
-        <div class="flex flex-col">
-          <span class="font-heading font-bold text-lg sm:text-2xl tracking-tight text-slate-900 dark:text-white">
-            Jhoom<span class="text-indigo-600 dark:text-indigo-400">Rahi</span>
-          </span>
-        </div>
-      </a>
+      <!-- Left: Hamburger (Mobile) + Logo Mark -->
+      <div class="flex items-center gap-2.5">
+        <button type="button" data-mobile-drawer-toggle class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors md:hidden shrink-0 cursor-pointer" aria-label="Open Navigation Menu">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+
+        <a href="index.html" class="flex items-center gap-2 group shrink-0">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-heading font-bold text-base sm:text-xl shadow-md group-hover:scale-105 transition-transform">
+            J
+          </div>
+          <div class="flex flex-col">
+            <span class="font-heading font-bold text-lg sm:text-2xl tracking-tight text-slate-900 dark:text-white">
+              Jhoom<span class="text-indigo-600 dark:text-indigo-400">Rahi</span>
+            </span>
+          </div>
+        </a>
+      </div>
 
       <!-- Desktop Navigation Links -->
       <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-sm font-medium text-slate-600 dark:text-slate-300">
@@ -92,11 +188,11 @@
 
         <!-- Stay Dropdown -->
         <div class="relative" x-data="{ open: false }" @click.away="open = false">
-          <button @click="open = !open" type="button" class="flex items-center gap-1.5 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2">
+          <button @click="open = !open" type="button" class="flex items-center gap-1.5 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2 cursor-pointer">
             <span>Stay</span>
             <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="{ 'rotate-180': open }"></i>
           </button>
-          <div x-show="open" class="absolute top-full left-0 mt-2 w-56 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl p-2 z-50 space-y-1">
+          <div x-show="open" class="absolute top-full left-0 mt-2 w-56 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl p-2 z-50 space-y-1" style="display: none;">
             <a href="stay/browse.html" class="flex items-center gap-2.5 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/80 text-sm">
               <i data-lucide="home" class="w-4 h-4 text-indigo-500"></i>
               <span>Browse PGs & Flats</span>
@@ -125,9 +221,10 @@
           @click="showStreakToast()" 
           type="button" 
           class="pill bg-amber-50 dark:bg-amber-950/70 border border-amber-300/40 text-amber-700 dark:text-amber-300 font-bold text-xs py-1.5 px-3 hover:scale-105 active:scale-95 transition-all shadow-xs cursor-pointer"
-          title="Daily Streak — Click to see streak perks">
+          title="Daily Streak — Click to see streak perks"
+          aria-label="View Daily Streak Perks">
           <span class="animate-pulse">🔥</span>
-          <span x-text="streakDays + '-Day Streak'">🔥 3-Day Streak</span>
+          <span x-text="streakDays + '-Day Streak'">3-Day Streak</span>
         </button>
 
         <!-- Coins / Rewards Balance Badge -->
@@ -135,37 +232,40 @@
           @click="showCoinsToast()" 
           type="button" 
           class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border border-amber-300/30 text-amber-700 dark:text-amber-300 text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-xs cursor-pointer"
-          title="Your JhoomCoins balance">
+          title="Your JhoomCoins balance"
+          aria-label="View JhoomCoins Balance">
           <span>🪙</span>
           <span x-text="coinBalance + ' Coins'">120 Coins</span>
         </button>
 
         <!-- Theme Toggle -->
-        <button type="button" data-theme-toggle class="p-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shrink-0" aria-label="Toggle theme">
+        <button type="button" data-theme-toggle class="p-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shrink-0 cursor-pointer" aria-label="Toggle theme">
           <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
           <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
         </button>
 
         <!-- User Profile Pill -->
-        <a href="chat.html" class="flex items-center gap-2.5 p-1.5 pr-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-indigo-400 dark:hover:border-indigo-500 transition-colors shadow-sm shrink-0">
-          <img src="https://picsum.photos/seed/rohan_dev/200/200" alt="Rohan Deshmukh" class="w-8 h-8 rounded-xl object-cover" loading="lazy">
-          <div class="text-left text-xs leading-tight">
-            <p class="font-bold text-slate-900 dark:text-white flex items-center gap-1">
-              <span>Rohan D.</span>
-              <i data-lucide="check-circle" class="w-3 h-3 text-indigo-500"></i>
-            </p>
-            <p class="text-[11px] text-slate-500 dark:text-slate-400">Bengaluru</p>
-          </div>
-        </a>
+        <div data-nav-auth-slot>
+          <a href="profile.html" class="flex items-center gap-2.5 p-1.5 pr-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-indigo-400 dark:hover:border-indigo-500 transition-colors shadow-sm shrink-0" aria-label="User Profile">
+            <img src="https://ui-avatars.com/api/?name=Rohan+Deshmukh&background=6366f1&color=fff" alt="Rohan Deshmukh" class="w-8 h-8 rounded-xl object-cover shrink-0" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=Rohan+Deshmukh&background=6366f1&color=fff';" loading="lazy">
+            <div class="text-left text-xs leading-tight">
+              <p class="font-bold text-slate-900 dark:text-white flex items-center gap-1">
+                <span>Rohan D.</span>
+                <i data-lucide="check-circle" class="w-3 h-3 text-indigo-500"></i>
+              </p>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400">Bengaluru</p>
+            </div>
+          </a>
+        </div>
       </div>
 
       <!-- Mobile Clean Action Icons (No overflow on 280px-400px) -->
       <div class="flex items-center gap-1.5 md:hidden shrink-0">
-        <button type="button" data-theme-toggle class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 shrink-0" aria-label="Toggle theme">
+        <button type="button" data-theme-toggle class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 shrink-0 cursor-pointer" aria-label="Toggle theme">
           <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
           <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
         </button>
-        <a href="chat.html" class="p-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 shrink-0" aria-label="Chat">
+        <a href="chat.html" class="p-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 shrink-0" aria-label="Chat messages">
           <i data-lucide="message-square" class="w-5 h-5"></i>
         </a>
       </div>
@@ -361,7 +461,7 @@
         <!-- Near You: Flatmate Listing -->
         <div class="card overflow-hidden">
           <div class="h-44 w-full relative">
-            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600" alt="HSR Layout Flat" class="w-full h-full object-cover" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600" alt="HSR Layout Flat" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600';">
             <div class="absolute top-3 left-3">
               <span class="badge verified">Physically Verified</span>
             </div>
@@ -380,7 +480,7 @@
             </p>
             <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
               <div class="flex items-center gap-2">
-                <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200" alt="Aarav" class="w-6 h-6 rounded-full object-cover" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200" alt="Aarav" class="w-6 h-6 rounded-full object-cover" loading="lazy" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=Aarav&background=6366f1&color=fff';">
                 <span class="text-xs font-medium text-slate-700 dark:text-slate-300">Aarav Sharma</span>
               </div>
               <a href="chat.html?id=chat-01" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1">
@@ -394,7 +494,7 @@
         <!-- Near You: Weekend Trip Squad -->
         <div class="card overflow-hidden">
           <div class="h-44 w-full relative">
-            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600" alt="Coorg Trip" class="w-full h-full object-cover" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600" alt="Coorg Trip" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600';">
             <div class="absolute top-3 left-3">
               <span class="badge bg-lime-100 text-lime-800 dark:bg-lime-900/60 dark:text-lime-300">3 slots left</span>
             </div>
@@ -424,7 +524,7 @@
         <!-- Near You: Student Spot -->
         <div class="card overflow-hidden">
           <div class="h-44 w-full relative">
-            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600" alt="Third Wave" class="w-full h-full object-cover" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600" alt="Third Wave" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600';">
             <div class="absolute top-3 left-3">
               <span class="badge bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">Student Favorite</span>
             </div>
@@ -478,7 +578,7 @@
             <a :href="'chat.html?id=' + chat.id" class="flex items-center justify-between p-3 sm:p-4 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors group">
               <div class="flex items-center gap-3.5 min-w-0">
                 <div class="relative flex-shrink-0">
-                  <img :src="chat.avatar" :alt="chat.name" class="w-12 h-12 rounded-2xl object-cover" loading="lazy">
+                  <img :src="chat.avatar" :alt="chat.name" class="w-12 h-12 rounded-2xl object-cover" loading="lazy" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=Chat&background=6366f1&color=fff';">
                   <span x-show="chat.online" class="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-white dark:border-slate-900"></span>
                 </div>
                 <div class="min-w-0">
@@ -512,7 +612,7 @@
         <div class="card p-4 space-y-4">
           <template x-for="comm in communityHighlights" :key="comm.id">
             <a href="community.html" class="flex items-start gap-3 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
-              <img :src="comm.avatar" :alt="comm.name" class="w-10 h-10 rounded-xl object-cover flex-shrink-0" loading="lazy">
+              <img :src="comm.avatar" :alt="comm.name" class="w-10 h-10 rounded-xl object-cover flex-shrink-0" loading="lazy" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=Community&background=6366f1&color=fff';">
               <div class="min-w-0 flex-1">
                 <p class="text-sm font-bold text-slate-900 dark:text-white truncate" x-text="comm.name"></p>
                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1" x-text="comm.description"></p>

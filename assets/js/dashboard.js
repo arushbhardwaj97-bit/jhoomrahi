@@ -92,6 +92,14 @@ function triggerMaskedCallBridge(contactName = "User") {
 /* 2. DASHBOARD PAGE CONTROLLER                                              */
 /* ========================================================================= */
 
+/**
+ * Alpine.js state controller for the main user dashboard (dashboard.html).
+ * Manages user profile hydration, gamified streak badges, coin rewards, dynamic time-of-day
+ * greeting, metric counters, and personalized recommendations across the three core pillars.
+ *
+ * @function dashboardApp
+ * @returns {Object} Reactive Alpine.js dashboard model
+ */
 function dashboardApp() {
   return {
     currentUser: {
@@ -99,7 +107,7 @@ function dashboardApp() {
       handle: "@rohan_dev",
       role: "SDE-1 @ Swiggy",
       city: "Bengaluru",
-      avatar: "https://picsum.photos/seed/rohan_dev/200/200",
+      avatar: "https://ui-avatars.com/api/?name=Rohan+Deshmukh&background=6366f1&color=fff",
       verified: true,
       profileCompletion: 92
     },
@@ -189,6 +197,14 @@ function dashboardApp() {
 /* 3. IN-APP CHAT CONTROLLER                                                 */
 /* ========================================================================= */
 
+/**
+ * Alpine.js state controller for the chat messaging hub (chat.html).
+ * Features real-time thread switching, PII shielding, message action popup
+ * (Edit, Delete for me, Delete for everyone), media & emoji picker, and mobile drawer.
+ *
+ * @function chatApp
+ * @returns {Object} Reactive Alpine.js chat model
+ */
 function chatApp() {
   return {
     chats: [],
@@ -667,6 +683,14 @@ function chatApp() {
 /* 4. COMMUNITY PAGE CONTROLLER                                              */
 /* ========================================================================= */
 
+/**
+ * Alpine.js state controller for the community hubs page (community.html).
+ * Manages campus tribes and city chapter feeds, interactive membership toggling,
+ * category filtering (Joined, Campus, City), and feed post creation.
+ *
+ * @function communityApp
+ * @returns {Object} Reactive Alpine.js community model
+ */
 function communityApp() {
   return {
     communities: [],
@@ -731,6 +755,9 @@ function communityApp() {
     },
 
     async toggleMembership(comm) {
+      if (typeof requireAuth === "function" && !requireAuth()) {
+        return;
+      }
       if (!comm) return;
       comm.isJoined = !comm.isJoined;
       comm.members = comm.isJoined ? comm.members + 1 : Math.max(0, comm.members - 1);
@@ -750,6 +777,9 @@ function communityApp() {
     },
 
     async submitPost() {
+      if (typeof requireAuth === "function" && !requireAuth()) {
+        return;
+      }
       const content = this.newPostContent ? this.newPostContent.trim() : "";
       if (!content || !this.activeCommunity) return;
 
@@ -767,7 +797,7 @@ function communityApp() {
         author: {
           name: "Rohan Deshmukh",
           role: "SDE-1 @ Swiggy",
-          avatar: "https://picsum.photos/seed/rohan_dev/200/200",
+          avatar: "https://ui-avatars.com/api/?name=Rohan+Deshmukh&background=6366f1&color=fff",
           verified: true
         },
         timeAgo: "Just now",

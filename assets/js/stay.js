@@ -420,7 +420,7 @@ function renderRoommatesList() {
           <!-- Profile Head -->
           <div class="flex items-start gap-4 mb-4">
             <div class="relative flex-shrink-0">
-              <img src="${r.avatar}" alt="${r.name}" loading="lazy" class="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl object-cover ring-2 ring-indigo-500/20">
+              <img src="${r.avatar}" alt="${r.name}" loading="lazy" class="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl object-cover ring-2 ring-indigo-500/20" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name || 'User')}&background=6366f1&color=fff';">
               <span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-white dark:border-slate-900" title="Active today"></span>
             </div>
             <div class="min-w-0 flex-1">
@@ -476,7 +476,7 @@ function renderRoommatesList() {
           <button 
             type="button" 
             id="connect-btn-${r.id}"
-            onclick="openConnectModal('${r.id}')" 
+            onclick="if(requireLogin('connect')) { openConnectModal('${r.id}'); }" 
             class="flex-1 btn ${isRequested ? 'bg-slate-100 dark:bg-slate-800 text-slate-500 cursor-default' : 'btn-primary'} text-xs py-2 px-2.5 rounded-xl flex items-center justify-center gap-1">
             <i data-lucide="${isRequested ? 'check' : 'message-circle'}" class="w-3.5 h-3.5"></i>
             <span>${isRequested ? 'Requested ✓' : 'Connect'}</span>
@@ -530,6 +530,11 @@ function setupRoommateFilterListeners() {
   }
 }
 
+/**
+ * Resets roommate matching filters and search input back to initial states.
+ * @function resetRoommateFilters
+ * @returns {void}
+ */
 function resetRoommateFilters() {
   const searchInput = document.getElementById("roommate-search");
   if (searchInput) searchInput.value = "";
@@ -612,6 +617,12 @@ function renderQuizBannerState() {
 
 let tempAnswers = {};
 
+/**
+ * Opens the roommate compatibility quiz modal dialog.
+ * @function openQuizModal
+ * @param {boolean} [isRetake=false] - Whether user is retaking an existing quiz
+ * @returns {void}
+ */
 function openQuizModal(isRetake = false) {
   const modal = document.getElementById("quiz-modal");
   if (!modal) return;
@@ -625,6 +636,11 @@ function openQuizModal(isRetake = false) {
   document.body.style.overflow = "hidden";
 }
 
+/**
+ * Closes the roommate compatibility quiz modal.
+ * @function closeQuizModal
+ * @returns {void}
+ */
 function closeQuizModal() {
   const modal = document.getElementById("quiz-modal");
   if (!modal) return;
@@ -633,6 +649,11 @@ function closeQuizModal() {
   document.body.style.overflow = "";
 }
 
+/**
+ * Renders the active question step and option cards inside the quiz modal.
+ * @function renderQuizStep
+ * @returns {void}
+ */
 function renderQuizStep() {
   const questionContainer = document.getElementById("quiz-question-container");
   const progressFill = document.getElementById("quiz-progress-fill");
@@ -717,6 +738,13 @@ function renderQuizStep() {
   if (typeof lucide !== "undefined") lucide.createIcons();
 }
 
+/**
+ * Records user choice for a specific quiz question.
+ * @function selectQuizOption
+ * @param {string} qId - Question ID
+ * @param {*} val - Selected answer value
+ * @returns {void}
+ */
 function selectQuizOption(qId, val) {
   tempAnswers[qId] = val;
   renderQuizStep();
@@ -730,6 +758,11 @@ function selectQuizOption(qId, val) {
   }
 }
 
+/**
+ * Advances quiz to the next step or triggers finish when on final question.
+ * @function handleQuizNext
+ * @returns {void}
+ */
 function handleQuizNext() {
   if (StayState.currentQuizIndex < QUIZ_QUESTIONS.length - 1) {
     StayState.currentQuizIndex++;
@@ -739,6 +772,11 @@ function handleQuizNext() {
   }
 }
 
+/**
+ * Navigates to the preceding quiz question.
+ * @function handleQuizPrev
+ * @returns {void}
+ */
 function handleQuizPrev() {
   if (StayState.currentQuizIndex > 0) {
     StayState.currentQuizIndex--;
@@ -746,6 +784,11 @@ function handleQuizPrev() {
   }
 }
 
+/**
+ * Finalizes quiz answers, computes match scores, saves to localStorage, and updates UI.
+ * @function finishQuiz
+ * @returns {void}
+ */
 function finishQuiz() {
   StayState.quizAnswers = { ...tempAnswers };
   localStorage.setItem("jhoomrahi_quiz_answers", JSON.stringify(StayState.quizAnswers));
@@ -773,6 +816,12 @@ function finishQuiz() {
 // 3. MATCH BREAKDOWN MODAL
 // =========================================================================
 
+/**
+ * Opens modal displaying category-by-category compatibility breakdown with a roommate.
+ * @function openBreakdownModal
+ * @param {string} roommateId - Target roommate ID
+ * @returns {void}
+ */
 function openBreakdownModal(roommateId) {
   const modal = document.getElementById("breakdown-modal");
   const content = document.getElementById("breakdown-modal-content");
@@ -790,7 +839,7 @@ function openBreakdownModal(roommateId) {
 
   content.innerHTML = `
     <div class="flex items-center gap-4 mb-6">
-      <img src="${r.avatar}" alt="${r.name}" loading="lazy" class="w-16 h-16 rounded-2xl object-cover ring-2 ring-indigo-500/20">
+      <img src="${r.avatar}" alt="${r.name}" loading="lazy" class="w-16 h-16 rounded-2xl object-cover ring-2 ring-indigo-500/20" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name || 'User')}&background=6366f1&color=fff';">
       <div>
         <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white">${r.name}</h3>
         <p class="text-xs text-indigo-600 dark:text-indigo-400 font-medium">${r.role} · ${r.city}</p>
@@ -870,7 +919,7 @@ function openBreakdownModal(roommateId) {
       <button type="button" onclick="closeBreakdownModal()" class="btn btn-ghost text-xs py-2 px-4 rounded-xl">
         Close
       </button>
-      <button type="button" onclick="closeBreakdownModal(); openConnectModal('${r.id}')" class="btn btn-primary text-xs py-2 px-4 rounded-xl flex items-center gap-1.5">
+      <button type="button" onclick="if(requireLogin('connect')) { closeBreakdownModal(); openConnectModal('${r.id}'); }" class="btn btn-primary text-xs py-2 px-4 rounded-xl flex items-center gap-1.5">
         <i data-lucide="message-circle" class="w-4 h-4"></i>
         <span>Connect with ${r.name.split(' ')[0]}</span>
       </button>
@@ -883,6 +932,11 @@ function openBreakdownModal(roommateId) {
   if (typeof lucide !== "undefined") lucide.createIcons();
 }
 
+/**
+ * Dismisses the roommate compatibility breakdown modal dialog.
+ * @function closeBreakdownModal
+ * @returns {void}
+ */
 function closeBreakdownModal() {
   const modal = document.getElementById("breakdown-modal");
   if (!modal) return;
@@ -895,7 +949,16 @@ function closeBreakdownModal() {
 // 4. CONNECT / ICEBREAKER MODAL
 // =========================================================================
 
+/**
+ * Opens icebreaker connect dialog to reach out to a potential roommate.
+ * @function openConnectModal
+ * @param {string} roommateId - Target roommate candidate ID
+ * @returns {void}
+ */
 function openConnectModal(roommateId) {
+  if (typeof requireAuth === "function" && !requireAuth()) {
+    return;
+  }
   const modal = document.getElementById("connect-modal");
   const content = document.getElementById("connect-modal-content");
   if (!modal || !content) return;
@@ -909,7 +972,7 @@ function openConnectModal(roommateId) {
 
   content.innerHTML = `
     <div class="flex items-center gap-3.5 mb-4">
-      <img src="${r.avatar}" alt="${r.name}" loading="lazy" class="w-14 h-14 rounded-2xl object-cover ring-2 ring-indigo-500/20">
+      <img src="${r.avatar}" alt="${r.name}" loading="lazy" class="w-14 h-14 rounded-2xl object-cover ring-2 ring-indigo-500/20" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name || 'User')}&background=6366f1&color=fff';">
       <div>
         <h4 class="font-heading font-bold text-base text-slate-900 dark:text-white">Connect with ${r.name}</h4>
         <p class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold">${score}% Compatibility · ${r.city}</p>
@@ -935,7 +998,7 @@ function openConnectModal(roommateId) {
       <button type="button" onclick="closeConnectModal()" class="btn btn-ghost text-xs py-2 px-3.5 rounded-xl">
         Cancel
       </button>
-      <button type="button" onclick="sendConnectionRequest('${r.id}')" class="btn btn-primary text-xs py-2 px-5 rounded-xl flex items-center gap-1.5 font-bold shadow-md">
+      <button type="button" onclick="if(requireLogin('connect')) { sendConnectionRequest('${r.id}'); }" class="btn btn-primary text-xs py-2 px-5 rounded-xl flex items-center gap-1.5 font-bold shadow-md">
         <i data-lucide="send" class="w-3.5 h-3.5"></i>
         <span>Send Request</span>
       </button>
@@ -948,6 +1011,11 @@ function openConnectModal(roommateId) {
   if (typeof lucide !== "undefined") lucide.createIcons();
 }
 
+/**
+ * Closes the roommate connect dialog.
+ * @function closeConnectModal
+ * @returns {void}
+ */
 function closeConnectModal() {
   const modal = document.getElementById("connect-modal");
   if (!modal) return;
@@ -956,7 +1024,16 @@ function closeConnectModal() {
   document.body.style.overflow = "";
 }
 
+/**
+ * Dispatches simulated connection request and persists to jhoomrahi_connection_requests.
+ * @function sendConnectionRequest
+ * @param {string} roommateId - Candidate ID
+ * @returns {void}
+ */
 function sendConnectionRequest(roommateId) {
+  if (typeof requireAuth === "function" && !requireAuth()) {
+    return;
+  }
   const msgInput = document.getElementById("connect-message-input");
   const msg = msgInput ? msgInput.value : "";
 
@@ -984,6 +1061,12 @@ function sendConnectionRequest(roommateId) {
 
 let browseViewMode = "list"; // "list" | "map"
 
+/**
+ * Initializes the PG and flat browsing view on stay/browse.html.
+ * @async
+ * @function initBrowsePage
+ * @returns {Promise<void>}
+ */
 async function initBrowsePage() {
   const container = document.getElementById("browse-listings-grid");
   if (!container) return;
@@ -1000,6 +1083,13 @@ async function initBrowsePage() {
   }
 }
 
+/**
+ * Injects skeleton placeholder cards while PG listings are loading.
+ * @function renderPGSkeletons
+ * @param {HTMLElement} container - Target DOM container
+ * @param {number} [count=6] - Number of skeleton cards
+ * @returns {void}
+ */
 function renderPGSkeletons(container, count = 6) {
   let html = "";
   for (let i = 0; i < count; i++) {
@@ -1017,6 +1107,11 @@ function renderPGSkeletons(container, count = 6) {
   container.innerHTML = html;
 }
 
+/**
+ * Renders filtered PG listings in either grid card or map view.
+ * @function renderPGListings
+ * @returns {void}
+ */
 function renderPGListings() {
   const container = document.getElementById("browse-listings-grid");
   const countEl = document.getElementById("browse-count-label");
@@ -1096,7 +1191,7 @@ function renderPGListings() {
       <div class="card overflow-hidden flex flex-col group border border-slate-200 dark:border-slate-800 hover:shadow-xl transition-all duration-300">
         <!-- Image & Tags -->
         <div class="relative h-48 w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
-          <img src="${coverImg}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <img src="${coverImg}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800';">
           
           <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
             <span class="badge verified text-[11px]">
@@ -1111,7 +1206,7 @@ function renderPGListings() {
           <!-- Save Button -->
           <button 
             type="button" 
-            onclick="toggleSavePG('${item.id}', event)" 
+            onclick="if(requireLogin('save')) { toggleSavePG('${item.id}', event); }" 
             class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 backdrop-blur-sm flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-sm">
             <i data-lucide="heart" class="w-4 h-4 ${isSaved ? 'fill-rose-500 text-rose-500' : ''}"></i>
           </button>
@@ -1167,6 +1262,11 @@ function renderPGListings() {
   if (typeof lucide !== "undefined") lucide.createIcons();
 }
 
+/**
+ * Binds change and input events to PG city, gender, budget, and type filters.
+ * @function setupBrowseFilterListeners
+ * @returns {void}
+ */
 function setupBrowseFilterListeners() {
   const citySelect = document.getElementById("filter-city");
   if (citySelect) citySelect.addEventListener("change", renderPGListings);
@@ -1197,6 +1297,11 @@ function setupBrowseFilterListeners() {
   }
 }
 
+/**
+ * Resets all PG browsing filters to default and re-renders listings.
+ * @function resetBrowseFilters
+ * @returns {void}
+ */
 function resetBrowseFilters() {
   const city = document.getElementById("filter-city");
   if (city) city.value = "all";
@@ -1223,6 +1328,12 @@ function resetBrowseFilters() {
   notify("All browse filters reset.", "info");
 }
 
+/**
+ * Toggles between list view and mock map view on stay/browse.html.
+ * @function toggleViewMode
+ * @param {'list' | 'map'} mode - View display mode
+ * @returns {void}
+ */
 function toggleViewMode(mode) {
   browseViewMode = mode;
   const listBtn = document.getElementById("view-mode-list-btn");
@@ -1251,6 +1362,13 @@ function toggleViewMode(mode) {
   renderPGListings();
 }
 
+/**
+ * Renders interactive mock map view with clickable rent price badges.
+ * @function renderMockMapView
+ * @param {HTMLElement} container - Map container element
+ * @param {Array} items - List of PG items to pin on map
+ * @returns {void}
+ */
 function renderMockMapView(container, items) {
   let pins = items.map((p, idx) => {
     return `
@@ -1316,17 +1434,32 @@ function renderMockMapView(container, items) {
   `;
 }
 
+/**
+ * Visually highlights a pin on the mock map.
+ * @function highlightMapPin
+ * @param {string} id - Listing ID
+ * @returns {void}
+ */
 function highlightMapPin(id) {
   window.location.href = `detail.html?id=${id}`;
 }
 
+/**
+ * Saves or removes a PG listing from user's bookmarks in localStorage.
+ * @function toggleSavePG
+ * @param {string} pgId - Listing unique identifier
+ * @param {Event} [event] - Optional click event
+ * @returns {void}
+ */
 function toggleSavePG(pgId, event) {
   if (event) {
     event.stopPropagation();
     event.preventDefault();
   }
 
-  const index = StayState.savedPGs.indexOf(pgId);
+  if (typeof requireAuth === "function" && !requireAuth()) {
+    return;
+  }
   if (index > -1) {
     StayState.savedPGs.splice(index, 1);
     notify("Removed from saved stays.", "info");
@@ -1343,6 +1476,13 @@ function toggleSavePG(pgId, event) {
 // 6. SINGLE PG DETAIL PAGE
 // =========================================================================
 
+/**
+ * Initializes PG detail view on stay/detail.html.
+ * Parses ID from URL parameters, fetches listing, and renders overview.
+ * @async
+ * @function initDetailPage
+ * @returns {Promise<void>}
+ */
 async function initDetailPage() {
   const container = document.getElementById("pg-detail-container");
   if (!container) return;
@@ -1371,6 +1511,12 @@ async function initDetailPage() {
   }
 }
 
+/**
+ * Renders full PG listing details: photos, amenities, house rules, and rent breakdown.
+ * @function renderDetailView
+ * @param {Object} item - Detailed PG listing object
+ * @returns {void}
+ */
 function renderDetailView(item) {
   const container = document.getElementById("pg-detail-container");
   if (!container) return;
@@ -1440,7 +1586,7 @@ function renderDetailView(item) {
       <div class="flex items-center gap-2 flex-shrink-0">
         <button 
           type="button" 
-          onclick="toggleSavePG('${item.id}')"
+          onclick="if(requireLogin('save')) { toggleSavePG('${item.id}'); }"
           class="btn btn-ghost text-xs py-2.5 px-4 rounded-xl flex items-center gap-2">
           <i data-lucide="heart" class="w-4 h-4 ${isSaved ? 'fill-rose-500 text-rose-500' : ''}"></i>
           <span>${isSaved ? 'Saved' : 'Shortlist'}</span>
@@ -1457,12 +1603,12 @@ function renderDetailView(item) {
     <!-- Photo Gallery Grid -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-3 rounded-3xl overflow-hidden mb-10 shadow-sm border border-slate-200 dark:border-slate-800">
       <div class="md:col-span-2 md:row-span-2 h-72 sm:h-96 relative group cursor-pointer" onclick="openPhotoViewer(0)">
-        <img id="detail-active-img" src="${images[0]}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover">
+        <img id="detail-active-img" src="${images[0]}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800';">
         <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
       </div>
       ${images.slice(1, 4).map((img, idx) => `
         <div class="h-36 sm:h-48 relative group cursor-pointer" onclick="openPhotoViewer(${idx + 1})">
-          <img src="${img}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover">
+          <img src="${img}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800';">
           <div class="absolute inset-0 bg-black/15 group-hover:bg-black/0 transition-colors"></div>
         </div>
       `).join('')}
@@ -1555,7 +1701,7 @@ function renderDetailView(item) {
               <p class="text-xs text-slate-500 mt-0.5">${item.host?.role || 'Host & Caretaker'} · Responds ${item.host?.responseRate || 'within an hour'}</p>
             </div>
           </div>
-          <button type="button" onclick="openScheduleVisitModal()" class="btn btn-secondary text-xs py-2 px-4 rounded-xl flex items-center gap-1.5 flex-shrink-0">
+          <button type="button" onclick="if(requireLogin('visit')) { openScheduleVisitModal(); }" class="btn btn-secondary text-xs py-2 px-4 rounded-xl flex items-center gap-1.5 flex-shrink-0">
             <i data-lucide="calendar" class="w-4 h-4"></i>
             <span>Schedule Free Visit</span>
           </button>
@@ -1613,14 +1759,14 @@ function renderDetailView(item) {
           <div class="space-y-2.5">
             <button 
               type="button" 
-              onclick="openScheduleVisitModal()" 
+              onclick="if(requireLogin('visit')) { openScheduleVisitModal(); }" 
               class="w-full btn btn-primary text-sm py-3 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg">
               <i data-lucide="calendar" class="w-4 h-4"></i>
               <span>Book a Free Visit</span>
             </button>
             <button 
               type="button" 
-              onclick="openHostChatModal()" 
+              onclick="if(requireLogin('chat')) { openHostChatModal(); }" 
               class="w-full btn btn-ghost text-xs py-2.5 rounded-2xl flex items-center justify-center gap-2">
               <i data-lucide="message-square" class="w-4 h-4"></i>
               <span>Direct Chat with Host</span>
@@ -1654,6 +1800,12 @@ function renderDetailView(item) {
   if (typeof lucide !== "undefined") lucide.createIcons();
 }
 
+/**
+ * Opens fullscreen photo lightbox viewer starting at specified image index.
+ * @function openPhotoViewer
+ * @param {number} idx - Image index to display
+ * @returns {void}
+ */
 function openPhotoViewer(idx) {
   const item = StayState.activeDetailPG;
   if (!item || !item.images) return;
@@ -1664,6 +1816,12 @@ function openPhotoViewer(idx) {
   }
 }
 
+/**
+ * Shares listing via native Web Share API or copies URL to clipboard.
+ * @function shareListing
+ * @param {string} title - Property title
+ * @returns {void}
+ */
 function shareListing(title) {
   if (navigator.share) {
     navigator.share({
@@ -1680,7 +1838,15 @@ function shareListing(title) {
 // 7. VISIT & INQUIRY MODALS
 // =========================================================================
 
+/**
+ * Opens the schedule physical visit / site inspection modal.
+ * @function openScheduleVisitModal
+ * @returns {void}
+ */
 function openScheduleVisitModal() {
+  if (typeof requireAuth === "function" && !requireAuth()) {
+    return;
+  }
   const modal = document.getElementById("schedule-modal");
   if (!modal) return;
   modal.classList.remove("hidden");
@@ -1688,6 +1854,11 @@ function openScheduleVisitModal() {
   document.body.style.overflow = "hidden";
 }
 
+/**
+ * Closes the schedule visit modal.
+ * @function closeScheduleVisitModal
+ * @returns {void}
+ */
 function closeScheduleVisitModal() {
   const modal = document.getElementById("schedule-modal");
   if (!modal) return;
@@ -1696,8 +1867,17 @@ function closeScheduleVisitModal() {
   document.body.style.overflow = "";
 }
 
+/**
+ * Submits visit schedule form, persists inquiry to localStorage, and alerts user.
+ * @function submitScheduleVisit
+ * @param {Event} e - Form submit event
+ * @returns {void}
+ */
 function submitScheduleVisit(e) {
   if (e) e.preventDefault();
+  if (typeof requireAuth === "function" && !requireAuth()) {
+    return;
+  }
   const dateVal = document.getElementById("visit-date")?.value;
   const timeVal = document.getElementById("visit-time")?.value;
   const nameVal = document.getElementById("visit-name")?.value;
@@ -1730,7 +1910,15 @@ function submitScheduleVisit(e) {
   notify("Free visit booked! The property manager will call you to confirm.", "success");
 }
 
+/**
+ * Opens direct message dialog to inquire with property host.
+ * @function openHostChatModal
+ * @returns {void}
+ */
 function openHostChatModal() {
+  if (typeof requireAuth === "function" && !requireAuth()) {
+    return;
+  }
   const modal = document.getElementById("chat-modal");
   if (!modal) return;
   modal.classList.remove("hidden");
@@ -1738,6 +1926,11 @@ function openHostChatModal() {
   document.body.style.overflow = "hidden";
 }
 
+/**
+ * Closes property host message modal.
+ * @function closeHostChatModal
+ * @returns {void}
+ */
 function closeHostChatModal() {
   const modal = document.getElementById("chat-modal");
   if (!modal) return;
@@ -1746,8 +1939,17 @@ function closeHostChatModal() {
   document.body.style.overflow = "";
 }
 
+/**
+ * Dispatches initial chat inquiry to property host and redirects to chat hub.
+ * @function sendHostMessage
+ * @param {Event} e - Form submit event
+ * @returns {void}
+ */
 function sendHostMessage(e) {
   if (e) e.preventDefault();
+  if (typeof requireAuth === "function" && !requireAuth()) {
+    return;
+  }
   const msgInput = document.getElementById("host-chat-input");
   const msg = msgInput ? msgInput.value.trim() : "";
   if (!msg) {
@@ -1765,6 +1967,11 @@ function sendHostMessage(e) {
 
 let postStep = 1;
 
+/**
+ * Initializes multi-step PG posting wizard on stay/post.html.
+ * @function initPostPage
+ * @returns {void}
+ */
 function initPostPage() {
   const form = document.getElementById("post-listing-form");
   if (!form) return;
@@ -1773,6 +1980,12 @@ function initPostPage() {
   setupPostLivePreview();
 }
 
+/**
+ * Renders active step in the listing post wizard.
+ * @function renderPostStep
+ * @param {number} step - Step index (1-3)
+ * @returns {void}
+ */
 function renderPostStep(step) {
   postStep = step;
   for (let s = 1; s <= 4; s++) {
@@ -1809,6 +2022,11 @@ function renderPostStep(step) {
   updateLivePreview();
 }
 
+/**
+ * Advances to next step in post wizard after validating required inputs.
+ * @function handlePostNext
+ * @returns {void}
+ */
 function handlePostNext() {
   // Validate current step
   if (postStep === 1) {
@@ -1834,12 +2052,22 @@ function handlePostNext() {
   }
 }
 
+/**
+ * Navigates to previous step in post wizard.
+ * @function handlePostPrev
+ * @returns {void}
+ */
 function handlePostPrev() {
   if (postStep > 1) {
     renderPostStep(postStep - 1);
   }
 }
 
+/**
+ * Binds input listeners on listing creation form to update preview card in real-time.
+ * @function setupPostLivePreview
+ * @returns {void}
+ */
 function setupPostLivePreview() {
   const inputs = [
     "post-title", "post-city", "post-area", "post-rent", "post-type", "post-gender", "post-desc"
@@ -1850,6 +2078,11 @@ function setupPostLivePreview() {
   });
 }
 
+/**
+ * Updates DOM of live preview card from post form values.
+ * @function updateLivePreview
+ * @returns {void}
+ */
 function updateLivePreview() {
   const previewTitle = document.getElementById("preview-title");
   const previewLocation = document.getElementById("preview-location");
@@ -1868,6 +2101,11 @@ function updateLivePreview() {
   if (previewType) previewType.textContent = type;
 }
 
+/**
+ * Validates, serializes, and saves new PG listing to jhoomrahi_user_listings in localStorage.
+ * @function publishListing
+ * @returns {void}
+ */
 function publishListing() {
   const title = document.getElementById("post-title")?.value.trim();
   const city = document.getElementById("post-city")?.value;
@@ -1951,6 +2189,13 @@ function publishListing() {
 }
 
 // Utility debounce
+/**
+ * Delays function execution until specified debounce threshold has elapsed.
+ * @function debounce
+ * @param {Function} fn - Target function
+ * @param {number} [wait=200] - Wait threshold in ms
+ * @returns {Function}
+ */
 function debounce(fn, wait = 200) {
   let timer;
   return function (...args) {

@@ -102,9 +102,11 @@
           <i data-lucide="moon" class="w-5 h-5 block dark:hidden text-indigo-600"></i>
         </button>
 
-        <a href="../login.html" class="btn btn-ghost text-xs py-2 px-3.5 rounded-xl">
-          Log in
-        </a>
+        <div data-nav-auth-slot>
+          <a href="../login.html" class="btn btn-primary text-xs py-2 px-3.5 rounded-xl">
+            Log in
+          </a>
+        </div>
       </div>
 
       <!-- Mobile Hamburger -->
@@ -147,6 +149,9 @@
           <i data-lucide="plus-circle" class="w-4 h-4"></i>
           <span>Post a Listing</span>
         </a>
+      </div>
+      <div class="pt-3 border-t border-slate-100 dark:border-slate-800" data-mobile-drawer-auth>
+        <a href="../login.html" class="w-full btn btn-primary text-xs py-2.5 rounded-xl text-center block font-semibold">Log in / Sign up</a>
       </div>
     </div>
   </header>
@@ -428,7 +433,7 @@
 
         <div class="card overflow-hidden shadow-lg border border-slate-200 dark:border-slate-800">
           <div class="h-44 bg-slate-200 dark:bg-slate-800 relative">
-            <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800" alt="Preview" class="w-full h-full object-cover" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800" alt="Preview" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600';">
             <div class="absolute bottom-3 left-3 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-3 py-1 rounded-xl shadow-sm border border-slate-200/50">
               <span id="preview-rent" class="font-heading font-bold text-sm text-slate-900 dark:text-white">₹14,500/mo</span>
             </div>
