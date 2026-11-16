@@ -342,6 +342,48 @@ function chatApp() {
       this.mobileView = "inbox";
     },
 
+    isPrevSameSender(idx) {
+      if (idx <= 0 || !this.activeChat || !this.activeChat.messages) return false;
+      const msgs = this.activeChat.messages;
+      const curr = msgs[idx];
+      const prev = msgs[idx - 1];
+      if (!prev || prev.deletedForMe || prev.deletedForEveryone) return false;
+      return prev.sender === curr.sender;
+    },
+
+    isNextSameSender(idx) {
+      if (!this.activeChat || !this.activeChat.messages || idx >= this.activeChat.messages.length - 1) return false;
+      const msgs = this.activeChat.messages;
+      const curr = msgs[idx];
+      const next = msgs[idx + 1];
+      if (!next || next.deletedForMe || next.deletedForEveryone) return false;
+      return next.sender === curr.sender;
+    },
+
+    getBubbleRadius(msg, idx) {
+      const isMe = msg.sender === 'me';
+      const prevSame = this.isPrevSameSender(idx);
+      const nextSame = this.isNextSameSender(idx);
+
+      if (isMe) {
+        if (!prevSame && !nextSame) return 'rounded-[24px] rounded-br-[6px]';
+        if (!prevSame && nextSame) return 'rounded-[24px] rounded-br-[10px]';
+        if (prevSame && nextSame) return 'rounded-[24px] rounded-r-[10px]';
+        if (prevSame && !nextSame) return 'rounded-[24px] rounded-tr-[10px] rounded-br-[6px]';
+      } else {
+        if (!prevSame && !nextSame) return 'rounded-[24px] rounded-bl-[6px]';
+        if (!prevSame && nextSame) return 'rounded-[24px] rounded-bl-[10px]';
+        if (prevSame && nextSame) return 'rounded-[24px] rounded-l-[10px]';
+        if (prevSame && !nextSame) return 'rounded-[24px] rounded-tl-[10px] rounded-bl-[6px]';
+      }
+      return 'rounded-[24px]';
+    },
+
+    getMessageSpacing(idx) {
+      if (idx === 0) return 'mt-1';
+      return this.isPrevSameSender(idx) ? 'mt-1' : 'mt-3.5 sm:mt-4';
+    },
+
     scrollToBottom() {
       this.$nextTick(() => {
         const container = document.getElementById("chat-messages-container");

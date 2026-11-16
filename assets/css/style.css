@@ -25,11 +25,11 @@
   --font-body: 'Inter', sans-serif;
 
   /* Elevation & Geometry */
-  --radius-card: 1.5rem;       /* 24px (rounded-3xl) */
+  --radius-card: 1.75rem;      /* 28px (modern rounded-3xl) */
   --radius-btn: 1rem;          /* 16px (rounded-2xl) */
   --radius-pill: 9999px;       /* rounded-full */
-  --shadow-soft: 0 8px 24px -12px rgba(15, 23, 42, 0.12);
-  --shadow-hover: 0 20px 32px -12px rgba(15, 23, 42, 0.18);
+  --shadow-soft: 0 8px 28px -10px rgba(15, 23, 42, 0.08);
+  --shadow-hover: 0 20px 36px -10px rgba(15, 23, 42, 0.16);
   --transition-theme: background-color 300ms ease, color 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
 }
 
@@ -38,10 +38,10 @@ html.dark {
   --ink: #f1f5f9;
   --muted: #94a3b8;
   --cream: #0b1120;
-  --surface: #111827;
-  --border: #334155;
-  --shadow-soft: 0 8px 24px -12px rgba(0, 0, 0, 0.45);
-  --shadow-hover: 0 20px 32px -12px rgba(0, 0, 0, 0.65);
+  --surface: rgba(17, 24, 39, 0.82);
+  --border: rgba(51, 65, 85, 0.75);
+  --shadow-soft: 0 8px 28px -10px rgba(0, 0, 0, 0.45);
+  --shadow-hover: 0 20px 36px -10px rgba(0, 0, 0, 0.65);
 }
 
 /* === 2. RESETS & BASE CONFIG === */
@@ -247,12 +247,14 @@ html.dark ::-webkit-scrollbar-thumb {
 
 /* === 5. COMPONENT CLASSES === */
 
-/* Cards */
+/* Cards with Modern 2026 Glassmorphism */
 .card, [data-card] {
-  background-color: var(--surface);
-  border: 1px solid var(--border);
+  background-color: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.85);
   border-radius: var(--radius-card);
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 8px 30px -10px rgba(15, 23, 42, 0.08);
   transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1), 
               box-shadow 260ms cubic-bezier(0.16, 1, 0.3, 1), 
               border-color 260ms ease;
@@ -265,12 +267,20 @@ html.dark ::-webkit-scrollbar-thumb {
 
 .card:hover, [data-card]:hover {
   transform: translateY(-4px); /* -translate-y-1 lift */
-  box-shadow: 0 16px 32px -6px rgba(99, 102, 241, 0.18), 0 4px 14px -2px rgba(99, 102, 241, 0.10);
-  border-color: rgba(99, 102, 241, 0.40);
+  box-shadow: 0 20px 40px -10px rgba(99, 102, 241, 0.18), 0 4px 16px -2px rgba(99, 102, 241, 0.10);
+  border-color: rgba(99, 102, 241, 0.45);
+}
+
+html.dark .card, html.dark [data-card] {
+  background-color: rgba(17, 24, 39, 0.84);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-color: rgba(51, 65, 85, 0.75);
+  box-shadow: 0 10px 32px -10px rgba(0, 0, 0, 0.5);
 }
 
 html.dark .card:hover, html.dark [data-card]:hover {
-  box-shadow: 0 16px 36px -6px rgba(99, 102, 241, 0.32), 0 4px 16px -2px rgba(99, 102, 241, 0.20);
+  box-shadow: 0 20px 44px -8px rgba(99, 102, 241, 0.32), 0 4px 18px -2px rgba(99, 102, 241, 0.20);
   border-color: rgba(99, 102, 241, 0.55);
 }
 
@@ -312,15 +322,61 @@ html.dark .card:hover, html.dark [data-card]:hover {
   box-shadow: 0 8px 24px -2px rgba(99, 102, 241, 0.42), 0 0 16px rgba(99, 102, 241, 0.22);
 }
 
-.btn-secondary {
-  background-color: var(--accent);
-  color: #0f172a;
-  box-shadow: 0 4px 14px rgba(163, 230, 53, 0.28);
+/* Lime Buttons with Subtle Shine & High-Clickability Gradient */
+.btn-secondary, 
+.btn-lime, 
+button.bg-lime-400, 
+a.bg-lime-400,
+.btn-lime-cta {
+  background: linear-gradient(135deg, #a3e635 0%, #84cc16 100%) !important;
+  color: #0f172a !important;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(163, 230, 53, 0.35);
+  position: relative;
+  overflow: hidden;
 }
 
-.btn-secondary:hover {
-  background-color: #92d428;
-  box-shadow: 0 6px 20px rgba(163, 230, 53, 0.38);
+.btn-secondary:hover, 
+.btn-lime:hover, 
+button.bg-lime-400:hover, 
+a.bg-lime-400:hover,
+.btn-lime-cta:hover {
+  background: linear-gradient(135deg, #bef264 0%, #a3e635 100%) !important;
+  box-shadow: 0 8px 26px rgba(163, 230, 53, 0.5), 0 0 16px rgba(163, 230, 53, 0.3);
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* Button subtle sweep shine animation */
+.btn-secondary::after, 
+.btn-lime::after, 
+button.bg-lime-400::after, 
+a.bg-lime-400::after,
+.btn-lime-cta::after,
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -80%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    rgba(255, 255, 255, 0) 20%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0) 80%
+  );
+  transform: rotate(25deg);
+  pointer-events: none;
+  transition: all 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-secondary:hover::after, 
+.btn-lime:hover::after, 
+button.bg-lime-400:hover::after, 
+a.bg-lime-400:hover::after,
+.btn-lime-cta:hover::after,
+.btn-shine:hover::after {
+  left: 140%;
 }
 
 .btn-ghost {
@@ -519,3 +575,92 @@ html.dark .nav-glass {
 .mobile-drawer-panel.active {
   transform: translateX(0);
 }
+
+/* === 8. MODERN 2026 CHAT ELEVATION & PATTERN MESH === */
+
+/* WhatsApp/iMessage modern minimalist chat canvas mesh */
+.chat-pattern-mesh {
+  background-color: #f8fafc;
+  background-image: 
+    radial-gradient(at 8% 12%, rgba(99, 102, 241, 0.05) 0px, transparent 40%),
+    radial-gradient(at 92% 88%, rgba(163, 230, 53, 0.04) 0px, transparent 45%),
+    radial-gradient(at 50% 50%, rgba(139, 92, 246, 0.03) 0px, transparent 50%),
+    radial-gradient(rgba(100, 116, 139, 0.09) 1.25px, transparent 1.25px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 28px 28px;
+}
+
+html.dark .chat-pattern-mesh {
+  background-color: #0b1120;
+  background-image: 
+    radial-gradient(at 8% 12%, rgba(99, 102, 241, 0.09) 0px, transparent 45%),
+    radial-gradient(at 92% 88%, rgba(163, 230, 53, 0.06) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(139, 92, 246, 0.05) 0px, transparent 55%),
+    radial-gradient(rgba(148, 163, 184, 0.08) 1.25px, transparent 1.25px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 28px 28px;
+}
+
+/* Message Bubble Soft Lift on Hover */
+.chat-bubble-sender {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 18px -2px rgba(99, 102, 241, 0.38), 0 2px 6px -1px rgba(99, 102, 241, 0.2);
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 200ms ease;
+}
+
+.chat-bubble-sender:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 8px 24px -2px rgba(99, 102, 241, 0.48), 0 3px 10px -1px rgba(99, 102, 241, 0.3);
+}
+
+.chat-bubble-receiver {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow: 0 4px 18px -4px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 200ms ease, border-color 200ms ease;
+}
+
+.chat-bubble-receiver:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.10), 0 2px 6px rgba(15, 23, 42, 0.06);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+html.dark .chat-bubble-receiver {
+  background-color: rgba(30, 41, 59, 0.82);
+  border-color: rgba(51, 65, 85, 0.75);
+  box-shadow: 0 4px 18px -4px rgba(0, 0, 0, 0.35);
+}
+
+html.dark .chat-bubble-receiver:hover {
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 8px 26px -4px rgba(0, 0, 0, 0.5);
+}
+
+/* Floating Input Glassmorphic Capsule */
+.floating-chat-capsule {
+  background-color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 12px 36px -6px rgba(15, 23, 42, 0.12), 0 4px 12px -2px rgba(15, 23, 42, 0.06);
+  transition: all 240ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.floating-chat-capsule:focus-within {
+  border-color: rgba(99, 102, 241, 0.8);
+  box-shadow: 0 16px 42px -4px rgba(99, 102, 241, 0.22), 0 4px 16px -2px rgba(99, 102, 241, 0.15);
+}
+
+html.dark .floating-chat-capsule {
+  background-color: rgba(15, 23, 42, 0.78);
+  border-color: rgba(51, 65, 85, 0.8);
+  box-shadow: 0 12px 36px -6px rgba(0, 0, 0, 0.55), 0 4px 12px -2px rgba(0, 0, 0, 0.35);
+}
+
+html.dark .floating-chat-capsule:focus-within {
+  border-color: rgba(129, 140, 248, 0.8);
+  box-shadow: 0 16px 42px -4px rgba(99, 102, 241, 0.32), 0 4px 16px -2px rgba(99, 102, 241, 0.2);
+}
+
