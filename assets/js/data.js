@@ -25,7 +25,7 @@ const TYPEWRITER_LINES = [
   "Single room chahiye with zero brokerage & 24h geyser? Mil jayega.",
   "Spiti weekend road trip ke liye travel buddy chahiye? Yahan milenge.",
   "Midnight chai, butter maggi, ya best budget thali spots near you.",
-  "Naye shehar mein apna circle dhundo — verified roommates & flatmates."
+  "Apna circle dhundo — verified roommates & flatmates across India."
 ];
 
 /* === 3. KEY METRICS & COUNTERS === */

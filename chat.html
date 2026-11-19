@@ -63,7 +63,7 @@
   <!-- Lucide Icons CDN -->
   <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
-<body class="bg-[#fafaf7] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 antialiased h-full flex flex-col overflow-hidden overflow-x-hidden w-full max-w-full" x-data="chatApp()">
+<body class="bg-white dark:bg-[#090d16] text-slate-900 dark:text-slate-100 antialiased h-full flex flex-col overflow-hidden overflow-x-clip w-full max-w-full" x-data="chatApp()">
 
   <!-- ========================================================================= -->
   <!-- MOBILE SLIDE-OUT DRAWER                                                   -->
@@ -156,17 +156,13 @@
   </aside>
 
   <!-- ========================================================================= -->
-  <!-- 1. STICKY NAV (GLASS)                                                     -->
+  <!-- 1. STICKY NAV (GLASS) — DESKTOP ONLY                                      -->
   <!-- ========================================================================= -->
-  <header id="navbar" class="h-16 sm:h-20 w-full max-w-full nav-glass flex-shrink-0 z-40 border-b border-slate-200 dark:border-slate-800">
+  <header id="navbar" class="inner-nav-desktop hidden md:flex h-16 sm:h-20 w-full max-w-full nav-glass flex-shrink-0 z-40 border-b border-slate-200 dark:border-slate-800">
     <div class="max-w-7xl w-full mx-auto px-3 sm:px-6 h-full flex items-center justify-between gap-2">
       
       <!-- Left: Hamburger (Mobile) + Logo Mark -->
       <div class="flex items-center gap-2.5">
-        <button type="button" data-mobile-drawer-toggle class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors md:hidden shrink-0 cursor-pointer" aria-label="Open Navigation Menu">
-          <i data-lucide="menu" class="w-5 h-5"></i>
-        </button>
-
         <a href="dashboard.html" class="flex items-center gap-2 group shrink-0">
           <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-heading font-bold text-base sm:text-lg shadow-md group-hover:scale-105 transition-transform">
             J
@@ -194,21 +190,21 @@
 
       <!-- Right Header Actions -->
       <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
-        <!-- Daily Streak Badge (Hidden on mobile < sm to prevent overflow) -->
+        <!-- Daily Streak Badge -->
         <button 
           @click="showStreakToast()" 
           type="button" 
-          class="hidden sm:inline-flex pill bg-amber-50 dark:bg-amber-950/70 border border-amber-300/40 text-amber-700 dark:text-amber-300 font-bold text-xs py-1 px-2.5 hover:scale-105 active:scale-95 transition-all shadow-xs cursor-pointer"
+          class="inline-flex pill bg-amber-50 dark:bg-amber-950/70 border border-amber-300/40 text-amber-700 dark:text-amber-300 font-bold text-xs py-1 px-2.5 hover:scale-105 active:scale-95 transition-all shadow-xs cursor-pointer"
           title="Daily Streak">
           <span>🔥</span>
           <span x-text="streakDays + '-Day Streak'">3-Day Streak</span>
         </button>
 
-        <!-- Coins Badge (Hidden on mobile < sm to prevent overflow) -->
+        <!-- Coins Badge -->
         <button 
           @click="showCoinsToast()" 
           type="button" 
-          class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border border-amber-300/30 text-amber-700 dark:text-amber-300 text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-xs cursor-pointer"
+          class="inline-flex items-center gap-1 px-2.5 py-1 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border border-amber-300/30 text-amber-700 dark:text-amber-300 text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-xs cursor-pointer"
           title="JhoomCoins Balance">
           <span>🪙</span>
           <span x-text="coinBalance + ' Coins'">120 Coins</span>
@@ -230,11 +226,35 @@
         <div data-nav-auth-slot>
           <a href="profile.html" class="flex items-center gap-1 sm:gap-2 p-1 pr-1.5 sm:pr-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs font-bold shadow-sm shrink-0" aria-label="Current User Profile">
             <img src="https://ui-avatars.com/api/?name=Rohan+Deshmukh&background=6366f1&color=fff" alt="Rohan" class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg object-cover" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=Rohan+Deshmukh&background=6366f1&color=fff';" loading="lazy">
-            <span class="hidden sm:inline text-slate-800 dark:text-slate-200">Rohan D.</span>
+            <span class="text-slate-800 dark:text-slate-200">Rohan D.</span>
           </a>
         </div>
       </div>
 
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- NATIVE APP MOBILE HEADER (MESSAGES INBOX VIEW)                            -->
+  <!-- ========================================================================= -->
+  <header class="mobile-app-header" :class="mobileView === 'thread' ? '!hidden' : 'flex md:!hidden'">
+    <div class="flex items-center gap-2.5 min-w-0">
+      <button 
+        type="button" 
+        onclick="if(window.history.length > 1) { window.history.back(); } else { window.location.href='dashboard.html'; }" 
+        class="p-2 -ml-1.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer shrink-0" 
+        aria-label="Go Back">
+        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+      </button>
+      <h1 class="font-heading font-bold text-base text-slate-900 dark:text-white truncate">
+        Messages
+      </h1>
+    </div>
+    <div class="flex items-center gap-1.5 shrink-0">
+      <button type="button" data-theme-toggle class="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer" aria-label="Toggle theme">
+        <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
+        <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
+      </button>
     </div>
   </header>
 
@@ -325,7 +345,10 @@
                     <h3 class="font-bold text-sm text-slate-900 dark:text-white truncate" x-text="chat.name"></h3>
                     <i x-show="chat.verified" data-lucide="check-circle" class="w-3.5 h-3.5 text-indigo-500 flex-shrink-0"></i>
                   </div>
-                  <span class="text-[10px] text-slate-400 font-medium whitespace-nowrap" x-text="chat.time"></span>
+                  <div class="flex items-center gap-1.5 shrink-0">
+                    <span x-show="chat.isMuted" class="text-amber-500 text-[10px]" title="Notifications muted">🔕</span>
+                    <span class="text-[10px] text-slate-400 font-medium whitespace-nowrap" x-text="chat.time"></span>
+                  </div>
                 </div>
 
                 <div class="flex items-center gap-1.5 mt-0.5">
@@ -373,14 +396,6 @@
           </div>
         </div>
 
-        <!-- Safety Footer Reminder -->
-        <div class="p-3 border-t border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900 text-center">
-          <p class="text-[11px] text-slate-500 dark:text-slate-400 flex items-center justify-center gap-1">
-            <i data-lucide="lock" class="w-3 h-3 text-emerald-500"></i>
-            <span>No phone numbers exchanged. 100% private.</span>
-          </p>
-        </div>
-
       </aside>
 
 
@@ -393,7 +408,7 @@
         
         <!-- Thread Header -->
         <template x-if="activeChat">
-          <div class="h-16 sm:h-20 px-2 sm:px-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2 flex-shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md w-full max-w-full">
+          <div class="h-16 sm:h-20 px-2 sm:px-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-2 flex-shrink-0 bg-white dark:bg-slate-900 w-full max-w-full relative z-30">
             
             <div class="flex items-center gap-1.5 sm:gap-3.5 min-w-0 flex-1">
               <!-- Mobile Back Button -->
@@ -408,15 +423,23 @@
 
               <!-- Contact Avatar (Circular 2026 Style) -->
               <div class="relative flex-shrink-0">
-                <img :src="activeChat.avatar" :alt="activeChat.name" class="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover ring-2 ring-indigo-500/20 shadow-sm" loading="lazy" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=Chat&background=6366f1&color=fff';">
+                <img :src="activeChat.avatar" :alt="activeChat.name" class="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover ring-2 ring-slate-200 dark:ring-slate-700 shadow-sm" loading="lazy" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=Chat&background=0f172a&color=fff';">
                 <span x-show="activeChat.online" class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 border-2 border-white dark:border-slate-900 status-dot-glow"></span>
               </div>
 
               <!-- Contact Info -->
               <div class="min-w-0 flex-1">
-                <div class="flex items-center gap-1 truncate">
+                <div class="flex items-center gap-1.5 truncate">
                   <h2 class="font-bold text-xs sm:text-base text-slate-900 dark:text-white leading-tight truncate" x-text="activeChat.name"></h2>
-                  <i x-show="activeChat.verified" data-lucide="check-circle" class="w-3.5 h-3.5 text-indigo-500 flex-shrink-0"></i>
+                  <i x-show="activeChat.verified" data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-500 flex-shrink-0"></i>
+                  <!-- Muted Indicator Icon -->
+                  <span x-show="activeChat.isMuted" class="text-amber-500 inline-flex items-center" title="Notifications Muted">
+                    <i data-lucide="bell-off" class="w-3.5 h-3.5"></i>
+                  </span>
+                  <!-- Blocked Indicator Badge -->
+                  <span x-show="activeChat.isBlocked" class="text-[9px] font-bold px-1.5 py-0.2 rounded-md bg-rose-100 dark:bg-rose-950/80 text-rose-600 dark:text-rose-400">
+                    Blocked
+                  </span>
                 </div>
                 <div class="flex items-center gap-1 sm:gap-2 mt-0.5 truncate">
                   <p class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[120px] sm:max-w-xs" x-text="activeChat.role || activeChat.contextTag"></p>
@@ -426,18 +449,112 @@
               </div>
             </div>
 
-            <!-- Action Buttons: Masked Call Button (Prominent Requirement) -->
-            <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+            <!-- Action Buttons: Masked Call + Theme Toggle + Dropdown Menu (⋮) -->
+            <div class="flex items-center gap-1 sm:gap-2 flex-shrink-0">
               <button 
                 @click="triggerMaskedCall()" 
                 type="button" 
                 class="btn btn-secondary text-xs px-2.5 sm:px-4 py-1.5 sm:py-2 flex items-center gap-1 sm:gap-1.5 shadow-sm hover:scale-105 shrink-0"
                 title="Call via JhoomRahi encrypted voice bridge without sharing phone numbers">
-                <i data-lucide="phone-call" class="w-3.5 h-3.5 text-slate-900"></i>
+                <i data-lucide="phone-call" class="w-3.5 h-3.5 text-slate-900 dark:text-white"></i>
                 <span class="font-bold text-[11px] sm:text-xs">Masked Call</span>
                 <span class="hidden lg:inline text-[10px] opacity-80">(100% Private)</span>
               </button>
 
+              <!-- Theme Palette Selector -->
+              <div class="relative">
+                <button 
+                  @click="showThemePicker = !showThemePicker; showChatDropdown = false" 
+                  type="button" 
+                  class="p-1.5 sm:p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shrink-0 cursor-pointer" 
+                  title="Switch Chat Wallpaper / Theme">
+                  <i data-lucide="palette" class="w-4 h-4"></i>
+                </button>
+
+                <!-- Theme Selector Menu (Solid Dropdown with Clear Border) -->
+                <div 
+                  x-show="showThemePicker" 
+                  @click.away="showThemePicker = false" 
+                  x-transition 
+                  class="absolute right-0 top-full mt-2 w-52 rounded-2xl bg-white dark:bg-slate-950 !opacity-100 border border-slate-200 dark:border-slate-800 p-2 shadow-2xl z-50 space-y-1"
+                  style="display: none;">
+                  <p class="text-[10px] uppercase font-bold text-slate-400 px-2 py-1">Chat Themes</p>
+                  <button 
+                    @click="setChatTheme('mesh')" 
+                    type="button"
+                    :class="selectedChatTheme === 'mesh' ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-bold' : 'text-slate-600 dark:text-slate-300'"
+                    class="w-full text-left px-2.5 py-1.5 rounded-xl text-xs flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+                    <span class="flex items-center gap-2">
+                      <span class="w-3.5 h-3.5 rounded-full bg-slate-200 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 inline-block shrink-0"></span>
+                      <span>Minimalist Mesh</span>
+                    </span>
+                    <span x-show="selectedChatTheme === 'mesh'" class="text-slate-900 dark:text-white font-bold">✓</span>
+                  </button>
+                  <button 
+                    @click="setChatTheme('doodle')" 
+                    type="button"
+                    :class="selectedChatTheme === 'doodle' ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-bold' : 'text-slate-600 dark:text-slate-300'"
+                    class="w-full text-left px-2.5 py-1.5 rounded-xl text-xs flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+                    <span class="flex items-center gap-2">
+                      <span class="w-3.5 h-3.5 rounded-full bg-[#efeae2] dark:bg-slate-800 border border-amber-300/60 inline-block shrink-0"></span>
+                      <span>WhatsApp Doodle</span>
+                    </span>
+                    <span x-show="selectedChatTheme === 'doodle'" class="text-slate-900 dark:text-white font-bold">✓</span>
+                  </button>
+                  <button 
+                    @click="setChatTheme('midnight')" 
+                    type="button"
+                    :class="selectedChatTheme === 'midnight' ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-bold' : 'text-slate-600 dark:text-slate-300'"
+                    class="w-full text-left px-2.5 py-1.5 rounded-xl text-xs flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+                    <span class="flex items-center gap-2">
+                      <span class="w-3.5 h-3.5 rounded-full bg-[#030712] border border-slate-700 inline-block shrink-0"></span>
+                      <span>Midnight Dark</span>
+                    </span>
+                    <span x-show="selectedChatTheme === 'midnight'" class="text-slate-900 dark:text-white font-bold">✓</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- More Options Menu (⋮) -->
+              <div class="relative">
+                <button 
+                  @click="showChatDropdown = !showChatDropdown; showThemePicker = false" 
+                  type="button" 
+                  class="p-1.5 sm:p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shrink-0 cursor-pointer" 
+                  title="More conversation options"
+                  aria-label="More conversation options">
+                  <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                </button>
+
+                <!-- Options Dropdown (Solid Dropdown with Clear Border - Strictly Mute and Block only) -->
+                <div 
+                  x-show="showChatDropdown" 
+                  @click.away="showChatDropdown = false" 
+                  x-transition 
+                  class="absolute right-0 top-full mt-2 w-52 rounded-2xl bg-white dark:bg-slate-950 !opacity-100 border border-slate-200 dark:border-slate-800 p-1.5 shadow-2xl z-50 space-y-1"
+                  style="display: none;">
+                  
+                  <!-- Mute Notifications -->
+                  <button 
+                    @click="toggleMuteUser()" 
+                    type="button"
+                    class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-2.5 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+                    <i :data-lucide="activeChat.isMuted ? 'bell' : 'bell-off'" class="w-4 h-4 text-amber-500"></i>
+                    <span x-text="activeChat.isMuted ? 'Unmute Notifications' : 'Mute Notifications'"></span>
+                  </button>
+
+                  <!-- Block User -->
+                  <button 
+                    @click="toggleBlockUser()" 
+                    type="button"
+                    class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-2.5 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer">
+                    <i :data-lucide="activeChat.isBlocked ? 'unlock' : 'shield-alert'" class="w-4 h-4 text-rose-500"></i>
+                    <span x-text="activeChat.isBlocked ? 'Unblock User' : 'Block User'"></span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Info Button -->
               <button 
                 @click="showRedWarningToast('Direct phone numbers & WhatsApp links are disabled. Chat and Masked Call keep you safe from deposit scams.')"
                 type="button" 
@@ -454,7 +571,8 @@
         <!-- Messages Thread Body -->
         <div 
           id="chat-messages-container" 
-          class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-1 chat-pattern-mesh">
+          class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-1 transition-all duration-300"
+          :class="chatThemeClass">
           
           <!-- Safety Notice Header -->
           <div class="max-w-md mx-auto my-2 p-3.5 rounded-3xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-indigo-200/80 dark:border-indigo-800/80 text-center shadow-xs">
@@ -656,22 +774,38 @@
         <div class="p-3 sm:p-4 pb-3 sm:pb-4 bg-transparent flex-shrink-0 relative z-20">
           <div class="max-w-4xl w-full mx-auto relative">
             
+            <!-- Blocked Contact Alert Banner -->
+            <template x-if="activeChat && activeChat.isBlocked">
+              <div class="mb-2 p-3 rounded-2xl bg-rose-50 dark:bg-rose-950/80 border border-rose-200 dark:border-rose-900/60 flex items-center justify-between text-xs text-rose-700 dark:text-rose-300 shadow-md">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="shield-alert" class="w-4 h-4 text-rose-500 shrink-0"></i>
+                  <span>You have blocked this user. They cannot call or message you.</span>
+                </div>
+                <button 
+                  @click="toggleBlockUser()" 
+                  type="button" 
+                  class="font-bold underline hover:text-rose-900 dark:hover:text-white px-2 py-1 rounded cursor-pointer">
+                  Unblock Contact
+                </button>
+              </div>
+            </template>
+
             <!-- 1. Active Edit Banner (Floating pill above input) -->
             <div 
               x-show="editingMessageId" 
               x-transition:enter="transition ease-out duration-180"
               x-transition:enter-start="opacity-0 -translate-y-2"
               x-transition:enter-end="opacity-100 translate-y-0"
-              class="mb-2 px-4 py-2 rounded-2xl bg-indigo-50/90 dark:bg-indigo-950/90 backdrop-blur-md border border-indigo-200/80 dark:border-indigo-800/80 flex items-center justify-between text-xs text-indigo-700 dark:text-indigo-300 shadow-md">
+              class="mb-2 px-4 py-2 rounded-2xl bg-lime-50/90 dark:bg-lime-950/40 backdrop-blur-md border border-lime-200/80 dark:border-lime-800/80 flex items-center justify-between text-xs text-slate-900 dark:text-slate-100 shadow-md">
               <div class="flex items-center gap-2 truncate">
-                <svg class="w-4 h-4 text-indigo-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                <svg class="w-4 h-4 text-lime-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
                 <span class="font-bold">Editing:</span>
                 <span class="truncate italic opacity-85 max-w-xs sm:max-w-md" x-text="'“' + (editingOriginalText || '') + '”'"></span>
               </div>
               <button 
                 @click="cancelEditMessage()" 
                 type="button" 
-                class="font-bold text-indigo-600 hover:text-indigo-800 dark:text-indigo-300 dark:hover:text-white px-2.5 py-1 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900 transition-colors cursor-pointer">
+                class="font-bold text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white px-2.5 py-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
                 ✕ Cancel
               </button>
             </div>
@@ -694,7 +828,7 @@
                   <button 
                     type="button" 
                     @click="activePickerTab = 'emojis'"
-                    :class="activePickerTab === 'emojis' ? 'bg-indigo-600 text-white font-semibold shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'"
+                    :class="activePickerTab === 'emojis' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-semibold shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'"
                     class="px-3 py-1.5 rounded-full text-xs flex items-center gap-1.5 transition-colors cursor-pointer shrink-0">
                     <span>😊</span>
                     <span>Emojis</span>
@@ -702,7 +836,7 @@
                   <button 
                     type="button" 
                     @click="activePickerTab = 'stickers'"
-                    :class="activePickerTab === 'stickers' ? 'bg-indigo-600 text-white font-semibold shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'"
+                    :class="activePickerTab === 'stickers' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-semibold shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'"
                     class="px-3 py-1.5 rounded-full text-xs flex items-center gap-1.5 transition-colors cursor-pointer shrink-0">
                     <span>🏷️</span>
                     <span>Stickers</span>
@@ -710,7 +844,7 @@
                   <button 
                     type="button" 
                     @click="activePickerTab = 'gifs'"
-                    :class="activePickerTab === 'gifs' ? 'bg-indigo-600 text-white font-semibold shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'"
+                    :class="activePickerTab === 'gifs' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-semibold shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'"
                     class="px-3 py-1.5 rounded-full text-xs flex items-center gap-1.5 transition-colors cursor-pointer shrink-0">
                     <span>🎬</span>
                     <span>GIFs</span>
@@ -731,7 +865,7 @@
                   <button 
                     type="button" 
                     @click="selectEmoji(emo)" 
-                    class="p-2 rounded-2xl hover:bg-indigo-50 dark:hover:bg-slate-800 hover:scale-125 transition-all text-center cursor-pointer" 
+                    class="p-2 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800 hover:scale-125 transition-all text-center cursor-pointer" 
                     x-text="emo">
                   </button>
                 </template>
@@ -777,8 +911,9 @@
               <!-- Attachment Button (Circular) -->
               <button 
                 type="button" 
+                :disabled="activeChat && activeChat.isBlocked"
                 @click="showToast('Photo & flat floorplan sharing coming in next iteration!', 'info')"
-                class="w-9 h-9 sm:w-10 sm:h-10 rounded-full text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center justify-center shrink-0 cursor-pointer" 
+                class="w-9 h-9 sm:w-10 sm:h-10 rounded-full text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center justify-center shrink-0 cursor-pointer disabled:opacity-40" 
                 title="Share document or photo">
                 <i data-lucide="paperclip" class="w-4 h-4 sm:w-4.5 sm:h-4.5"></i>
               </button>
@@ -786,9 +921,10 @@
               <!-- Sticker / Emoji Picker Button (Circular) -->
               <button 
                 type="button" 
+                :disabled="activeChat && activeChat.isBlocked"
                 @click="toggleMediaPicker()" 
-                :class="showMediaPicker ? 'bg-indigo-50 dark:bg-indigo-950 text-indigo-600 ring-2 ring-indigo-500/30' : 'text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800'"
-                class="w-9 h-9 sm:w-10 sm:h-10 rounded-full transition-all flex items-center justify-center cursor-pointer shrink-0" 
+                :class="showMediaPicker ? 'bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white' : 'text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'"
+                class="w-9 h-9 sm:w-10 sm:h-10 rounded-full transition-all flex items-center justify-center cursor-pointer shrink-0 disabled:opacity-40" 
                 title="Stickers, GIFs & Emojis">
                 <span class="text-base sm:text-lg leading-none">😊</span>
               </button>
@@ -799,13 +935,15 @@
                   id="chat-message-input"
                   type="text" 
                   x-model="messageInput"
-                  :class="{ 'animate-shake !text-rose-600': inputShake }"
-                  :placeholder="editingMessageId ? 'Edit your message...' : 'Type a message... (phone numbers blocked)'"
+                  :disabled="activeChat && activeChat.isBlocked"
+                  :class="{ 'animate-shake !text-rose-600': inputShake, 'opacity-50 cursor-not-allowed': activeChat && activeChat.isBlocked }"
+                  :placeholder="activeChat && activeChat.isBlocked ? 'You have blocked this contact. Unblock in options (⋮) to message.' : (editingMessageId ? 'Edit your message...' : 'Type a message... (phone numbers blocked)')"
                   class="w-full pl-2 sm:pl-3 pr-8 sm:pr-9 py-2 sm:py-2.5 bg-transparent border-0 outline-none focus:outline-none focus:ring-0 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 min-w-0">
                 
                 <!-- Quick wave emoji -->
                 <button 
                   type="button" 
+                  x-show="!activeChat || !activeChat.isBlocked"
                   @click="messageInput += ' 👋'" 
                   class="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xs sm:text-sm p-1 rounded-full hover:scale-125 transition-transform cursor-pointer"
                   title="Wave emoji">
@@ -813,26 +951,21 @@
                 </button>
               </div>
 
-              <!-- Send / Save Button: Perfect circle with gradient & soft glow on hover -->
+              <!-- Send / Save Button: 10% Lime Pop CTA (Palette A) -->
               <button 
                 type="submit" 
-                :disabled="!messageInput || !messageInput.trim()"
-                class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gradient-to-br from-indigo-500 via-indigo-600 to-indigo-700 text-white flex items-center justify-center shadow-[0_4px_14px_rgba(99,102,241,0.4)] hover:shadow-[0_6px_22px_rgba(99,102,241,0.65)] hover:scale-105 active:scale-95 transition-all shrink-0 cursor-pointer disabled:opacity-40 disabled:scale-100 disabled:shadow-none"
+                :disabled="(!messageInput || !messageInput.trim()) || (activeChat && activeChat.isBlocked)"
+                class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-lime-400 hover:bg-lime-300 active:scale-95 text-slate-950 font-bold flex items-center justify-center shadow-[0_4px_16px_rgba(163,230,53,0.4)] hover:shadow-[0_6px_22px_rgba(163,230,53,0.65)] hover:scale-105 transition-all shrink-0 cursor-pointer disabled:opacity-40 disabled:scale-100 disabled:shadow-none"
                 :title="editingMessageId ? 'Save edit' : 'Send message'">
                 <template x-if="!editingMessageId">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+                  <svg class="w-5 h-5 text-slate-950 font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
                 </template>
                 <template x-if="editingMessageId">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                  <svg class="w-5 h-5 text-slate-950 font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                 </template>
               </button>
 
             </form>
-
-            <p class="text-[10px] text-slate-400 text-center mt-1.5 flex items-center justify-center gap-1 select-none">
-              <i data-lucide="lock" class="w-3 h-3 text-emerald-500"></i>
-              <span>Encrypted in-app chat. Phone numbers are automatically masked.</span>
-            </p>
           </div>
         </div>
 
@@ -894,6 +1027,7 @@
   <!-- Scripts -->
   <script src="assets/js/data.js"></script>
   <script src="assets/js/api.js"></script>
+  <script src="assets/js/animations.js"></script>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/dashboard.js"></script>
 </body>

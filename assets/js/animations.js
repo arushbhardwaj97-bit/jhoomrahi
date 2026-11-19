@@ -22,81 +22,6 @@ function initAOS() {
 }
 
 /**
- * Attaches smooth, restrained mousemove & scroll parallax to hero floating cards and background blobs.
- * Automatically halts on devices preferring reduced motion.
- */
-function initParallax() {
-  const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (isReducedMotion) return;
-
-  const parallaxTargets = document.querySelectorAll("[data-parallax]");
-  if (!parallaxTargets.length) return;
-
-  const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-  const heroSection = document.getElementById("hero-section") || document.body;
-
-  let mouseX = 0;
-  let mouseY = 0;
-  let currentX = 0;
-  let currentY = 0;
-  let scrollY = window.pageYOffset || 0;
-  let currentScrollY = scrollY;
-  let rafId = null;
-
-  if (!isTouch) {
-    heroSection.addEventListener("mousemove", (e) => {
-      const rect = heroSection.getBoundingClientRect();
-      mouseX = e.clientX - rect.left - rect.width / 2;
-      mouseY = e.clientY - rect.top - rect.height / 2;
-
-      if (!rafId) {
-        rafId = requestAnimationFrame(updateParallax);
-      }
-    });
-  }
-
-  // Scroll parallax for floating elements on page scroll
-  window.addEventListener("scroll", () => {
-    scrollY = window.pageYOffset || 0;
-    if (!rafId) {
-      rafId = requestAnimationFrame(updateParallax);
-    }
-  }, { passive: true });
-
-  function updateParallax() {
-    currentX += (mouseX - currentX) * 0.08;
-    currentY += (mouseY - currentY) * 0.08;
-    currentScrollY += (scrollY - currentScrollY) * 0.1;
-
-    parallaxTargets.forEach((el) => {
-      const depth = parseFloat(el.getAttribute("data-parallax")) || 0.02;
-      const moveX = !isTouch ? (currentX * depth).toFixed(2) : "0";
-      const scrollShift = (currentScrollY * (depth * 0.5)).toFixed(2);
-      const moveY = !isTouch ? (currentY * depth - parseFloat(scrollShift)).toFixed(2) : (-parseFloat(scrollShift)).toFixed(2);
-
-      // Set CSS variables for cards using @keyframes float
-      el.style.setProperty("--parallax-x", `${moveX}px`);
-      el.style.setProperty("--parallax-y", `${moveY}px`);
-
-      // For background blobs without CSS animation, apply translate3d directly
-      if (!el.classList.contains("float") && !el.classList.contains("float-delayed") && !el.classList.contains("float-slow")) {
-        const baseTransform = el.getAttribute("data-base-transform") || "";
-        el.style.transform = `${baseTransform} translate3d(${moveX}px, ${moveY}px, 0)`;
-      }
-    });
-
-    const isMovingMouse = Math.abs(mouseX - currentX) > 0.1 || Math.abs(mouseY - currentY) > 0.1;
-    const isMovingScroll = Math.abs(scrollY - currentScrollY) > 0.5;
-
-    if (isMovingMouse || isMovingScroll) {
-      rafId = requestAnimationFrame(updateParallax);
-    } else {
-      rafId = null;
-    }
-  }
-}
-
-/**
  * Native IntersectionObserver reveal fallback for elements with the .reveal class
  */
 function initRevealObserver() {
@@ -116,9 +41,95 @@ function initRevealObserver() {
   reveals.forEach((el) => observer.observe(el));
 }
 
+/**
+ * Injects a subtle, GPU-accelerated moving ambient aurora mesh into the background
+ */
+function initAmbientAurora() {
+  if (document.getElementById("aurora-ambient-mesh")) return;
+  const mesh = document.createElement("div");
+  mesh.id = "aurora-ambient-mesh";
+  mesh.className = "ambient-mesh-canvas";
+  mesh.setAttribute("aria-hidden", "true");
+  mesh.innerHTML = `
+    <div class="aurora-orb aurora-orb-1"></div>
+    <div class="aurora-orb aurora-orb-2"></div>
+    <div class="aurora-orb aurora-orb-3"></div>
+  `;
+  document.body.prepend(mesh);
+}
+
+/**
+ * 2026 Smooth 3D Card Tilt (Only ON HOVER - Zero permanent background transformations)
+ */
+function initFluxCards() {
+  const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  if (isTouch) return;
+  const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (isReducedMotion) return;
+
+  const cards = document.querySelectorAll(".card, [data-card], .listing-card, .travel-card, .pg-card, .flux-card");
+  cards.forEach((card) => {
+    if (card._fluxInitialized) return;
+    card._fluxInitialized = true;
+
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -4;
+      const rotateY = ((x - centerX) / centerX) * 4;
+
+      card.style.transform = `perspective(800px) rotateX(${rotateX.toFixed(1)}deg) rotateY(${rotateY.toFixed(1)}deg) translateY(-4px)`;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
+    });
+  });
+}
+
+/**
+ * 2026 Magnetic & Spring Transition Attraction on Primary Buttons (On Hover Only)
+ */
+function initMagneticButtons() {
+  const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  if (isTouch) return;
+  const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (isReducedMotion) return;
+
+  const buttons = document.querySelectorAll(".btn-primary, .btn-lime, button.bg-lime-400, a.bg-lime-400, .btn-lime-cta, .btn-cta");
+  buttons.forEach((btn) => {
+    if (btn._magneticInitialized) return;
+    btn._magneticInitialized = true;
+
+    btn.addEventListener("mousemove", (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - (rect.left + rect.width / 2);
+      const y = e.clientY - (rect.top + rect.height / 2);
+      const pullFactor = 0.18;
+
+      btn.style.transform = `translateY(-2px) scale(1.04) translate(${(x * pullFactor).toFixed(1)}px, ${(y * pullFactor).toFixed(1)}px)`;
+    });
+
+    btn.addEventListener("mouseleave", () => {
+      btn.style.transform = "";
+    });
+  });
+}
+
+// Expose globally
+window.initAmbientAurora = initAmbientAurora;
+window.initFluxCards = initFluxCards;
+window.initMagneticButtons = initMagneticButtons;
+
 // Initialize animations on DOM readiness
 document.addEventListener("DOMContentLoaded", () => {
   initAOS();
-  initParallax();
   initRevealObserver();
+  initAmbientAurora();
+  initFluxCards();
+  initMagneticButtons();
 });

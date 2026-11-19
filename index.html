@@ -66,7 +66,7 @@
   <!-- Lucide Icons CDN (jsDelivr UMD bundle for reliable global browser window.lucide) -->
   <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
-<body class="bg-[#fafaf7] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white overflow-x-hidden w-full max-w-full" x-data="{ mobileMenuOpen: false }">
+<body class="bg-white dark:bg-[#090d16] text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white overflow-x-clip w-full max-w-full" x-data="{ mobileMenuOpen: false }">
 
   <!-- ========================================================================= -->
   <!-- MOBILE SLIDE-OUT DRAWER                                                   -->
@@ -161,7 +161,7 @@
   <!-- ========================================================================= -->
   <!-- 1. STICKY NAV (GLASS)                                                     -->
   <!-- ========================================================================= -->
-  <header id="navbar" class="sticky top-0 z-40 w-full nav-glass transition-all duration-300">
+  <header id="navbar" class="sticky top-0 z-50 w-full nav-glass transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
       
       <!-- Logo Mark -->
@@ -289,7 +289,7 @@
          x-transition:leave-start="opacity-100 translate-y-0"
          x-transition:leave-end="opacity-0 -translate-y-4"
          @click.away="mobileMenuOpen = false"
-         class="md:hidden border-b border-slate-200 dark:border-slate-800 bg-[#fafaf7] dark:bg-[#0b1120] px-4 pt-3 pb-6 shadow-xl space-y-3"
+         class="md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#090d16] px-4 pt-3 pb-6 shadow-xl space-y-3"
          x-data="{ mobileStayOpen: true, mobileConnectOpen: false }">
       
       <div class="flex flex-col space-y-2 font-medium text-base">
@@ -385,11 +385,6 @@
     <!-- 2. HERO SECTION (ASYMMETRIC 60/40 SPLIT)                                  -->
     <!-- ========================================================================= -->
     <section id="hero-section" class="relative overflow-hidden pt-12 pb-20 md:py-28">
-      
-      <!-- Soft ambient gradient blobs with mousemove parallax -->
-      <div data-parallax="0.03" class="pointer-events-none absolute -top-16 -left-16 w-96 h-96 rounded-full bg-indigo-400/15 dark:bg-indigo-600/15 blur-3xl"></div>
-      <div data-parallax="-0.03" class="pointer-events-none absolute top-48 right-0 w-96 h-96 rounded-full bg-lime-300/20 dark:bg-lime-500/10 blur-3xl"></div>
-      <div data-parallax="0.02" class="pointer-events-none absolute bottom-0 left-1/3 w-80 h-80 rounded-full bg-rose-400/15 dark:bg-rose-600/10 blur-3xl"></div>
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -409,9 +404,8 @@
               </div>
             </div>
 
-            <!-- Asymmetric Editorial H1 Heading with subtle glowing gradient orb -->
+            <!-- Asymmetric Editorial H1 Heading -->
             <div class="relative">
-              <div class="pointer-events-none absolute -top-12 -left-12 w-80 h-80 rounded-full bg-gradient-to-tr from-indigo-500/20 via-purple-500/15 to-lime-400/10 blur-3xl -z-10"></div>
               <h1 class="font-heading font-extrabold text-4xl sm:text-6xl lg:text-7xl text-slate-950 dark:text-white leading-[1.04] tracking-[-0.035em]">
                 Rehna ho, <span class="relative inline-block whitespace-nowrap">ghoomna<svg class="squiggle-svg text-lime-400 dark:text-lime-400 stroke-current" viewBox="0 0 100 12" preserveAspectRatio="none" fill="none"><path d="M2,8 Q25,2 50,8 T98,7" stroke-width="3.5" stroke-linecap="round"/></svg></span> ho, ya khaana ho — <span class="text-indigo-600 dark:text-indigo-400">JhoomRahi</span> ke saath.
               </h1>
@@ -451,65 +445,60 @@
 
           </div>
 
-          <!-- Hero Right Column (40% width with 3 floating asymmetric mock cards) -->
-          <div class="lg:col-span-5 relative min-h-[380px] sm:min-h-[460px] flex items-center justify-center" data-aos="fade-left" data-aos-delay="150">
-            
-            <!-- Mock Card 1: Stay Preview (-6deg rotation, float animation) -->
-            <!-- -rotate-6 gives authentic editorial tilt -->
-            <div data-parallax="0.04" class="absolute top-2 left-2 sm:left-4 w-72 sm:w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 shadow-2xl float -rotate-6 transition-transform z-20">
-              <div class="flex items-center justify-between mb-3">
-                <span class="badge verified text-xs font-semibold">
-                  <i data-lucide="check-check" class="w-3.5 h-3.5 mr-1"></i> Verified Flat
-                </span>
-                <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/70 px-2.5 py-1 rounded-full">
-                  96% Match
-                </span>
-              </div>
-              <p class="font-heading font-semibold text-slate-900 dark:text-white text-base leading-snug">
-                1 BHK Co-living Suite in HSR
-              </p>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Sector 2 · Zero brokerage</p>
-              <div class="flex items-center justify-between mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs">
-                <span class="font-bold text-slate-900 dark:text-white text-sm">₹14,500<span class="font-normal text-xs text-slate-500">/mo</span></span>
-                <span class="text-slate-500 flex items-center gap-1">
-                  <i data-lucide="zap" class="w-3 h-3 text-amber-500"></i> Geyser 24h
-                </span>
-              </div>
-            </div>
-
-            <!-- Mock Card 2: Travel Preview (5deg rotation, coral accent, float-delayed) -->
-            <!-- rotate-6 offsets the upper card for natural hand-stacked feel -->
-            <div data-parallax="-0.03" class="absolute -bottom-4 right-1 sm:right-4 w-68 sm:w-76 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-4 sm:p-5 shadow-2xl float-delayed rotate-6 transition-transform z-30">
-              <div class="flex items-center justify-between mb-2.5">
-                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400 border border-rose-200/60 dark:border-rose-900">
-                  <span class="pulse-dot-coral"></span> 4 days left
-                </span>
-                <span class="text-xs font-medium text-slate-400">Delhi → Spiti</span>
-              </div>
-              <p class="font-heading font-semibold text-slate-900 dark:text-white text-sm sm:text-base">
-                Spiti Winter Roadtrip
-              </p>
-              <div class="mt-2.5 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-                <span>4/6 seats filled</span>
-                <span class="font-bold text-slate-900 dark:text-white">₹14,000</span>
-              </div>
-              <!-- Mini progress bar -->
-              <div class="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
-                <div class="bg-rose-500 h-full rounded-full w-2/3"></div>
-              </div>
-            </div>
-
-            <!-- Mock Card 3: Discover Preview (-3deg, amber accent, float-slow) -->
-            <div data-parallax="0.02" class="absolute top-44 -left-2 sm:left-6 w-60 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200 dark:border-slate-800 rounded-2xl p-3.5 shadow-xl float-slow -rotate-3 z-10 hidden sm:block">
-              <div class="flex items-center gap-2">
-                <span class="text-base">☕</span>
-                <div class="truncate">
-                  <p class="text-xs font-bold text-slate-900 dark:text-white truncate">Midnight Irani Chai</p>
-                  <p class="text-[11px] text-amber-600 dark:text-amber-400 font-semibold">98% Loved · Camp, Pune</p>
+          <!-- Hero Right Column (Clean verified preview showcase with hover-only tilt) -->
+          <div class="lg:col-span-5 relative" data-aos="fade-left" data-aos-delay="150">
+            <div class="relative max-w-md mx-auto space-y-4">
+              
+              <!-- Clean Stay Spotlight Card -->
+              <div class="card p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-xl transition-all" data-card>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="badge verified text-xs font-semibold">
+                    <i data-lucide="check-check" class="w-3.5 h-3.5 mr-1"></i> Verified Flat
+                  </span>
+                  <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/70 px-2.5 py-1 rounded-full">
+                    96% Match
+                  </span>
+                </div>
+                <div class="flex gap-4 items-center">
+                  <img src="https://picsum.photos/seed/stayhsr/140/140" alt="Co-living suite" class="w-20 h-20 rounded-2xl object-cover flex-shrink-0" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=HSR+Suite&background=6366f1&color=fff';">
+                  <div class="flex-1 min-w-0">
+                    <p class="font-heading font-semibold text-slate-900 dark:text-white text-base leading-snug truncate">
+                      1 BHK Co-living Suite in HSR
+                    </p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Sector 2, Bengaluru · Zero brokerage</p>
+                    <div class="flex items-center justify-between mt-2 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
+                      <span class="font-bold text-slate-900 dark:text-white text-sm">₹14,500<span class="font-normal text-xs text-slate-500">/mo</span></span>
+                      <span class="text-slate-500 flex items-center gap-1">
+                        <i data-lucide="zap" class="w-3 h-3 text-amber-500"></i> Geyser 24h
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
 
+              <!-- Clean Travel Co-journey Spotlight Card -->
+              <div class="card p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-xl transition-all" data-card>
+                <div class="flex items-center justify-between mb-2.5">
+                  <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400 border border-rose-200/60 dark:border-rose-900">
+                    <span class="pulse-dot-coral"></span> 4 seats left
+                  </span>
+                  <span class="text-xs font-medium text-slate-500">Delhi → Spiti</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="font-heading font-semibold text-slate-900 dark:text-white text-base">
+                      Spiti Winter Roadtrip
+                    </p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">6-day community trip · Curated stays</p>
+                  </div>
+                  <span class="font-bold text-slate-900 dark:text-white text-base">₹14,000</span>
+                </div>
+                <div class="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full mt-3 overflow-hidden">
+                  <div class="bg-rose-500 h-full rounded-full w-2/3"></div>
+                </div>
+              </div>
+
+            </div>
           </div>
 
         </div>
@@ -735,7 +724,7 @@
             <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-4">
               
               <!-- Mini Chip 1 -->
-              <div class="p-4 rounded-2xl bg-[#fafaf7] dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-3">
+              <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
                 <div class="flex items-center justify-between">
                   <span class="text-lg">☕</span>
                   <div class="w-10 h-10 rounded-full border-2 border-amber-400 flex items-center justify-center font-bold text-xs text-amber-600 dark:text-amber-400">
@@ -750,7 +739,7 @@
               </div>
 
               <!-- Mini Chip 2 -->
-              <div class="p-4 rounded-2xl bg-[#fafaf7] dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-3">
+              <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
                 <div class="flex items-center justify-between">
                   <span class="text-lg">💻</span>
                   <div class="w-10 h-10 rounded-full border-2 border-indigo-400 flex items-center justify-center font-bold text-xs text-indigo-600 dark:text-indigo-400">
@@ -765,7 +754,7 @@
               </div>
 
               <!-- Mini Chip 3 -->
-              <div class="p-4 rounded-2xl bg-[#fafaf7] dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-3">
+              <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
                 <div class="flex items-center justify-between">
                   <span class="text-lg">🍛</span>
                   <div class="w-10 h-10 rounded-full border-2 border-lime-400 flex items-center justify-center font-bold text-xs text-lime-600 dark:text-lime-400">
@@ -1330,7 +1319,7 @@
     <!-- ========================================================================= -->
     <!-- 10. TESTIMONIALS (STUDENTS + PROFESSIONALS)                                -->
     <!-- ========================================================================= -->
-    <section class="py-16 md:py-24 border-t border-slate-200 dark:border-slate-800 bg-[#fafaf7] dark:bg-[#0b1120]" x-data="{ currentSlide: 0, total: 4 }">
+    <section class="py-16 md:py-24 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#090d16]" x-data="{ currentSlide: 0, total: 4 }">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 space-y-12">
         
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4" data-aos="fade-up">

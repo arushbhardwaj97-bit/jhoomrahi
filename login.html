@@ -64,7 +64,7 @@
   <!-- Lucide Icons CDN -->
   <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
-<body class="bg-[#fafaf7] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 antialiased min-h-screen flex flex-col justify-center overflow-x-hidden w-full max-w-full">
+<body class="bg-white dark:bg-[#090d16] text-slate-900 dark:text-slate-100 antialiased min-h-screen flex flex-col justify-center overflow-x-clip w-full max-w-full">
 
   <div class="min-h-screen flex flex-col lg:flex-row">
     
@@ -130,7 +130,7 @@
     <!-- ========================================================================= -->
     <!-- RIGHT PANEL (55% DESKTOP / 100% MOBILE FORM CARD)                        -->
     <!-- ========================================================================= -->
-    <div class="w-full lg:w-[55%] flex flex-col justify-between p-6 sm:p-12 lg:p-16 xl:p-20 bg-[#fafaf7] dark:bg-[#0b1120]"
+    <div class="w-full lg:w-[55%] flex flex-col justify-between p-6 sm:p-12 lg:p-16 xl:p-20 bg-white dark:bg-[#090d16]"
          x-data="loginHandler()">
       
       <!-- Top Mobile Navigation & Dark Mode Toggle -->
@@ -189,6 +189,14 @@
                 <i data-lucide="map-pin" class="w-4 h-4 hidden"></i>
                 <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path></svg>
               </div>
+            </div>
+            
+            <!-- Forgot Password Helper Link -->
+            <div class="flex items-center justify-between text-xs pt-1">
+              <span class="text-slate-400">Having trouble signing in?</span>
+              <a href="forgot-password.html" class="font-semibold text-slate-700 dark:text-slate-300 hover:text-lime-600 dark:hover:text-lime-400 hover:underline">
+                Forgot Password?
+              </a>
             </div>
           </div>
 
@@ -268,7 +276,7 @@
         <!-- Divider -->
         <div class="relative flex items-center justify-center">
           <div class="border-t border-slate-200 dark:border-slate-800 w-full"></div>
-          <span class="bg-[#fafaf7] dark:bg-[#0b1120] px-4 text-xs uppercase tracking-wider text-slate-400 font-medium absolute">
+          <span class="bg-white dark:bg-[#090d16] px-4 text-xs uppercase tracking-wider text-slate-400 font-medium absolute">
             or
           </span>
         </div>

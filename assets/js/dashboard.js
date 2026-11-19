@@ -218,6 +218,11 @@ function chatApp() {
     showMaskedCallModal: false,
     inputShake: false,
 
+    // Block & Mute, and Chat Themes state
+    showChatDropdown: false,
+    showThemePicker: false,
+    selectedChatTheme: localStorage.getItem("jhoomrahi_chat_theme") || "mesh",
+
     // Phase 6 Message Actions state
     activeActionMenuMsgId: null,
     editingMessageId: null,
@@ -293,9 +298,77 @@ function chatApp() {
         } else if (typeof CHATS !== "undefined") {
           this.chats = JSON.parse(JSON.stringify(CHATS));
         }
+
+        // Hydrate muted and blocked states from localStorage
+        const mutedList = JSON.parse(localStorage.getItem("jhoomrahi_muted_chats") || "[]");
+        const blockedList = JSON.parse(localStorage.getItem("jhoomrahi_blocked_chats") || "[]");
+        this.chats.forEach(c => {
+          c.isMuted = mutedList.includes(c.id);
+          c.isBlocked = blockedList.includes(c.id);
+        });
       } catch (err) {
         console.error("Error loading chats:", err);
       }
+    },
+
+    get chatThemeClass() {
+      if (this.selectedChatTheme === "doodle") return "chat-theme-doodle";
+      if (this.selectedChatTheme === "midnight") return "chat-theme-midnight";
+      return "chat-theme-mesh";
+    },
+
+    setChatTheme(theme) {
+      this.selectedChatTheme = theme;
+      localStorage.setItem("jhoomrahi_chat_theme", theme);
+      this.showThemePicker = false;
+      const label = theme === "doodle" ? "WhatsApp Doodle" : (theme === "midnight" ? "Midnight Dark Tech" : "Modern Minimalist Mesh");
+      if (typeof showToast === "function") {
+        showToast(`Chat theme changed to ${label}`, "info");
+      }
+    },
+
+    toggleMuteUser() {
+      if (!this.activeChat) return;
+      this.activeChat.isMuted = !this.activeChat.isMuted;
+      this.showChatDropdown = false;
+      
+      try {
+        const stored = JSON.parse(localStorage.getItem("jhoomrahi_muted_chats") || "[]");
+        let updated = stored;
+        if (this.activeChat.isMuted) {
+          if (!updated.includes(this.activeChat.id)) updated.push(this.activeChat.id);
+        } else {
+          updated = updated.filter(id => id !== this.activeChat.id);
+        }
+        localStorage.setItem("jhoomrahi_muted_chats", JSON.stringify(updated));
+      } catch (e) {}
+
+      if (typeof showToast === "function") {
+        showToast(this.activeChat.isMuted ? `🔕 Notifications muted for ${this.activeChat.name}` : `🔔 Notifications unmuted for ${this.activeChat.name}`, "info");
+      }
+      this.$nextTick(() => { if (window.lucide) window.lucide.createIcons(); });
+    },
+
+    toggleBlockUser() {
+      if (!this.activeChat) return;
+      this.activeChat.isBlocked = !this.activeChat.isBlocked;
+      this.showChatDropdown = false;
+
+      try {
+        const stored = JSON.parse(localStorage.getItem("jhoomrahi_blocked_chats") || "[]");
+        let updated = stored;
+        if (this.activeChat.isBlocked) {
+          if (!updated.includes(this.activeChat.id)) updated.push(this.activeChat.id);
+        } else {
+          updated = updated.filter(id => id !== this.activeChat.id);
+        }
+        localStorage.setItem("jhoomrahi_blocked_chats", JSON.stringify(updated));
+      } catch (e) {}
+
+      if (typeof showToast === "function") {
+        showToast(this.activeChat.isBlocked ? `🚫 ${this.activeChat.name} has been blocked.` : `✓ ${this.activeChat.name} has been unblocked.`, "warning");
+      }
+      this.$nextTick(() => { if (window.lucide) window.lucide.createIcons(); });
     },
 
     get filteredChats() {
@@ -616,6 +689,13 @@ function chatApp() {
         return;
       }
 
+      if (this.activeChat && this.activeChat.isBlocked) {
+        if (typeof showToast === "function") {
+          showToast("You have blocked this contact. Unblock in options (⋮) to send messages.", "warning");
+        }
+        return;
+      }
+
       const text = this.messageInput ? this.messageInput.trim() : "";
       if (!text || !this.activeChat) return;
 
@@ -743,13 +823,63 @@ function communityApp() {
     newPostContent: "",
     newPostTag: "#Update",
     isSubmittingPost: false,
+    connectionStatuses: {},
 
     async init() {
       await this.loadCommunities();
       if (this.communities.length > 0) {
         this.selectCommunity(this.communities[0].id);
       }
+      this.syncConnectionStatuses();
       if (window.lucide) window.lucide.createIcons();
+    },
+
+    syncConnectionStatuses() {
+      if (typeof getConnectionsData === "function") {
+        const data = getConnectionsData();
+        const map = {};
+        if (data.connections) {
+          data.connections.forEach(c => { map[c.name] = 'connected'; });
+        }
+        if (data.sentRequests) {
+          data.sentRequests.forEach(s => { map[s.name] = 'pending'; });
+        }
+        this.connectionStatuses = map;
+      }
+    },
+
+    connectWith(author) {
+      if (typeof requireLogin === "function" && !requireLogin('connect')) {
+        return;
+      }
+      if (!author || !author.name) return;
+      if (this.connectionStatuses[author.name] === 'pending' || this.connectionStatuses[author.name] === 'connected') {
+        return;
+      }
+
+      this.connectionStatuses[author.name] = 'pending';
+
+      if (typeof getConnectionsData === "function" && typeof saveConnectionsData === "function") {
+        const data = getConnectionsData();
+        if (!data.sentRequests) data.sentRequests = [];
+        data.sentRequests.push({
+          id: "sent-" + Date.now(),
+          name: author.name,
+          role: author.role || "Community Member",
+          avatar: author.avatar || "https://ui-avatars.com/api/?name=" + encodeURIComponent(author.name) + "&background=6366f1&color=fff",
+          timeAgo: "Just now",
+          status: "pending"
+        });
+        saveConnectionsData(data);
+      }
+
+      if (typeof showToast === "function") {
+        showToast(`Connection request sent to ${author.name}!`, "success");
+      }
+
+      this.$nextTick(() => {
+        if (window.lucide) window.lucide.createIcons();
+      });
     },
 
     async loadCommunities() {

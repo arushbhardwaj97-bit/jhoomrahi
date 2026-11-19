@@ -9,37 +9,6 @@
 /* === 1. KEYFRAME DEFINITIONS === */
 
 /**
- * float: Continuous floating bobbing effect for hero preview cards
- * Seamlessly integrates with scroll and mouse parallax via CSS variables
- */
-@keyframes float {
-  0%, 100% {
-    transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) + 0px), 0) rotate(var(--base-rot, -6deg));
-  }
-  50% {
-    transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) - 12px), 0) rotate(var(--base-rot, -6deg));
-  }
-}
-
-@keyframes float-travel {
-  0%, 100% {
-    transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) + 0px), 0) rotate(var(--base-rot, 6deg));
-  }
-  50% {
-    transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) - 10px), 0) rotate(var(--base-rot, 6deg));
-  }
-}
-
-@keyframes float-discover {
-  0%, 100% {
-    transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) + 0px), 0) rotate(var(--base-rot, -3deg));
-  }
-  50% {
-    transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) - 8px), 0) rotate(var(--base-rot, -3deg));
-  }
-}
-
-/**
  * marquee: Infinite continuous horizontal translation for city strip
  * Usage: Applied to .marquee-track
  */
@@ -130,52 +99,6 @@
 
 /* === 2. HELPER CLASSES === */
 
-/* Floating hero elements */
-.float {
-  --base-rot: -6deg;
-  animation: float 4.8s ease-in-out infinite;
-  will-change: transform;
-}
-
-.float-slow {
-  --base-rot: -3deg;
-  animation: float-discover 6.5s ease-in-out 0.6s infinite;
-  will-change: transform;
-}
-
-.float-delayed {
-  --base-rot: 6deg;
-  animation: float-travel 5.6s ease-in-out 1.2s infinite;
-  will-change: transform;
-}
-
-@media (max-width: 640px) {
-  @keyframes float {
-    0%, 100% {
-      transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) + 0px), 0) rotate(var(--base-rot, -6deg));
-    }
-    50% {
-      transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) - 6px), 0) rotate(var(--base-rot, -6deg));
-    }
-  }
-  @keyframes float-travel {
-    0%, 100% {
-      transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) + 0px), 0) rotate(var(--base-rot, 6deg));
-    }
-    50% {
-      transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) - 5px), 0) rotate(var(--base-rot, 6deg));
-    }
-  }
-  @keyframes float-discover {
-    0%, 100% {
-      transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) + 0px), 0) rotate(var(--base-rot, -3deg));
-    }
-    50% {
-      transform: translate3d(var(--parallax-x, 0px), calc(var(--parallax-y, 0px) - 4px), 0) rotate(var(--base-rot, -3deg));
-    }
-  }
-}
-
 /* Marquee track */
 .marquee-wrapper {
   overflow: hidden;
@@ -262,9 +185,6 @@ html.dark .skeleton {
     scroll-behavior: auto !important;
   }
 
-  .float,
-  .float-slow,
-  .float-delayed,
   .marquee-track,
   .pulse-dot,
   .pulse-dot-coral,
@@ -299,11 +219,36 @@ html.dark .skeleton {
   animation: shake 400ms ease-in-out;
 }
 
-/* === 2026 CHAT OVERHAUL: MESSAGE POP-IN & MICRO-INTERACTIONS === */
-@keyframes messagePopIn {
+/* === 2026 SKIPER UI: SMOOTH SPRING POP-IN FOR CHAT BUBBLES === */
+@keyframes messageBubblePopSender {
   0% {
     opacity: 0;
-    transform: scale(0.95) translateY(6px);
+    transform: scale(0.68) translateY(18px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-3px);
+  }
+  85% {
+    transform: scale(0.98) translateY(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes messageBubblePopReceiver {
+  0% {
+    opacity: 0;
+    transform: scale(0.68) translateY(18px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-3px);
+  }
+  85% {
+    transform: scale(0.98) translateY(1px);
   }
   100% {
     opacity: 1;
@@ -312,8 +257,15 @@ html.dark .skeleton {
 }
 
 .msg-pop-in {
-  animation: messagePopIn 220ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: messageBubblePopSender 420ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
   will-change: transform, opacity;
+  transform-origin: bottom right;
+}
+
+.items-start.msg-pop-in,
+.msg-pop-in-receiver {
+  animation-name: messageBubblePopReceiver;
+  transform-origin: bottom left;
 }
 
 /* Pulse animation for unread message badges */

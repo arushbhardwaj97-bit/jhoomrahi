@@ -63,12 +63,43 @@
   <!-- Lucide Icons CDN -->
   <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
-<body class="bg-[#fafaf7] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white overflow-x-hidden w-full max-w-full" x-data="{ mobileMenuOpen: false }">
+<body class="bg-white dark:bg-[#090d16] text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white overflow-x-clip w-full max-w-full" x-data="{ mobileMenuOpen: false }">
 
   <!-- ========================================================================= -->
-  <!-- 1. STICKY GLASS NAVBAR                                                    -->
+  <!-- NATIVE APP MOBILE HEADER (< 768px)                                        -->
   <!-- ========================================================================= -->
-  <header id="navbar" class="sticky top-0 z-40 w-full nav-glass transition-all duration-300">
+  <header class="mobile-app-header">
+    <div class="flex items-center gap-2.5 min-w-0">
+      <button 
+        type="button" 
+        onclick="if(window.history.length > 1) { window.history.back(); } else { window.location.href='browse.html'; }" 
+        class="p-2 -ml-1.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer shrink-0" 
+        aria-label="Go Back">
+        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+      </button>
+      <h1 class="font-heading font-bold text-base text-slate-900 dark:text-white truncate">
+        Trip Details
+      </h1>
+    </div>
+    <div class="flex items-center gap-1.5 shrink-0">
+      <button 
+        type="button" 
+        onclick="if(navigator.share) { navigator.share({title: document.title, url: window.location.href}); } else { navigator.clipboard.writeText(window.location.href); alert('Trip link copied to clipboard!'); }" 
+        class="p-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer" 
+        aria-label="Share trip">
+        <i data-lucide="share-2" class="w-5 h-5"></i>
+      </button>
+      <button type="button" data-theme-toggle class="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer" aria-label="Toggle theme">
+        <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
+        <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- 1. STICKY GLASS NAVBAR — DESKTOP ONLY (>= 768px)                          -->
+  <!-- ========================================================================= -->
+  <header id="navbar" class="inner-nav-desktop hidden md:block sticky top-0 z-40 w-full nav-glass transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
       
       <!-- Brand Logo -->
@@ -241,19 +272,11 @@
   </div>
 
   <!-- ========================================================================= -->
-  <!-- 4. FOOTER                                                                 -->
+  <!-- 4. FOOTER (Minimal One-Line Copyright)                                    -->
   <!-- ========================================================================= -->
-  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-12">
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
-        <p>© <span id="current-year">2026</span> JhoomRahi Technologies. Authentic travel squads for Indian students.</p>
-        <div class="flex items-center gap-6">
-          <a href="../index.html" class="hover:text-indigo-600">Home</a>
-          <a href="calendar.html" class="hover:text-indigo-600">Trip Calendar</a>
-          <a href="browse.html" class="hover:text-indigo-600">Browse Trips</a>
-          <a href="../stay/browse.html" class="hover:text-indigo-600">Browse Stays</a>
-        </div>
-      </div>
+      <p>© <span id="current-year">2026</span> JhoomRahi Inc. Built for Indian Students & Young Professionals.</p>
     </div>
   </footer>
 

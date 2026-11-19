@@ -768,25 +768,126 @@ function initConfetti() {
 
 /**
  * Updates primary navigation header glass elevation and border density on window scroll.
+ * Navbar remains ALWAYS sticky.
  *
  * @function initNavScroll
  * @returns {void}
  */
 function initNavScroll() {
-  const nav = document.getElementById("navbar");
+  const nav = document.getElementById("navbar") || document.querySelector("header.sticky") || document.querySelector("header");
   if (!nav) return;
 
   function checkScroll() {
-    if (window.scrollY > 40) {
-      nav.classList.add("shadow-sm", "border-b", "border-slate-200/80", "dark:border-slate-800/80");
+    if (window.scrollY > 20) {
+      nav.classList.add("shadow-md", "border-b", "border-slate-200/90", "dark:border-slate-800/90");
     } else {
-      nav.classList.remove("shadow-sm", "border-b", "border-slate-200/80", "dark:border-slate-800/80");
+      nav.classList.remove("shadow-md", "border-b", "border-slate-200/90", "dark:border-slate-800/90");
     }
   }
 
   window.addEventListener("scroll", checkScroll, { passive: true });
   checkScroll();
 }
+
+/* ========================================================================= */
+/* 8. LINKEDIN-STYLE CONNECTION SYSTEM DATA & HELPERS                        */
+/* ========================================================================= */
+
+const DEFAULT_CONNECTIONS_DATA = {
+  connections: [
+    {
+      id: "u1",
+      name: "Vikram Malhotra",
+      handle: "@vikram_m",
+      role: "Backend Engineer @ CRED",
+      location: "Indiranagar, Bengaluru",
+      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200",
+      mutuals: 7,
+      connectedSince: "2 days ago",
+      verified: true
+    },
+    {
+      id: "u2",
+      name: "Tanvi Verma",
+      handle: "@tanvi_v",
+      role: "Product Designer @ Zomato",
+      location: "Koramangala, Bengaluru",
+      avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200",
+      mutuals: 4,
+      connectedSince: "1 week ago",
+      verified: true
+    },
+    {
+      id: "u3",
+      name: "Aman Gupta",
+      handle: "@aman_g",
+      role: "Data Analyst @ Swiggy",
+      location: "HSR Layout, Bengaluru",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200",
+      mutuals: 3,
+      connectedSince: "2 weeks ago",
+      verified: true
+    }
+  ],
+  receivedRequests: [
+    {
+      id: "req1",
+      name: "Priya Sharma",
+      handle: "@priya_design",
+      role: "UI/UX Designer @ Razorpay",
+      location: "Indiranagar, Bengaluru",
+      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200",
+      mutuals: 5,
+      timeAgo: "2 hours ago",
+      note: "Hey Rohan! Loved your post on flatmates in Koramangala. Let's connect!",
+      verified: true
+    },
+    {
+      id: "req2",
+      name: "Kabir Mehta",
+      handle: "@kabir_sw",
+      role: "SDE Intern @ Flipkart",
+      location: "Bellandur, Bengaluru",
+      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200",
+      mutuals: 3,
+      timeAgo: "Yesterday",
+      note: "Looking for travel buddies to Gokarna next month!",
+      verified: false
+    }
+  ],
+  sentRequests: [
+    {
+      id: "sent1",
+      name: "Ananya Iyer",
+      handle: "@ananya_i",
+      role: "Student @ IIT Bombay",
+      location: "Powai, Mumbai",
+      avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200",
+      timeAgo: "3 days ago",
+      status: "pending"
+    }
+  ]
+};
+
+function getConnectionsData() {
+  try {
+    const raw = localStorage.getItem("jhoomrahi_connections");
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  try {
+    localStorage.setItem("jhoomrahi_connections", JSON.stringify(DEFAULT_CONNECTIONS_DATA));
+  } catch (e) {}
+  return DEFAULT_CONNECTIONS_DATA;
+}
+
+function saveConnectionsData(data) {
+  try {
+    localStorage.setItem("jhoomrahi_connections", JSON.stringify(data));
+  } catch (e) {}
+}
+
+window.getConnectionsData = getConnectionsData;
+window.saveConnectionsData = saveConnectionsData;
 
 /**
  * Injects current year dynamically into copyright footers (`#current-year`).
@@ -834,9 +935,14 @@ document.addEventListener("DOMContentLoaded", () => {
   initNavScroll();
   initFooterYear();
   initLucideIcons();
+  if (typeof initAmbientAurora === "function") initAmbientAurora();
+  if (typeof initFluxCards === "function") initFluxCards();
+  if (typeof initMagneticButtons === "function") initMagneticButtons();
 });
 
 // Guaranteed secondary rendering when CDN resources finish loading
 window.addEventListener("load", () => {
   initLucideIcons();
+  if (typeof initFluxCards === "function") initFluxCards();
+  if (typeof initMagneticButtons === "function") initMagneticButtons();
 });
